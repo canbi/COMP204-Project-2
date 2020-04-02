@@ -335,8 +335,8 @@ public class Tetrimino {
     	int numberOfColumns = currentTable.length;
     	int numberOfRows = currentTable[0].length;
     	boolean canGoDown = false;				//initially assings false
-    	boolean mergeControl = false;
-    	boolean moreControl = false;
+    	boolean mergeControl = true;
+    //	boolean moreControl = false;
     	int[][][] nextPos = new int[n][n][2];	//for storing next position of the given Tetrimino
     	
     	//FINDING NEXT POSITION AND ERASING OLD POSITION
@@ -373,7 +373,34 @@ public class Tetrimino {
     				}
     			}
     		}
-    	}else {																//if the next position is not available. Uses old position
+    	}
+			else {
+        		for (int i = 0; i < n; i++) {
+        			for (int j = 0; j < n; j++) {
+        				if(this.currentPos[i][j][0] != -10) {					//if the Tetrimino has a piece on that coordinates of shape
+        					int xCoord = this.currentPos[i][j][0];				//gets current x coordinate
+        					int yCoord = this.currentPos[i][j][1];				//gets current y coordinate
+        					currentTable[xCoord][yCoord] = 1;					//assigns 1 that coordinate to currentTable array
+        					int value = this.currentValues[i][j];				//gets value of that coordinate
+        					currentTableValues[xCoord][yCoord] = value;			//assigns the value to currentTableValues array
+        					System.out.println("amazing");
+        				}
+        			}	
+        		}
+        		while(mergeControl) 
+        			mergeControl = canMerge(currentTableValues, currentTableValues);
+        		
+        		       		
+        		return false;													//returns false because next position was not available
+    		} 
+	return true;																//returns true because next position was available
+}
+    
+    	
+    	
+    	
+    	
+    /*	else {																//if the next position is not available. Uses old position
     		mergeControl = canMerge(currentTableValues, currentTableValues);
     		if(mergeControl) {
         		for (int i = 0; i < n; i++) {
@@ -387,7 +414,7 @@ public class Tetrimino {
         				  		if(currentTableValues[xCoord][yCoord] == currentTableValues[xCoord][yCoord+1]) {
         				  			currentTableValues[xCoord][yCoord+1] = value + value;			//assigns the value to currentTableValues array       					
         				  			currentTable[xCoord][yCoord] = 0;
-        				  	/*		moreControl = canGoMore(currentTable, currentTableValues);
+        				  	comment*		moreControl = canGoMore(currentTable, currentTableValues);
         				  				if(moreControl) {
         				  					System.out.println("yes more");
         				  			    	for (int x = 0; x < b; x++) {
@@ -398,32 +425,31 @@ public class Tetrimino {
         				  						}  	
         				  			    	}
         				  				}else
-        				  					System.out.println("no more"); */
+        				  					System.out.println("no more"); *comment
         				  		}
         				  	}
         				}
         			}	
         		}
         		return false;													//returns false because next position was not available
-    		}
-    		/*	else {
-        		for (int i = 0; i < n; i++) {
-        			for (int j = 0; j < n; j++) {
-        				if(this.currentPos[i][j][0] != -10) {					//if the Tetrimino has a piece on that coordinates of shape
-        					int xCoord = this.currentPos[i][j][0];				//gets current x coordinate
-        					int yCoord = this.currentPos[i][j][1];				//gets current y coordinate
-        					currentTable[xCoord][yCoord] = 1;					//assigns 1 that coordinate to currentTable array
-        					int value = this.currentValues[i][j];				//gets value of that coordinate
-        					currentTableValues[xCoord][yCoord] = value;			//assigns the value to currentTableValues array
-        					System.out.println("amazing");
-        				}
-        			}	
-        		}
-        		return false;													//returns false because next position was not available
     		} */
-    	}
-    	return true;															//returns true because next position was available
-    }
+     		
+    		/*	else {
+    		for (int i = 0; i < n; i++) {
+    			for (int j = 0; j < n; j++) {
+    				if(this.currentPos[i][j][0] != -10) {					//if the Tetrimino has a piece on that coordinates of shape
+    					int xCoord = this.currentPos[i][j][0];				//gets current x coordinate
+    					int yCoord = this.currentPos[i][j][1];				//gets current y coordinate
+    					currentTable[xCoord][yCoord] = 1;					//assigns 1 that coordinate to currentTable array
+    					int value = this.currentValues[i][j];				//gets value of that coordinate
+    					currentTableValues[xCoord][yCoord] = value;			//assigns the value to currentTableValues array
+    					System.out.println("amazing");
+    				}
+    			}	
+    		}
+    		return false;													//returns false because next position was not available
+		} */
+  
     
     /**
      * 
@@ -513,19 +539,33 @@ public class Tetrimino {
     }
     
     public boolean canMerge(int[][] currentTable, int[][] currentTableValues) {   	
-    	int b = currentTableValues.length;
-    	int b1 = currentTableValues[0].length;
+    	int numberOfColumns = currentTableValues.length;
+    	int numberOfRows = currentTableValues[0].length;
+    	boolean checkMerge = false;
     	
-    	for (int i = 0; i < b; i++) {
-			for (int j = b1-1; j > 0; j--) {
-				if(currentTableValues[i][j] != 0 && currentTableValues[i][j-1] != 0) {
+    	for (int i = 0; i < numberOfColumns; i++) {
+			for (int j = numberOfRows-1; j > 0; j--) {
+				if(currentTable[i][j] == 1 && currentTable[i][j-1] == 1) {
+					System.out.println("excellent");
 					if(currentTableValues[i][j] == currentTableValues[i][j-1]) {
-						return true;
+						currentTableValues[i][j] +=currentTableValues[i][j];
+						currentTableValues[i][j-1] = -30;
+						currentTable[i][j-1] = 0;
+						this.shape[i][j-1] = -10;
+						for (int j2 = j-1; j2 > 0; j2--) {
+							currentTable[i][j2-1] = currentTable[i][j2];
+							currentTableValues[i][j2-1] = currentTableValues[i][j2];
+						}
+						currentTable[i][0] = 0;
+						currentTableValues[i][0] = -50;
+						System.out.println("hello2");
+						checkMerge = true;
 					}												
 				}
 			}  	
     	}
-    	return false;
+    	System.out.println("hello");
+    	return checkMerge;
     }
   
     /*

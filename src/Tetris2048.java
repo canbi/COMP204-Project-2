@@ -54,7 +54,7 @@ public class Tetris2048{
 		t.init(currentTable,currentTableValues);			//putting first Tetrimino to the table
 		drawCanvas(squaresCoords,canvasAttributes,nextTetrimino,types);			//draws canvas
 		
-		StdAudio.loop("tetris.wav");
+		//StdAudio.loop("tetris.wav");
 		//GAME LOOP	
 		boolean game = true;								//game over is equal false in the beginning
 		int timerValue = 500;								//game latency value
