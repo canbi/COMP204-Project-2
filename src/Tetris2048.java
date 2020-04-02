@@ -283,10 +283,18 @@ public class Tetris2048{
 					StdDraw.setPenColor(206,195,181);
 					StdDraw.filledSquare(xCoord, yCoord, squareLength);
 				}
-				else {										//if there is a tetrimino in current table
+				else {																			//if there is a tetrimino in current table
 					if(currentTableValues[i][j] == 2) StdDraw.setPenColor(238, 229, 219);		//if the current square has a value of 2
 					else if(currentTableValues[i][j] == 4) StdDraw.setPenColor(235, 224, 204);	//if the current square has a value of 4
-					else if(currentTableValues[i][j] == 8)StdDraw.setPenColor(255, 0, 0);
+					else if(currentTableValues[i][j] == 8)StdDraw.setPenColor(228, 173, 126);	//if the current square has a value of 8
+					else if(currentTableValues[i][j] == 16)StdDraw.setPenColor(234, 152, 112);	//if the current square has a value of 16
+					else if(currentTableValues[i][j] == 32)StdDraw.setPenColor(231, 130, 103);	//if the current square has a value of 32
+					else if(currentTableValues[i][j] == 64)StdDraw.setPenColor(230, 103, 72);	//if the current square has a value of 64
+					else if(currentTableValues[i][j] == 128)StdDraw.setPenColor(233, 206, 127);	//if the current square has a value of 128
+					else if(currentTableValues[i][j] == 256)StdDraw.setPenColor(233, 204, 115);	//if the current square has a value of 256
+					else if(currentTableValues[i][j] == 512)StdDraw.setPenColor(228, 193, 101);	//if the current square has a value of 512
+					else if(currentTableValues[i][j] == 1024)StdDraw.setPenColor(216, 181, 65);	//if the current square has a value of 1024
+					else if(currentTableValues[i][j] == 2048)StdDraw.setPenColor(232, 194, 79);	//if the current square has a value of 2048
 					
 					//DRAWING SQUARE
 					StdDraw.filledSquare(xCoord, yCoord, squareLength);

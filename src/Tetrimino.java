@@ -336,7 +336,7 @@ public class Tetrimino {
     	int numberOfRows = currentTable[0].length;
     	boolean canGoDown = false;				//initially assings false
     	boolean mergeControl = true;
-    //	boolean moreControl = false;
+    	boolean moreControl = true;
     	int[][][] nextPos = new int[n][n][2];	//for storing next position of the given Tetrimino
     	
     	//FINDING NEXT POSITION AND ERASING OLD POSITION
@@ -383,77 +383,19 @@ public class Tetrimino {
         					currentTable[xCoord][yCoord] = 1;					//assigns 1 that coordinate to currentTable array
         					int value = this.currentValues[i][j];				//gets value of that coordinate
         					currentTableValues[xCoord][yCoord] = value;			//assigns the value to currentTableValues array
-        					System.out.println("amazing");
         				}
         			}	
         		}
         		while(mergeControl) {
-        			System.out.println("TRY TO MERGEEEEEEEEEEE");
         			mergeControl = canMerge(currentTable, currentTableValues);
-        		}
-        			
-        		
-        		       		
+        			while(moreControl) {
+        				moreControl = canGoMore(currentTable, currentTableValues);
+        			}
+        		}  		       		
         		return false;													//returns false because next position was not available
     		} 
-	return true;																//returns true because next position was available
-}
-    
-    	
-    	
-    	
-    	
-    /*	else {																//if the next position is not available. Uses old position
-    		mergeControl = canMerge(currentTableValues, currentTableValues);
-    		if(mergeControl) {
-        		for (int i = 0; i < n; i++) {
-        			for (int j = 0; j < n; j++) {
-        				if(this.currentPos[i][j][0] != -10) {					//if the Tetrimino has a piece on that coordinates of shape
-        					int xCoord = this.currentPos[i][j][0];				//gets current x coordinate
-        					int yCoord = this.currentPos[i][j][1];				//gets current y coordinate
-        					currentTable[xCoord][yCoord] = 1;					//assigns 1 that coordinate to currentTable array
-        					int value = this.currentValues[i][j];				//gets value of that coordinate
-        				  	if(yCoord < numberOfRows-1) {
-        				  		if(currentTableValues[xCoord][yCoord] == currentTableValues[xCoord][yCoord+1]) {
-        				  			currentTableValues[xCoord][yCoord+1] = value + value;			//assigns the value to currentTableValues array       					
-        				  			currentTable[xCoord][yCoord] = 0;
-        				  	comment*		moreControl = canGoMore(currentTable, currentTableValues);
-        				  				if(moreControl) {
-        				  					System.out.println("yes more");
-        				  			    	for (int x = 0; x < b; x++) {
-        				  						for (int y = b1-1; y > 0; y--) {
-        				  							int carrier = currentTableValues[x][y-1];
-        				  							currentTableValues[x][y] = carrier;
-        				  							currentTable[x][y-1] = 0;																       				  							
-        				  						}  	
-        				  			    	}
-        				  				}else
-        				  					System.out.println("no more"); *comment
-        				  		}
-        				  	}
-        				}
-        			}	
-        		}
-        		return false;													//returns false because next position was not available
-    		} */
-     		
-    		/*	else {
-    		for (int i = 0; i < n; i++) {
-    			for (int j = 0; j < n; j++) {
-    				if(this.currentPos[i][j][0] != -10) {					//if the Tetrimino has a piece on that coordinates of shape
-    					int xCoord = this.currentPos[i][j][0];				//gets current x coordinate
-    					int yCoord = this.currentPos[i][j][1];				//gets current y coordinate
-    					currentTable[xCoord][yCoord] = 1;					//assigns 1 that coordinate to currentTable array
-    					int value = this.currentValues[i][j];				//gets value of that coordinate
-    					currentTableValues[xCoord][yCoord] = value;			//assigns the value to currentTableValues array
-    					System.out.println("amazing");
-    				}
-    			}	
-    		}
-    		return false;													//returns false because next position was not available
-		} */
-  
-    
+    	return true;															//returns true because next position was available
+}    
     /**
      * 
      * @param currentTable
@@ -544,14 +486,15 @@ public class Tetrimino {
     public boolean canMerge(int[][] currentTable, int[][] currentTableValues) {   	
     	int numberOfColumns = currentTableValues.length;
     	int numberOfRows = currentTableValues[0].length;
-    	//boolean checkMerge = false;
     	
     	for (int i = 0; i < numberOfColumns; i++) {
 			for (int j = numberOfRows-1; j > 0; j--) {
 				if(currentTable[i][j] == 1 && currentTable[i][j-1] == 1) {
-					System.out.println("excellent");
 					if(currentTableValues[i][j] == currentTableValues[i][j-1]) {
 						currentTableValues[i][j] +=currentTableValues[i][j];
+						if(currentTableValues[i][j] == 2048) {
+							System.out.println("Congrats!");
+						}
 						currentTableValues[i][j-1] = -30;
 						currentTable[i][j-1] = 0;
 						//this.shape[i][j-1] = -10;
@@ -561,30 +504,31 @@ public class Tetrimino {
 						}
 						currentTable[i][0] = 0;
 						currentTableValues[i][0] = -50;
-						System.out.println("hello2");
 						return true;
 					}												
 				}
 			}  	
     	}
-    	System.out.println("hello");
     	return false;
     }
   
-    /*
+        
     public boolean canGoMore(int[][] currentTable, int[][] currentTableValues) {
-    	int b = currentTable.length;
-    	int b1 = currentTable[0].length;
+    	int numberOfColumns = currentTableValues.length;
+    	int numberOfRows = currentTableValues[0].length;
     	
-    	for (int i = 0; i < b; i++) {
-			for (int j = b1-1; j > 0; j--) {
+    	for (int i = 0; i < numberOfColumns; i++) {
+			for (int j = numberOfRows-1; j > 0; j--) {
 				if(currentTable[i][j] == 0 && currentTable[i][j-1] == 1) {
+					currentTable[i][j] = 1;
+					currentTable[i][j-1] = 0;
+					currentTableValues[i][j] = currentTableValues[i][j-1];
 					return true;																
 				}
 			}  	
     	}
     	return false;
-    } */
+    } 
     
     
 }
