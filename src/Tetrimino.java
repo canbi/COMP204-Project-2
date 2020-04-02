@@ -387,8 +387,11 @@ public class Tetrimino {
         				}
         			}	
         		}
-        		while(mergeControl) 
-        			mergeControl = canMerge(currentTableValues, currentTableValues);
+        		while(mergeControl) {
+        			System.out.println("TRY TO MERGEEEEEEEEEEE");
+        			mergeControl = canMerge(currentTable, currentTableValues);
+        		}
+        			
         		
         		       		
         		return false;													//returns false because next position was not available
@@ -541,7 +544,7 @@ public class Tetrimino {
     public boolean canMerge(int[][] currentTable, int[][] currentTableValues) {   	
     	int numberOfColumns = currentTableValues.length;
     	int numberOfRows = currentTableValues[0].length;
-    	boolean checkMerge = false;
+    	//boolean checkMerge = false;
     	
     	for (int i = 0; i < numberOfColumns; i++) {
 			for (int j = numberOfRows-1; j > 0; j--) {
@@ -551,7 +554,7 @@ public class Tetrimino {
 						currentTableValues[i][j] +=currentTableValues[i][j];
 						currentTableValues[i][j-1] = -30;
 						currentTable[i][j-1] = 0;
-						this.shape[i][j-1] = -10;
+						//this.shape[i][j-1] = -10;
 						for (int j2 = j-1; j2 > 0; j2--) {
 							currentTable[i][j2-1] = currentTable[i][j2];
 							currentTableValues[i][j2-1] = currentTableValues[i][j2];
@@ -559,13 +562,13 @@ public class Tetrimino {
 						currentTable[i][0] = 0;
 						currentTableValues[i][0] = -50;
 						System.out.println("hello2");
-						checkMerge = true;
+						return true;
 					}												
 				}
 			}  	
     	}
     	System.out.println("hello");
-    	return checkMerge;
+    	return false;
     }
   
     /*

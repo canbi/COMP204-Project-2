@@ -3,8 +3,8 @@ import java.util.Random;
 
 public class Tetris2048{ 
 	public static void main(String[] args) {
-		int numberOfColumns = 10;
-		int numberOfRows = 20;
+		int numberOfColumns =8;
+		int numberOfRows = 12;
 		
 		//calculation of right panel
 		int rowSpace = 750;
