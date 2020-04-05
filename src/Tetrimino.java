@@ -492,15 +492,11 @@ public class Tetrimino {
 				if(currentTable[i][j] == 1 && currentTable[i][j-1] == 1) {
 					if(currentTableValues[i][j] == currentTableValues[i][j-1]) {
 						currentTableValues[i][j] +=currentTableValues[i][j];
-						if(currentTableValues[i][j] == 2048) {
-							System.out.println("Congrats!");
-						}
-						currentTableValues[i][j-1] = -30;
+						//currentTableValues[i][j-1] = -30;
 						currentTable[i][j-1] = 0;
-						//this.shape[i][j-1] = -10;
 						for (int j2 = j-1; j2 > 0; j2--) {
-							currentTable[i][j2-1] = currentTable[i][j2];
-							currentTableValues[i][j2-1] = currentTableValues[i][j2];
+							currentTable[i][j2] = currentTable[i][j2-1];
+							currentTableValues[i][j2] = currentTableValues[i][j2-1];
 						}
 						currentTable[i][0] = 0;
 						currentTableValues[i][0] = -50;

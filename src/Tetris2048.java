@@ -158,7 +158,7 @@ public class Tetris2048{
 			
 			//TETRIS CONTROL
 			boolean[] isTetris = isThereTetris(currentTable,numberOfRows);	//tetris control for every row in the table
-			tetris = tetris(currentTable, isTetris);//erases the row and returns true if there is a tetris(full horizontal row in the table)				
+			tetris = tetris(currentTable, isTetris, currentTableValues);//erases the row and returns true if there is a tetris(full horizontal row in the table)				
 			if(tetris) {							//if there was a tetris
 				updateCanvas(squaresCoords, currentTable,currentTableValues, canvasAttributes,nextTetrimino,types);	//redraws the updated table
 				StdDraw.pause(timerValue);					//pauses after erasing the tetris
@@ -325,9 +325,9 @@ public class Tetris2048{
 	public static boolean[] isThereTetris(int[][] currentTable, int numberOfRows) {
 		boolean[] isTetris = new boolean[numberOfRows];	//creating boolean array in size of number of rows in the table
 		
-		for (int i = 0; i < currentTable[0].length; i++)  
-			isTetris[i] = true;					//initially assigning true every index of the boolean array
-		
+		for (int i = 0; i < currentTable[0].length; i++) {
+			isTetris[i] = true;										//initially assigning true every index of the boolean array
+		}
 		for (int j = 0; j < currentTable[0].length; j++) { 			//iterates in number of rows in the table
 			for (int i = 0; i < currentTable.length; i++) { 		//iterates in number of columns in the table
 				if(currentTable[i][j] == 0) {						//if there is no tetrimino block in that coordinate
@@ -347,16 +347,17 @@ public class Tetris2048{
 	 * @param isTetris boolean array which contains every row's status of being tetris or not
 	 * @return returns true if there is a tetris, false when there is no tetris.
 	 */
-	public static boolean tetris(int[][] currentTable,boolean[] isTetris) {
+	public static boolean tetris(int[][] currentTable,boolean[] isTetris, int[][]currentTableValues) {
 		boolean tetris = false;				//initially assumes there is no tetris in the current table
 		
 		for (int i = 0; i < isTetris.length; i++) {
 			if(isTetris[i] == false)										//if the current row is not a tetris
 				continue;													//passes the current row
 			
-			for (int j = i; j >= 1 ; j--) {									//iterates in number of rows in the table
+			for (int j = i; j > 0 ; j--) {									//iterates in number of rows in the table
 				for (int j2 = 0; j2 < currentTable.length; j2++) { 			//iterates in number of columns in the table
 					currentTable[j2][j] = currentTable[j2][j-1];			//moves every row above the tetris down one line.
+					currentTableValues[j2][j] = currentTableValues[j2][j-1];
 				}
 			}
 			tetris = true;													//assigns true
@@ -365,6 +366,6 @@ public class Tetris2048{
 		for (int i = 0; i < currentTable.length; i++)						//iterates in number of columns in the table
 			currentTable[i][0] = 0;											//adds new row in the current table
 		
-		return tetris;			//returns true if there is a tetris, false when there is no tetris.
+		return tetris;														//returns true if there is a tetris, false when there is no tetris.
 	}
 }
