@@ -53,13 +53,19 @@ public class Tetris2048{
 		t1.init(canvas);									//putting first Tetrimino to the table
 		canvas.drawCanvas(t1);								//draws canvas
 		
+		
+		boolean[] menuReturns = canvas.mainMenu();
+		boolean menu = menuReturns[0];
+		boolean music = menuReturns[1];
+		
 		//StdAudio.loop("tetris.wav");
 		//GAME LOOP	
 		boolean game = true;								//game over is equal false in the beginning
 		int timerValue = 500;								//game latency value
 		boolean falling = false;							//fast dropping is equal false in the beginning
 		boolean pause = false;
-		while(game) {										//game loop
+		
+		while(game && !menu) {										//game loop
 			boolean tetris = false;							//tetris(horizontal row erasing) is equal false in every step
 			//CREATING NEW Tetrimino
 			if(createANewTetromino) {								

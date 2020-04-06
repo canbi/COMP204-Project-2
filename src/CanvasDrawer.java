@@ -1,4 +1,5 @@
 import java.awt.Font;
+import java.util.Random;
 
 public class CanvasDrawer {
 	
@@ -25,6 +26,110 @@ public class CanvasDrawer {
 	public CanvasDrawer() {
 		super();
 	}
+	
+	
+	public boolean[] mainMenu(){
+		//BACKGROUND
+		//StdDraw.setPenColor(0,0,0);
+		//StdDraw.filledRectangle(this.calculatedWidth, this.calculatedHeigth, this.calculatedWidth, this.calculatedHeigth);
+		
+		double backgroundCenterX = (this.calculatedColumnSpace/2.0)+this.frameOffset;
+		double backgroundCenterY = (this.calculatedRowSpace/2.0)+this.frameOffset;
+		
+		StdDraw.setPenColor(192,179,165); //med brown color
+		StdDraw.filledRectangle(backgroundCenterX,backgroundCenterY , (this.calculatedColumnSpace/2.0), (this.calculatedRowSpace/2.0));
+		
+		double button1RatioX = 0.50;
+		double button1RatioY = 0.50;
+		double button1CenterX = this.calculatedColumnSpace*button1RatioX;
+		double button1CenterY = this.calculatedRowSpace*button1RatioY;
+		double button1Width = this.calculatedColumnSpace/8;
+		double button1Height = this.calculatedRowSpace/30;
+		double button1Xmin = button1CenterX-button1Width;
+		double button1Xmax = button1CenterX+button1Width;
+		double button1Ymin = button1CenterY-button1Height;
+		double button1Ymax = button1CenterY+button1Height;
+		
+		
+		double button2RatioX = 0.50;
+		double button2RatioY = 0.60;
+		double button2CenterX = this.calculatedColumnSpace*button2RatioX;
+		double button2CenterY = this.calculatedRowSpace*button2RatioY;
+		double button2Width = this.calculatedColumnSpace/6;
+		double button2Height = this.calculatedRowSpace/30;
+		double button2Xmin = button2CenterX-button2Width;
+		double button2Xmax = button2CenterX+button2Width;
+		double button2Ymin = button2CenterY-button2Height;
+		double button2Ymax = button2CenterY+button2Height;
+		
+		
+		//Button 1
+		StdDraw.setPenColor(255,255,255);
+		StdDraw.filledRectangle(button1CenterX, button1CenterY ,button1Width ,button1Height);
+		StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
+		StdDraw.setPenColor(0,0,0);
+		StdDraw.text(button1CenterX, button1CenterY+1, "PLAY");
+		
+		//Button 2
+		StdDraw.setPenColor(255,255,255);
+		StdDraw.filledRectangle(button2CenterX, button2CenterY ,button2Width ,button2Height);
+		StdDraw.setPenColor(StdDraw.GREEN);
+		StdDraw.text(button2CenterX, button2CenterY+1, "MUSIC ON");
+		StdDraw.show();
+		
+		boolean gameNotStart = true;
+		boolean music = true;
+		
+		StdAudio.play("tetris.wav");
+		while(gameNotStart) {
+			Random r = new Random();
+			int red = r.nextInt(256);
+			int green = r.nextInt(256);
+			int blue = r.nextInt(256);
+			StdDraw.setPenColor(255,255,255);
+			StdDraw.filledRectangle(button1CenterX, button1CenterY ,button1Width ,button1Height);
+			StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
+			StdDraw.setPenColor(red,green, blue);
+			StdDraw.text(button1CenterX, button1CenterY+1, "PLAY");
+			StdDraw.show(50);
+			
+			
+			if (StdDraw.isMousePressed()) { 								
+	            double xCoord = StdDraw.mouseX();
+	            double yCoord = StdDraw.mouseY();
+	            
+	            if(xCoord< button1Xmax && xCoord > button1Xmin && yCoord<button1Ymax && yCoord > button1Ymin) {
+	            	gameNotStart = false;
+	            	StdDraw.pause(100);
+	            }
+	            
+	            if(xCoord< button2Xmax && xCoord > button2Xmin && yCoord<button2Ymax && yCoord > button2Ymin) {
+	            	StdDraw.setPenColor(255,255,255);
+	        		StdDraw.filledRectangle(button2CenterX, button2CenterY ,button2Width ,button2Height);
+	            	
+	        		if(music) {
+	            		StdDraw.setPenColor(StdDraw.BOOK_RED);
+	            		StdDraw.text(button2CenterX, button2CenterY+1, "MUSIC OFF");
+	            		StdAudio.close();
+	            		music = false;
+	            	}
+	            	else {
+	            		StdDraw.setPenColor(StdDraw.GREEN);
+	            		StdDraw.text(button2CenterX, button2CenterY+1, "MUSIC ON");
+	            		StdAudio.play("tetris.wav");
+	            		music = true;
+	            	}
+	            	StdDraw.show();
+	            	StdDraw.pause(100);
+	            	
+	            }
+	            
+			}
+		}
+		boolean[] a = {false,music};
+		return a;
+	}
+	
 	
 	public void setUpCanvas() {
 		this.currentTable = new int[this.numberOfColumns][this.numberOfRows]; 			//for storing whether there is a Tetrimino in a coordinate.
