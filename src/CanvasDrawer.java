@@ -23,6 +23,31 @@ public class CanvasDrawer {
 	int[][][] squaresCoords;
 	
 	
+	public static final byte[][] tetris = {		//Tetris Shape
+		    {1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1},
+		    {0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0},
+		    {0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0},
+		    {0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1},
+		    {0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1}};
+	
+	
+	public static final byte[][] canAndNadide = {
+		    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0},
+		    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1},
+		    {1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1},
+		    {1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1},
+		    {1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0},
+			{0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0},
+		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0},
+		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0},
+		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0},
+		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0}};
+	
+	
+	
 	public CanvasDrawer() {
 		super();
 	}
@@ -74,25 +99,64 @@ public class CanvasDrawer {
 		StdDraw.setPenColor(255,255,255);
 		StdDraw.filledRectangle(button2CenterX, button2CenterY ,button2Width ,button2Height);
 		StdDraw.setPenColor(StdDraw.GREEN);
-		StdDraw.text(button2CenterX, button2CenterY+1, "MUSIC ON");
+		StdDraw.text(button2CenterX, button2CenterY+1, "??? ON");
 		StdDraw.show();
 		
 		boolean gameNotStart = true;
 		boolean music = true;
+		boolean colorful = true;
+		Random r = new Random();
+		int red = r.nextInt(256);
+		int green = r.nextInt(256);
+		int blue = r.nextInt(256);
 		
-		StdAudio.play("tetris.wav");
+		
 		while(gameNotStart) {
-			Random r = new Random();
-			int red = r.nextInt(256);
-			int green = r.nextInt(256);
-			int blue = r.nextInt(256);
+			
+			if(colorful) {
+				red = r.nextInt(256);
+				green = r.nextInt(256);
+				blue = r.nextInt(256);
+			}
+			colorful = !colorful;
+			
+			int tetrisNextSqLen = 8;
+			for (int i = 0; i < tetris.length; i++) {
+				for (int j = 0; j < tetris[0].length; j++) {
+					if(tetris[i][j] == 1) {
+						double xCoord = ((2*tetrisNextSqLen+this.nextSquareGap)*j) + this.frameOffset+2*this.nextSquareOffset+tetrisNextSqLen;
+						double yCoord = ((2*tetrisNextSqLen+this.nextSquareGap)*i) + this.frameOffset + this.ratioOfNextHeight*this.calculatedRowSpace/10;
+						StdDraw.setPenColor(red,green, blue);
+						StdDraw.filledSquare(xCoord, yCoord, tetrisNextSqLen);
+						//DRAWING SQUARE FRAME
+						StdDraw.setPenColor(132,122,113);
+						StdDraw.setPenRadius(0.0025);
+						StdDraw.square(xCoord,yCoord, tetrisNextSqLen+this.nextSquareGap/2);
+					}
+				}
+			}
+			
+			for (int i = 0; i < canAndNadide.length; i++) {
+				for (int j = 0; j < canAndNadide[0].length; j++) {
+					if(canAndNadide[i][j] == 1) {
+						double xCoord = ((tetrisNextSqLen+this.nextSquareGap)*j) + this.frameOffset+10*this.nextSquareOffset+tetrisNextSqLen/2;
+						double yCoord = ((tetrisNextSqLen+this.nextSquareGap)*i) + this.frameOffset + this.ratioOfNextHeight*this.calculatedRowSpace/4;
+						StdDraw.setPenColor(255-red,255-green, 255-blue);
+						StdDraw.filledSquare(xCoord, yCoord, tetrisNextSqLen/2);
+						//DRAWING SQUARE FRAME
+						StdDraw.setPenColor(132,122,113);
+						StdDraw.setPenRadius(0.0025);
+						StdDraw.square(xCoord,yCoord, tetrisNextSqLen/2+this.nextSquareGap/2);
+					}
+				}
+			}
+			
 			StdDraw.setPenColor(255,255,255);
 			StdDraw.filledRectangle(button1CenterX, button1CenterY ,button1Width ,button1Height);
 			StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
 			StdDraw.setPenColor(red,green, blue);
 			StdDraw.text(button1CenterX, button1CenterY+1, "PLAY");
 			StdDraw.show(50);
-			
 			
 			if (StdDraw.isMousePressed()) { 								
 	            double xCoord = StdDraw.mouseX();
@@ -109,14 +173,13 @@ public class CanvasDrawer {
 	            	
 	        		if(music) {
 	            		StdDraw.setPenColor(StdDraw.BOOK_RED);
-	            		StdDraw.text(button2CenterX, button2CenterY+1, "MUSIC OFF");
+	            		StdDraw.text(button2CenterX, button2CenterY+1, "??? OFF");
 	            		StdAudio.close();
 	            		music = false;
 	            	}
 	            	else {
 	            		StdDraw.setPenColor(StdDraw.GREEN);
-	            		StdDraw.text(button2CenterX, button2CenterY+1, "MUSIC ON");
-	            		StdAudio.play("tetris.wav");
+	            		StdDraw.text(button2CenterX, button2CenterY+1, "??? ON");
 	            		music = true;
 	            	}
 	            	StdDraw.show();
@@ -281,4 +344,45 @@ public class CanvasDrawer {
 		StdDraw.show();	//draws to the screen
 	}
 	
+	public void endGameAnimation(int number) {
+		if(number == 0) {
+			Random r = new Random();
+			for (int i = 0; i < this.currentTable[0].length; i++) {
+				for (int j = 0; j < this.currentTable.length; j++) {
+					int red = r.nextInt(256);
+					int green = r.nextInt(256);
+					int blue = r.nextInt(256);
+					int xCoord = this.squaresCoords[j][i][0];								//getting center x coordinates of every squares
+					int yCoord = this.squaresCoords[j][i][1];								//getting center y coordinates of every squares
+					StdDraw.setPenColor(red, green, blue);
+					StdDraw.filledSquare(xCoord, yCoord, this.squareLength);
+					StdDraw.setPenColor(132,122,113);
+					StdDraw.setPenRadius(0.004);
+					StdDraw.square(xCoord,yCoord, this.squareLength+this.gapOfSquares/2);
+					StdDraw.show();
+					StdDraw.pause(10);
+				}
+			}
+		}
+		else if(number == 1) {
+			int count=0;
+			for (int i = 0; i < this.currentTable[0].length; i++) {
+				for (int j = 0; j < this.currentTable.length; j++) {
+					int xCoord = this.squaresCoords[j][i][0];								//getting center x coordinates of every squares
+					int yCoord = this.squaresCoords[j][i][1];								//getting center y coordinates of every squares
+					StdDraw.setPenColor(255-count, 255-count, 255-count);
+					StdDraw.filledSquare(xCoord, yCoord, this.squareLength);
+					StdDraw.setPenColor(132,122,113);
+					StdDraw.setPenRadius(0.004);
+					StdDraw.square(xCoord,yCoord, this.squareLength+this.gapOfSquares/2);
+					StdDraw.show();
+					StdDraw.pause(10);
+					
+					if(count <255)
+						count = count + 3;
+				}
+			}
+		}
+		
+	}
 }

@@ -90,9 +90,11 @@ public class Tetris2048{
 			}
 			
 			//GAME OVER CONTROL
-			if(!game)				//game over control. 
+			if(!game) {				//game over control. 
+				int number = r.nextInt(2);
+				canvas.endGameAnimation(number);
 				break;				//game will be over when the new Tetrimino wasn't initialized.
-			
+			}
 			//KEYBOARD INTERACTION 
 			boolean success = false;										//success control of the move
 			if (StdDraw.hasNextKeyTyped()) { 								//keyboard interaction control
