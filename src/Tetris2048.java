@@ -45,6 +45,7 @@ public class Tetris2048{
 		Random r = new Random();							//creating random class object 
 		boolean createANewTetromino = false;				//control for creating a new Tetrimino	
 		boolean check = false;
+		int contMerge = 0;
 		int randomTetrimino = r.nextInt(7);					//getting random index number
 		int nextTetrimino = r.nextInt(7);
 		Tetrimino t = types[randomTetrimino];				//getting Tetrimino with random index number
@@ -130,19 +131,27 @@ public class Tetris2048{
 				}
 				continue;
 			}
-			
 			//MOVE DOWN
 			if (!success) {												//moves the tetromino down by one if hasn't done any successful move 
 				success = t.goDown(currentTable,currentTableValues);	//returns true if the move is available	
-				if(!success){
+				if(!success && contMerge == 0){
 					check = true;
 					if(check) {
 						//NEW Tetrimino CONTROL
 						createANewTetromino = success;		 				// not creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore						
 						t.canMerge(currentTableValues, currentTableValues);
-						
+						contMerge++;
 					}
-				}else {
+				}else if(!success && contMerge == 1) {
+					check = true;
+					if(check) {
+						//NEW Tetrimino CONTROL
+						createANewTetromino = success;		 				// not creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore						
+						t.contMerge(currentTable, currentTableValues);
+						contMerge--;
+					}
+				}
+				else {
 					//NEW Tetrimino CONTROL
 					createANewTetromino = !success;		 				//creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore	
 				}

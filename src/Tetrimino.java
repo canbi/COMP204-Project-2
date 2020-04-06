@@ -336,6 +336,7 @@ public class Tetrimino {
     	int numberOfRows = currentTable[0].length;
     	boolean canGoDown = false;				//initially assings false
     	boolean mergeControl = true;
+    	boolean contControl = true;
     	boolean moreControl = true;
     	int[][][] nextPos = new int[n][n][2];	//for storing next position of the given Tetrimino
     	
@@ -359,6 +360,7 @@ public class Tetrimino {
     	
     	//NEXT POSITION CONTROL
     	canGoDown = canMove(nextPos, currentTable,currentTableValues);		//returns true if the next position is available
+    	mergeControl = canMerge(currentTable, currentTableValues);
     	
     	if(canGoDown) {														//if the next position is available. Updates by using nextPos array
     		for (int i = 0; i < n; i++) {
@@ -374,7 +376,25 @@ public class Tetrimino {
     			}
     		}
     	}
-			else {
+    	
+		else if(!canGoDown && mergeControl){
+    		for (int i = 0; i < n; i++) {
+    			for (int j = 0; j < n; j++) {
+    				if(this.currentPos[i][j][0] != -10) {					//if the Tetrimino has a piece on that coordinates of shape
+    					int xCoord = this.currentPos[i][j][0];				//gets current x coordinate
+    					int yCoord = this.currentPos[i][j][1];				//gets current y coordinate
+    					currentTable[xCoord][yCoord] = 1;					//assigns 1 that coordinate to currentTable array
+    					int value = this.currentValues[i][j];				//gets value of that coordinate
+    					currentTableValues[xCoord][yCoord] = value;			//assigns the value to currentTableValues array
+    				}
+    			}	
+    		}
+        	while(mergeControl) {
+        		mergeControl = canMerge(currentTable, currentTableValues);        		
+        	}  		       		
+        	return false;													//returns false because next position was not available
+    		 
+		}else {
         		for (int i = 0; i < n; i++) {
         			for (int j = 0; j < n; j++) {
         				if(this.currentPos[i][j][0] != -10) {					//if the Tetrimino has a piece on that coordinates of shape
@@ -386,14 +406,15 @@ public class Tetrimino {
         				}
         			}	
         		}
-        		while(mergeControl) {
-        			mergeControl = canMerge(currentTable, currentTableValues);
-        			while(moreControl) {
-        				moreControl = canGoMore(currentTable, currentTableValues);
-        			}
-        		}  		       		
-        		return false;													//returns false because next position was not available
-    		} 
+	        	while(contControl) {
+	        		contControl = contMerge(currentTable, currentTableValues);
+	        		while(moreControl) {
+	        			moreControl = canGoMore(currentTable, currentTableValues);
+	        		}
+	        	}  		       		
+	        	return false;													//returns false because next position was not available
+	    		 
+			}
     	return true;															//returns true because next position was available
 }    
     /**
@@ -491,8 +512,27 @@ public class Tetrimino {
 			for (int j = numberOfRows-1; j > 0; j--) {
 				if(currentTable[i][j] == 1 && currentTable[i][j-1] == 1) {
 					if(currentTableValues[i][j] == currentTableValues[i][j-1]) {
-						currentTableValues[i][j] +=currentTableValues[i][j];
-						//currentTableValues[i][j-1] = -30;
+						currentTableValues[i][j] +=currentTableValues[i][j-1];
+						currentTable[i][j-1] = -80;
+						contMerge(currentTable, currentTableValues);
+						canGoMore(currentTable, currentTableValues);
+						return true;
+					}												
+				}
+			}  	
+    	}
+    	return false;
+    }
+    
+    public boolean contMerge(int[][] currentTable, int[][] currentTableValues) {   	
+    	int numberOfColumns = currentTableValues.length;
+    	int numberOfRows = currentTableValues[0].length;
+    	
+    	for (int i = 0; i < numberOfColumns; i++) {
+			for (int j = numberOfRows-1; j > 0; j--) {
+				if(currentTable[i][j] == 1 && currentTable[i][j-1] == -80) {
+					if(currentTableValues[i][j] == currentTableValues[i][j-1]*2) {
+						currentTableValues[i][j-1] = -30;
 						currentTable[i][j-1] = 0;
 						for (int j2 = j-1; j2 > 0; j2--) {
 							currentTable[i][j2] = currentTable[i][j2-1];
