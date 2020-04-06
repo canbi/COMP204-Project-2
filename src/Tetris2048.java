@@ -1,44 +1,32 @@
-import java.awt.Font;
 import java.util.Random;
 
 public class Tetris2048{ 
 	public static void main(String[] args) throws CloneNotSupportedException {
-		int numberOfColumns =8;
-		int numberOfRows = 12;
+		CanvasDrawer canvas = new CanvasDrawer();
+		canvas.rowSpace = 750;
+		canvas.frameOffset =5;
+		canvas.rightPanelWidth = 120;
+		canvas.numberOfColumns = 8;
+		canvas.numberOfRows=12;
+		canvas.nextSquareLength = canvas.rightPanelWidth/10;
+		canvas.nextSquareOffset = canvas.rightPanelWidth/10;
+		canvas.nextSquareGap = 1;
+		canvas.ratioOfNextHeight =.87;
+		canvas.setUpCanvas();
+		StdDraw.setCanvasSize(canvas.calculatedWidth,canvas.calculatedHeigth);	//canvas size set
+		StdDraw.setXscale(0, canvas.calculatedWidth);							//canvas x scale set
+		StdDraw.setYscale(canvas.calculatedHeigth, 0);							//canvas y scale set
+		StdDraw.enableDoubleBuffering();										//enables double buffering for drawing in wanted situations
 		
-		//calculation of right panel
-		int rowSpace = 750;
-		int squareLength = (int) Math.round((rowSpace*15)/((double)((31*numberOfRows)-1)));
-		int gapOfSquares = Math.round(squareLength/15);
-		int calculatedRowSpace = 2*squareLength*numberOfRows + (numberOfRows-1)*gapOfSquares;
-		int calculatedColumnSpace = 2*squareLength*numberOfColumns + (numberOfColumns-1)*gapOfSquares;
 		
-		int rightPanelWidth = 120;
-		int frameOffset = 5;
-		int calculatedWidth = 3*frameOffset + rightPanelWidth + calculatedColumnSpace; 
-		int calculatedHeigth = 2*frameOffset + calculatedRowSpace;
-		
-		
-		int[][] currentTable = new int[numberOfColumns][numberOfRows]; 			//for storing whether there is a Tetrimino in a coordinate.
-		int[][] currentTableValues = new int[numberOfColumns][numberOfRows];	//for storing value of coordinates
 		final Tetrimino[] types= {						//Tetrimino class initialization for every type
-	         new Tetrimino(Tetrimino.ShapeI),
-	         new Tetrimino(Tetrimino.ShapeJ),
-	         new Tetrimino(Tetrimino.ShapeL),
-	         new Tetrimino(Tetrimino.ShapeO),
-	         new Tetrimino(Tetrimino.ShapeS),
-	         new Tetrimino(Tetrimino.ShapeT),
-	         new Tetrimino(Tetrimino.ShapeZ),};
-		
-		
-		//DRAWING CANVAS
-		int[] canvasAttributes = {calculatedWidth,calculatedHeigth,squareLength,
-				gapOfSquares,calculatedColumnSpace,calculatedRowSpace,frameOffset,rightPanelWidth};	//stores canvas's width and height		
-		int[][][] squaresCoords = new int[numberOfColumns][numberOfRows][2];		//for storing center coordinates of every squares
-		StdDraw.setCanvasSize(calculatedWidth,calculatedHeigth);				//canvas size set
-		StdDraw.setXscale(0, calculatedWidth);						//canvas x scale set
-		StdDraw.setYscale(calculatedHeigth, 0);						//canvas y scale set
-		StdDraw.enableDoubleBuffering();					//enables double buffering for drawing in wanted situations
+		         new Tetrimino(Tetrimino.ShapeI),
+		         new Tetrimino(Tetrimino.ShapeJ),
+		         new Tetrimino(Tetrimino.ShapeL),
+		         new Tetrimino(Tetrimino.ShapeO),
+		         new Tetrimino(Tetrimino.ShapeS),
+		         new Tetrimino(Tetrimino.ShapeT),
+		         new Tetrimino(Tetrimino.ShapeZ),};
 		
 		
 		//INITIALIZING FIRST Tetrimino
@@ -49,25 +37,21 @@ public class Tetris2048{
 		int randomTetrimino = r.nextInt(7);					//getting random index number
 		int nextTetrimino = r.nextInt(7);
 		
-		
-		
-		
 		//First t
 		Tetrimino t = types[randomTetrimino];				//getting Tetrimino with random index number
 		int n = t.shape.length;								//Tetrimino's shape length
 		t.currentPos = new int[n][n][2];					//initializing Tetrimino's currentPos array
 		t.currentValues = new int[n][n];					//initializing Tetrimino's currentValues array
-		t.init(currentTable);								//putting first Tetrimino to the table
-		t.settle(currentTable, currentTableValues);
+		t.init(canvas);										//putting first Tetrimino to the table
+		t.settle(canvas);
 		
 		//Second t
 		Tetrimino t1 = types[nextTetrimino];				//getting Tetrimino with random index number
-		int n1 = t1.shape.length;								//Tetrimino's shape length
+		int n1 = t1.shape.length;							//Tetrimino's shape length
 		t1.currentPos = new int[n1][n1][2];					//initializing Tetrimino's currentPos array
 		t1.currentValues = new int[n1][n1];					//initializing Tetrimino's currentValues array
-		t1.init(currentTable);			//putting first Tetrimino to the table
-		
-		drawCanvas(squaresCoords,canvasAttributes,t1);			//draws canvas
+		t1.init(canvas);									//putting first Tetrimino to the table
+		canvas.drawCanvas(t1);								//draws canvas
 		
 		//StdAudio.loop("tetris.wav");
 		//GAME LOOP	
@@ -86,12 +70,12 @@ public class Tetris2048{
 				int n2 = t1.shape.length;						//new Tetrimino's shape length
 				t1.currentPos = new int[n2][n2][2];				//initializing Tetrimino's currentPos array
 				t1.currentValues = new int[n2][n2];				//initializing Tetrimino's currentValues array
-				t1.init(currentTable);
+				t1.init(canvas);
 				
 				//putting first Tetrimino to the table.
 				//game will be equal false 
 				//if it is not possible to initialize new Tetrimino
-				game = t.settle(currentTable, currentTableValues);
+				game = t.settle(canvas);
 				
 				//FAST DROPPING CONTROL
 				if(falling)										//controlling fast dropping
@@ -110,21 +94,21 @@ public class Tetris2048{
                 
                 //MOVE LEFT
                 if (ch == 'a') 												//moves the tetromino left by one
-                    success = t.goLeft(currentTable,currentTableValues);	//returns true if the move is available
+                    success = t.goLeft(canvas);	//returns true if the move is available
 
                 //MOVE RIGHT
                 else if (ch == 'd') 										//moves the tetromino right by one
-                	success = t.goRight(currentTable,currentTableValues);	//returns true if the move is available
+                	success = t.goRight(canvas);	//returns true if the move is available
                
                 //ROTATE 90 DEGREE
                 else if (ch == 's')											//rotates the tetromino by 90 degree
-                	success = t.rotate(currentTable,currentTableValues);	//returns true if the move is available
+                	success = t.rotate(canvas);	//returns true if the move is available
                 	
                 //ROTATE 270 DEGREE
                 else if (ch == 'w') { 										//rotates the tetromino by 270 degree
-                	success = t.rotate(currentTable,currentTableValues);	
-                	success = t.rotate(currentTable,currentTableValues);	
-                	success = t.rotate(currentTable,currentTableValues);	//returns true if the move is available
+                	success = t.rotate(canvas);	
+                	success = t.rotate(canvas);	
+                	success = t.rotate(canvas);	//returns true if the move is available
                 }
                 
                 //FAST DROP
@@ -150,13 +134,13 @@ public class Tetris2048{
 			}
 			//MOVE DOWN
 			if (!success) {												//moves the tetromino down by one if hasn't done any successful move 
-				success = t.goDown(currentTable,currentTableValues);	//returns true if the move is available	
+				success = t.goDown(canvas);	//returns true if the move is available	
 				if(!success && contMerge == 0){
 					check = true;
 					if(check) {
 						//NEW Tetrimino CONTROL
 						createANewTetromino = success;		 				// not creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore						
-						t.canMerge(currentTableValues, currentTableValues);
+						t.canMerge(canvas);
 						contMerge++;
 					}
 				}else if(!success && contMerge == 1) {
@@ -164,7 +148,7 @@ public class Tetris2048{
 					if(check) {
 						//NEW Tetrimino CONTROL
 						createANewTetromino = success;		 				// not creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore						
-						t.contMerge(currentTable, currentTableValues);
+						t.contMerge(canvas);
 						contMerge--;
 					}
 				}
@@ -179,14 +163,14 @@ public class Tetris2048{
 			
 			
 			//REDRAWING CANVAS
-			updateCanvas(squaresCoords, currentTable,currentTableValues, canvasAttributes,t1); //redraws the updated table
+			canvas.updateCanvas(t1); //redraws the updated table
 			StdDraw.pause(timerValue);														//pauses after every move in the table
 			
 			//TETRIS CONTROL
-			boolean[] isTetris = isThereTetris(currentTable,numberOfRows);	//tetris control for every row in the table
-			tetris = tetris(currentTable, isTetris, currentTableValues);//erases the row and returns true if there is a tetris(full horizontal row in the table)				
+			boolean[] isTetris = isThereTetris(canvas);	//tetris control for every row in the table
+			tetris = tetris(canvas, isTetris);//erases the row and returns true if there is a tetris(full horizontal row in the table)				
 			if(tetris) {							//if there was a tetris
-				updateCanvas(squaresCoords, currentTable,currentTableValues, canvasAttributes,t1);	//redraws the updated table
+				canvas.updateCanvas(t1);	//redraws the updated table
 				StdDraw.pause(timerValue);					//pauses after erasing the tetris
 				timerValue -= 10;							//game will be more challanging every time a tetris erased											
 				createANewTetromino = true;					//new Tetrimino will be placed in next loop
@@ -195,165 +179,7 @@ public class Tetris2048{
 		
 		//THE GAME WAS OVER
 		System.out.println("THE END");
-	}	
 	
-
-	/**
-	 * Draws canvas
-	 * 
-	 * @param squaresCoords	center coordinates of every squares
-	 * @param canvasAttributes canvas width and height values
-	 */
-	public static void drawCanvas(int[][][] squaresCoords, int[] canvasAttributes,Tetrimino t) {
-		int width = canvasAttributes[0];						//getting canvas' width
-		int height = canvasAttributes[1];						//getting canvas' height
-		
-		int squareLength = canvasAttributes[2];
-		int gapOfSquares = canvasAttributes[3];
-		int calculatedColumnSpace = canvasAttributes[4];
-		int calculatedRowSpace = canvasAttributes[5];
-		int frameOffset = canvasAttributes[6];
-		int rightPanelWidth = canvasAttributes[7];
-		int numberOfColumns = squaresCoords.length;
-		int numberOfRows = squaresCoords[0].length;
-		
-		//BACKGROUND
-		StdDraw.setPenColor(132,122,113);
-		StdDraw.filledRectangle(width/2, height/2, width/2, height/2);
-		
-		//LEFT AND RIGHT BACKGROUND
-		StdDraw.setPenColor(192,179,165); //med brown color
-		StdDraw.filledRectangle((calculatedColumnSpace/2.0)+frameOffset, (calculatedRowSpace/2.0)+frameOffset, (calculatedColumnSpace/2.0), (calculatedRowSpace/2.0));
-		StdDraw.setPenColor(167,160,151);
-		StdDraw.filledRectangle(width-frameOffset-(rightPanelWidth/2.0), (calculatedRowSpace/2)+frameOffset,rightPanelWidth/2.0,(calculatedRowSpace/2));
-		
-		//SQUARES
-		for (int i = 0; i < numberOfColumns; i++) {
-			for (int j = 0; j < numberOfRows; j++) {
-				int xCoord = ((2*squareLength+gapOfSquares)*i)  + squareLength + frameOffset;
-				int yCoord = ((2*squareLength+gapOfSquares)*j)  + squareLength + frameOffset;
-				squaresCoords[i][j][0] = xCoord;
-				squaresCoords[i][j][1] = yCoord;
-				StdDraw.setPenColor(206,195,181);
-				StdDraw.filledSquare(xCoord, yCoord, squareLength);
-			}
-		}
-		
-		int nextSquareLength = 12;
-		double nextSquareOffset = 12;
-		int nextSquareGap = 1;
-		double ratioOfNextHeight =.87;
-		
-		if(t.shape.length == 3) {
-			for (int i = 0; i < t.shape.length; i++) {
-				for (int j = 0; j < t.shape.length; j++) {
-					if(t.shape[i][j] == 1) {
-						double xCoord = ((2*nextSquareLength+nextSquareGap)*j) + 2*frameOffset+calculatedColumnSpace+2*nextSquareOffset+nextSquareLength;
-						double yCoord = ((2*nextSquareLength+nextSquareGap)*i) + frameOffset + ratioOfNextHeight*calculatedRowSpace;
-						
-						if(t.currentValues[i][j] == 2) StdDraw.setPenColor(238, 229, 219);		//if the current square has a value of 2
-						else if(t.currentValues[i][j] == 4) StdDraw.setPenColor(235, 224, 204);	//if the current square has a value of 4
-						StdDraw.filledSquare(xCoord, yCoord, nextSquareLength);
-						
-						//DRAWING SQUARE VALUE
-						StdDraw.setPenColor(0,0,0);
-						StdDraw.setFont(new Font("calibri", Font.BOLD, nextSquareLength));
-						StdDraw.text(xCoord, yCoord, Integer.toString(t.currentValues[i][j]));
-						
-						//DRAWING SQUARE FRAME
-						StdDraw.setPenColor(132,122,113);
-						StdDraw.setPenRadius(0.0025);
-						StdDraw.square(xCoord,yCoord, nextSquareLength+nextSquareGap/2);
-					}
-				}
-			}
-		}
-		else {
-			for (int i = 0; i < t.shape.length; i++) {
-				for (int j = 0; j < t.shape.length; j++) {
-					if(t.shape[i][j] == 1) {
-						double xCoord = ((2*nextSquareLength+nextSquareGap)*j) + 2*frameOffset+calculatedColumnSpace+nextSquareOffset+nextSquareLength;
-						double yCoord = ((2*nextSquareLength+nextSquareGap)*i) + frameOffset + ratioOfNextHeight*calculatedRowSpace;
-						
-						if(t.currentValues[i][j] == 2) StdDraw.setPenColor(238, 229, 219);		//if the current square has a value of 2
-						else if(t.currentValues[i][j] == 4) StdDraw.setPenColor(235, 224, 204);	//if the current square has a value of 4
-						StdDraw.filledSquare(xCoord, yCoord, nextSquareLength);
-						
-						//DRAWING SQUARE VALUE
-						StdDraw.setPenColor(0,0,0);
-						StdDraw.setFont(new Font("calibri", Font.BOLD, nextSquareLength));
-						StdDraw.text(xCoord, yCoord, Integer.toString(t.currentValues[i][j]));
-						
-						//DRAWING SQUARE FRAME
-						StdDraw.setPenColor(132,122,113);
-						StdDraw.setPenRadius(0.0025);
-						StdDraw.square(xCoord,yCoord, nextSquareLength+nextSquareGap/2);
-					}
-				}
-			}
-			
-		}
-		
-		
-		
-		StdDraw.show();	//draws to the screen
-	}
-	
-	
-	/**
-	 * Redraws the canvas
-	 * 
-	 * @param squaresCoords stores center coordinates of every squares
-	 * @param currentTable stores tables last status in types of 1 or 0. 
-	 * @param currentTableValue tables last status of value in types of 2048 game values.
-	 * @param canvasAttributes canvas width and height values
-	 */
-	public static void updateCanvas(int[][][] squaresCoords, int[][] currentTable,int[][] currentTableValues,int[] canvasAttributes, Tetrimino t) {
-		int squareLength = canvasAttributes[2];
-		int gapOfSquares = canvasAttributes[3];
-		
-		//DRAWING CANVAS
-		drawCanvas(squaresCoords,canvasAttributes,t);
-		
-		//DRAWING UPDATED TABLE
-		for (int i = 0; i < squaresCoords.length; i++) {
-			for (int j = 0; j < squaresCoords[i].length; j++) {
-				int xCoord = squaresCoords[i][j][0];								//getting center x coordinates of every squares
-				int yCoord = squaresCoords[i][j][1];								//getting center y coordinates of every squares
-				
-				if(currentTable[i][j] == 0) {										//if there is no tetrimino in current table
-					StdDraw.setPenColor(206,195,181);
-					StdDraw.filledSquare(xCoord, yCoord, squareLength);
-				}
-				else {																			//if there is a tetrimino in current table
-					if(currentTableValues[i][j] == 2) StdDraw.setPenColor(238, 229, 219);		//if the current square has a value of 2
-					else if(currentTableValues[i][j] == 4) StdDraw.setPenColor(235, 224, 204);	//if the current square has a value of 4
-					else if(currentTableValues[i][j] == 8)StdDraw.setPenColor(228, 173, 126);	//if the current square has a value of 8
-					else if(currentTableValues[i][j] == 16)StdDraw.setPenColor(234, 152, 112);	//if the current square has a value of 16
-					else if(currentTableValues[i][j] == 32)StdDraw.setPenColor(231, 130, 103);	//if the current square has a value of 32
-					else if(currentTableValues[i][j] == 64)StdDraw.setPenColor(230, 103, 72);	//if the current square has a value of 64
-					else if(currentTableValues[i][j] == 128)StdDraw.setPenColor(233, 206, 127);	//if the current square has a value of 128
-					else if(currentTableValues[i][j] == 256)StdDraw.setPenColor(233, 204, 115);	//if the current square has a value of 256
-					else if(currentTableValues[i][j] == 512)StdDraw.setPenColor(228, 193, 101);	//if the current square has a value of 512
-					else if(currentTableValues[i][j] == 1024)StdDraw.setPenColor(216, 181, 65);	//if the current square has a value of 1024
-					else if(currentTableValues[i][j] == 2048)StdDraw.setPenColor(232, 194, 79);	//if the current square has a value of 2048
-					
-					//DRAWING SQUARE
-					StdDraw.filledSquare(xCoord, yCoord, squareLength);
-					
-					//DRAWING SQUARE VALUE
-					StdDraw.setPenColor(0,0,0);
-					StdDraw.setFont(new Font("calibri", Font.BOLD, squareLength));
-					StdDraw.text(xCoord, yCoord, Integer.toString(currentTableValues[i][j]));
-					
-					//DRAWING SQUARE FRAME
-					StdDraw.setPenColor(132,122,113);
-					StdDraw.setPenRadius(0.004);
-					StdDraw.square(xCoord,yCoord, squareLength+gapOfSquares/2);
-				}
-			}
-		}
-		StdDraw.show(); //draws the changes to the screen
 	}
 	
 	/**
@@ -364,20 +190,20 @@ public class Tetris2048{
 	 * @param currentTable stores tables last status in types of 1 or 0. 
 	 * @return returns boolean array for determining whether is it full horizontal row or not in the current table
 	 */
-	public static boolean[] isThereTetris(int[][] currentTable, int numberOfRows) {
-		boolean[] isTetris = new boolean[numberOfRows];	//creating boolean array in size of number of rows in the table
+	public static boolean[] isThereTetris(CanvasDrawer canvas) {
+		boolean[] isTetris = new boolean[canvas.numberOfRows];				//creating boolean array in size of number of rows in the table
 		
-		for (int i = 0; i < currentTable[0].length; i++) {
-			isTetris[i] = true;										//initially assigning true every index of the boolean array
+		for (int i = 0; i < canvas.currentTable[0].length; i++) {
+			isTetris[i] = true;												//initially assigning true every index of the boolean array
 		}
-		for (int j = 0; j < currentTable[0].length; j++) { 			//iterates in number of rows in the table
-			for (int i = 0; i < currentTable.length; i++) { 		//iterates in number of columns in the table
-				if(currentTable[i][j] == 0) {						//if there is no tetrimino block in that coordinate
-					isTetris[j] = false;							//assigns false for that row in the table
+		for (int j = 0; j < canvas.currentTable[0].length; j++) { 			//iterates in number of rows in the table
+			for (int i = 0; i < canvas.currentTable.length; i++) { 			//iterates in number of columns in the table
+				if(canvas.currentTable[i][j] == 0) {						//if there is no Tetrimino block in that coordinate
+					isTetris[j] = false;									//assigns false for that row in the table
 				}
 			}
 		}
-		return isTetris;											//returns boolean array
+		return isTetris;													//returns boolean array
 	}
 
 	/**
@@ -389,25 +215,24 @@ public class Tetris2048{
 	 * @param isTetris boolean array which contains every row's status of being tetris or not
 	 * @return returns true if there is a tetris, false when there is no tetris.
 	 */
-	public static boolean tetris(int[][] currentTable,boolean[] isTetris, int[][]currentTableValues) {
+	public static boolean tetris(CanvasDrawer canvas,boolean[] isTetris) {
 		boolean tetris = false;				//initially assumes there is no tetris in the current table
 		
 		for (int i = 0; i < isTetris.length; i++) {
-			if(isTetris[i] == false)										//if the current row is not a tetris
-				continue;													//passes the current row
+			if(isTetris[i] == false)													//if the current row is not a tetris
+				continue;																//passes the current row
 			
-			for (int j = i; j > 0 ; j--) {									//iterates in number of rows in the table
-				for (int j2 = 0; j2 < currentTable.length; j2++) { 			//iterates in number of columns in the table
-					currentTable[j2][j] = currentTable[j2][j-1];			//moves every row above the tetris down one line.
-					currentTableValues[j2][j] = currentTableValues[j2][j-1];
+			for (int j = i; j > 0 ; j--) {												//iterates in number of rows in the table
+				for (int j2 = 0; j2 < canvas.currentTable.length; j2++) { 				//iterates in number of columns in the table
+					canvas.currentTable[j2][j] = canvas.currentTable[j2][j-1];			//moves every row above the tetris down one line.
+					canvas.currentTableValues[j2][j] = canvas.currentTableValues[j2][j-1];
 				}
 			}
-			tetris = true;													//assigns true
+			tetris = true;																//assigns true
 		}
 		
-		for (int i = 0; i < currentTable.length; i++)						//iterates in number of columns in the table
-			currentTable[i][0] = 0;											//adds new row in the current table
-		
-		return tetris;														//returns true if there is a tetris, false when there is no tetris.
+		for (int i = 0; i < canvas.currentTable.length; i++)							//iterates in number of columns in the table
+			canvas.currentTable[i][0] = 0;												//adds new row in the current table
+		return tetris;															//returns true if there is a tetris, false when there is no tetris.
 	}
 }
