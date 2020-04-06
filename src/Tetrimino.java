@@ -16,7 +16,7 @@ import java.util.Random;
  * @author Nadide Beyza Dokur   041801134
  * @since 17.03.2020
  */
-public class Tetrimino {
+public class Tetrimino implements Cloneable{
 	byte[][] shape;								//Tetrimino shape
 	int[][][] currentPos;						//Tetrimino current position for every index of its shape
 	int[][] currentValues;						//Tetrimino current values for every position of its shape
@@ -62,6 +62,15 @@ public class Tetrimino {
         this.shape = shape;						//assigns Tetrimino type
     }
     
+    @Override
+   	protected Object clone() throws CloneNotSupportedException {
+       	try {
+   			return super.clone();
+   		} catch (CloneNotSupportedException e) {
+   			System.out.println("Cloning not allowed.");
+   			return this;
+   		}
+   	}
     public int[][][] nextLocRotate(int[][] currentTable, int[][] currentTableValues){
     	int n = this.shape.length;
     	int[][][] nextPos = new int[n][n][2];
@@ -423,11 +432,10 @@ public class Tetrimino {
      * @param currentTableValues
      * @return
      */
-    public boolean init(int[][] currentTable, int[][] currentTableValues) {
+    public void init(int[][] currentTable) {
     	Random r = new Random();				//creating random class object
     	int[] valueArr = {2, 2, 2, 4};			//initializing values
     	int n = this.shape.length;				//length of the Tetrimino shape
-    	boolean canInit = true;					//initially assings false
     	int numberOfColumns = currentTable.length;
     	
     	
@@ -448,6 +456,12 @@ public class Tetrimino {
 			}
 		}
     	
+    	
+    }
+
+    public boolean settle(int[][] currentTable, int[][] currentTableValues) {
+    	boolean canInit = true;					//initially assings false
+    	int n = this.shape.length;				//length of the Tetrimino shape
     	//INITIAL POSITION CONTROL
     	canInit = canMove(this.currentPos, currentTable,currentTableValues);	//returns true if the initial position is available
     	
@@ -467,7 +481,7 @@ public class Tetrimino {
     	}
     	return false;			//returns false because initial position was not available
     }
-
+    
     /**
      * 
      * @param nextPos
@@ -507,21 +521,24 @@ public class Tetrimino {
     public boolean canMerge(int[][] currentTable, int[][] currentTableValues) {   	
     	int numberOfColumns = currentTableValues.length;
     	int numberOfRows = currentTableValues[0].length;
-    	
+    	boolean abc = true;
+    	boolean hasMerged = false;
     	for (int i = 0; i < numberOfColumns; i++) {
-			for (int j = numberOfRows-1; j > 0; j--) {
+    		abc = true;
+			for (int j = numberOfRows-1; j > 0 && abc; j--) {
 				if(currentTable[i][j] == 1 && currentTable[i][j-1] == 1) {
 					if(currentTableValues[i][j] == currentTableValues[i][j-1]) {
 						currentTableValues[i][j] +=currentTableValues[i][j-1];
 						currentTable[i][j-1] = -80;
 						contMerge(currentTable, currentTableValues);
 						canGoMore(currentTable, currentTableValues);
-						return true;
+						abc = false;
+						hasMerged = true;
 					}												
 				}
 			}  	
     	}
-    	return false;
+    	return hasMerged;
     }
     
     public boolean contMerge(int[][] currentTable, int[][] currentTableValues) {   	
@@ -547,7 +564,6 @@ public class Tetrimino {
     	}
     	return false;
     }
-  
         
     public boolean canGoMore(int[][] currentTable, int[][] currentTableValues) {
     	int numberOfColumns = currentTableValues.length;
