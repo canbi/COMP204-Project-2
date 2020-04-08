@@ -6,7 +6,7 @@ public class Tetris2048{
 		canvas.rowSpace =750;
 		canvas.frameOffset = 5;
 		canvas.rightPanelWidth = 120;
-		canvas.numberOfColumns = 11;
+		canvas.numberOfColumns =10;
 		canvas.numberOfRows=12;
 		canvas.nextSquareLength = canvas.rightPanelWidth/10;
 		canvas.nextSquareOffset = canvas.rightPanelWidth/10;
@@ -53,8 +53,7 @@ public class Tetris2048{
 		t1.currentValues = new int[n1][n1];					//initializing Tetrimino's currentValues array
 		t1.init(canvas);									//putting first Tetrimino to the table
 		canvas.drawCanvas();
-		boolean[] menuReturns = canvas.mainMenu();
-		boolean menu = menuReturns[0];
+		Boolean menuReturns = canvas.mainMenu();
 		//boolean music = menuReturns[1];
 		
 		canvas.nextTetriminoDrawing(t);
@@ -68,7 +67,7 @@ public class Tetris2048{
 		boolean falling = false;							//fast dropping is equal false in the beginning
 		boolean pause = false;
 		
-		while(game && !menu) {										//game loop
+		while(game && !menuReturns) {										//game loop
 			boolean tetris = false;							//tetris(horizontal row erasing) is equal false in every step
 			//CREATING NEW Tetrimino
 			if(createANewTetromino) {								

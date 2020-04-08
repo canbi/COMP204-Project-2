@@ -21,7 +21,7 @@ public class CanvasDrawer {
 	int[][] currentTable;
 	int[][] currentTableValues;
 	int[][][] squaresCoords;
-	
+	boolean gameNotStarted = true;
 	
 	public static final byte[][] tetris = {		//Tetris Shape
 		    {0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0},
@@ -60,7 +60,7 @@ public class CanvasDrawer {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public boolean[] mainMenu(){
+	public boolean mainMenu(){
 		//BACKGROUND
 		//StdDraw.setPenColor(0,0,0);
 		//StdDraw.filledRectangle(this.calculatedWidth, this.calculatedHeigth, this.calculatedWidth, this.calculatedHeigth);
@@ -71,6 +71,8 @@ public class CanvasDrawer {
 		StdDraw.setYscale(calculatedHeigth, 0);							//canvas y scale set
 		drawCanvas();								//draws canvas
 		
+		if(!this.gameNotStarted)
+			return false;
 		double backgroundCenterX = (this.calculatedColumnSpace/2.0)+this.frameOffset;
 		double backgroundCenterY = (this.calculatedRowSpace/2.0)+this.frameOffset;
 		
@@ -113,8 +115,6 @@ public class CanvasDrawer {
 		StdDraw.text(button2CenterX, button2CenterY+3, "OPTIONS");
 		StdDraw.show();
 		
-		boolean gameNotStart = true;
-		boolean music = true;
 		Random r = new Random();
 		int red = r.nextInt(256);
 		int green = r.nextInt(256);
@@ -124,7 +124,8 @@ public class CanvasDrawer {
 		double tetrisCNSqrLen = (calculatedColumnSpace)/(3*(canAndNadide[0].length));
 		int tetrisGap = (int) Math.round(tetrisSqrLen/15);
 		int tetrisCNGap = (int) Math.round(tetrisCNSqrLen/15);
-		while(gameNotStart) {
+		while(gameNotStarted) {
+			
 			red = r.nextInt(256);
 			green = r.nextInt(256);
 			blue = r.nextInt(256);
@@ -171,11 +172,10 @@ public class CanvasDrawer {
 	            double yCoord = StdDraw.mouseY();
 	            
 	            if(xCoord< button1Xmax && xCoord > button1Xmin && yCoord<button1Ymax && yCoord > button1Ymin) {
-	            	gameNotStart = false;
+	            	this.gameNotStarted = false;
 	            	StdDraw.pause(100);
 	            }
-	            if(xCoord< button2Xmax && xCoord > button2Xmin && yCoord<button2Ymax && yCoord > button2Ymin) {
-	            	
+	            else if(xCoord< button2Xmax && xCoord > button2Xmin && yCoord<button2Ymax && yCoord > button2Ymin) {
 	            	boolean optionsMenu = true;
 	            	while(optionsMenu) {
 	            		optionsMenu = this.optionsMenu();
@@ -203,8 +203,7 @@ public class CanvasDrawer {
 	            }
 			}
 		}
-		boolean[] a = {false,music};
-		return a;
+		return false;
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -248,21 +247,33 @@ public class CanvasDrawer {
 		if(rightPanelWidth == 150) currentPosRightPL =5;
 		if(rightPanelWidth == 170) currentPosRightPL =6;
 		
+		int currentPosLeftPL = -1;
+		if(rowSpace == 690) currentPosLeftPL =0;
+		if(rowSpace == 720) currentPosLeftPL =1;
+		if(rowSpace == 750) currentPosLeftPL =2;
+		if(rowSpace == 780) currentPosLeftPL =3;
+		if(rowSpace == 810) currentPosLeftPL =4;
+		
 		StdDraw.setFont(new Font("calibri", Font.BOLD, 20));
 		StdDraw.setPenColor(StdDraw.BLACK);
-		StdDraw.textLeft(this.calculatedColumnSpace*0.10, this.calculatedRowSpace*0.46, "Number of Columns");
+		StdDraw.textLeft(this.calculatedColumnSpace*0.10, this.calculatedRowSpace*0.36, "Number of Columns");
 		Button columnsButton = new Button();
-		columnsButton.drawButton(4.0,currentPosColumn,this.numberOfColumns, 0.25, 0.50, 0.12, 0.38, 0.50,this);
+		columnsButton.drawButton(4.0,currentPosColumn,this.numberOfColumns, 0.25, 0.40, 0.12, 0.38, 0.50,this);
 		
 		StdDraw.setFont(new Font("calibri", Font.BOLD, 20));
-		StdDraw.textLeft(this.calculatedColumnSpace*0.10, this.calculatedRowSpace*0.56, "Number of Rows");
+		StdDraw.textLeft(this.calculatedColumnSpace*0.10, this.calculatedRowSpace*0.46, "Number of Rows");
 		Button rowsButton = new Button();
-		rowsButton.drawButton(12.0,currentPosRow,this.numberOfRows, 0.25, 0.60, 0.12, 0.38, 0.50,this);
+		rowsButton.drawButton(12.0,currentPosRow,this.numberOfRows, 0.25, 0.50, 0.12, 0.38, 0.50,this);
 		
 		StdDraw.setFont(new Font("calibri", Font.BOLD, 20));
-		StdDraw.textLeft(this.calculatedColumnSpace*0.10, this.calculatedRowSpace*0.66, "Right Panel Width");
+		StdDraw.textLeft(this.calculatedColumnSpace*0.10, this.calculatedRowSpace*0.56, "Right Panel Width");
 		Button rightPanelButton = new Button();
-		rightPanelButton.drawButton(6.0, currentPosRightPL, this.rightPanelWidth,  0.25, 0.70, 0.12, 0.38, 0.50,this);
+		rightPanelButton.drawButton(6.0, currentPosRightPL, this.rightPanelWidth,  0.25, 0.60, 0.12, 0.38, 0.50,this);
+		
+		StdDraw.setFont(new Font("calibri", Font.BOLD, 20));
+		StdDraw.textLeft(this.calculatedColumnSpace*0.10, this.calculatedRowSpace*0.66, "Window Height");
+		Button leftPanelButton = new Button();
+		leftPanelButton.drawButton(4.0, currentPosLeftPL, this.rowSpace,  0.25, 0.70, 0.12, 0.38, 0.50,this);
 		
 		
 		//BUTTON3
@@ -300,6 +311,8 @@ public class CanvasDrawer {
 		boolean button2right = false;
 		boolean button3left = false;
 		boolean button3right = false;
+		boolean button4left = false;
+		boolean button4right = false;
 		while(options) {
 			for (int i = 0; i < option[0].length; i++) {
 				for (int j = 0; j < option.length; j++) {
@@ -394,7 +407,27 @@ public class CanvasDrawer {
 	            	rightPanelButton.showResult(this.rightPanelWidth);
 	            }
 	            //---------------------------------------------------------------------------------------------------
+	            //Button4 left button
+	            if(xCoord< leftPanelButton.button11Xmax && xCoord > leftPanelButton.button11Xmin && yCoord<leftPanelButton.button11Ymax && yCoord > leftPanelButton.button11Ymin)
+	            	button4left = leftPanelButton.updateButton(true);  
 	            
+	            
+	            //Button4 right button
+	            if(xCoord< leftPanelButton.button12Xmax && xCoord > leftPanelButton.button12Xmin && yCoord<leftPanelButton.button12Ymax && yCoord > leftPanelButton.button12Ymin)
+	            	button4right = leftPanelButton.updateButton(false);  
+	            
+	            if(button4left) {
+	            	button4left = false;
+	            	this.rowSpace = this.rowSpace -30;
+	            	leftPanelButton.showResult(this.rowSpace);
+	            }
+	            
+	            if(button4right) {
+	            	button4right = false;
+	            	this.rowSpace = this.rowSpace +30;
+	            	leftPanelButton.showResult(this.rowSpace);
+	            }
+	            //---------------------------------------------------------------------------------------------------
 	            /*
 	            if(xCoord< button2Xmax && xCoord > button2Xmin && yCoord<button2Ymax && yCoord > button2Ymin) {
 	            	StdDraw.setPenColor(255,255,255);
