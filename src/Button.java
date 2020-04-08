@@ -77,7 +77,7 @@ public class Button {
 		//sayý kutusu
 		this.button13CenterX = canvas.calculatedColumnSpace*button13RatioX;
 		this.button13CenterY = canvas.calculatedRowSpace*button1RatioY;
-		double button13Width = canvas.calculatedRowSpace/34;
+		double button13Width = canvas.calculatedRowSpace/25;
 		double button13Height = canvas.calculatedRowSpace/40;
 		this.button13Xmin = button13CenterX-button13Width;
 		this.button13Xmax = button13CenterX+button13Width;
@@ -110,7 +110,7 @@ public class Button {
 		StdDraw.setPenColor(0,0,0);
 		StdDraw.rectangle(button13CenterX, button13CenterY ,button13Width ,button13Height);
 		StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
-		StdDraw.text(button13CenterX, button13CenterY+3, Integer.toString(number));
+		StdDraw.text(button13CenterX, button13CenterY+2, Integer.toString(number));
 		
 		//StdDraw.show();
 	}
@@ -120,8 +120,7 @@ public class Button {
 		//Redrawing Button 1
 		StdDraw.setPenColor(255,255,255);
 		StdDraw.filledRectangle(button1CenterX, button1CenterY , (button1Xmax-button1Xmin)/2.0 , (button1Ymax-button1Ymin)/2.0);
-		StdDraw.setPenColor(100,100,100);
-		
+		StdDraw.setPenColor(0,0,0);
 		if(direction) {
 			button1iCenterX = button1iCenterX - button1iDistance;
 			buttonMove = true;
@@ -150,6 +149,6 @@ public class Button {
 		StdDraw.setPenColor(0,0,0);
 		StdDraw.rectangle(button13CenterX, button13CenterY ,(button13Xmax-button13Xmin)/2.0 ,(button13Ymax-button13Ymin)/2.0);
 		StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
-		StdDraw.text(button13CenterX, button13CenterY+3, Integer.toString(number));
+		StdDraw.text(button13CenterX, button13CenterY+2, Integer.toString(number));
 	}
 }

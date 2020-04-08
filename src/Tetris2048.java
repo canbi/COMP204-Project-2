@@ -3,8 +3,8 @@ import java.util.Random;
 public class Tetris2048{ 
 	public static void main(String[] args) throws CloneNotSupportedException {
 		CanvasDrawer canvas = new CanvasDrawer();
-		canvas.rowSpace = 750;
-		canvas.frameOffset =5;
+		canvas.rowSpace =750;
+		canvas.frameOffset = 5;
 		canvas.rightPanelWidth = 120;
 		canvas.numberOfColumns = 11;
 		canvas.numberOfRows=12;
