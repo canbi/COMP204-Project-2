@@ -6,7 +6,7 @@ public class Tetris2048{
 		canvas.rowSpace = 750;
 		canvas.frameOffset =5;
 		canvas.rightPanelWidth = 120;
-		canvas.numberOfColumns = 8;
+		canvas.numberOfColumns = 11;
 		canvas.numberOfRows=12;
 		canvas.nextSquareLength = canvas.rightPanelWidth/10;
 		canvas.nextSquareOffset = canvas.rightPanelWidth/10;
@@ -27,6 +27,7 @@ public class Tetris2048{
 		         new Tetrimino(Tetrimino.ShapeS),
 		         new Tetrimino(Tetrimino.ShapeT),
 		         new Tetrimino(Tetrimino.ShapeZ),};
+		
 		
 		
 		//INITIALIZING FIRST Tetrimino
@@ -51,12 +52,14 @@ public class Tetris2048{
 		t1.currentPos = new int[n1][n1][2];					//initializing Tetrimino's currentPos array
 		t1.currentValues = new int[n1][n1];					//initializing Tetrimino's currentValues array
 		t1.init(canvas);									//putting first Tetrimino to the table
-		canvas.drawCanvas();								//draws canvas
-		canvas.nextTetriminoDrawing(t);
-		
+		canvas.drawCanvas();
 		boolean[] menuReturns = canvas.mainMenu();
 		boolean menu = menuReturns[0];
 		boolean music = menuReturns[1];
+		
+		canvas.nextTetriminoDrawing(t);
+		
+		
 		
 		//StdAudio.loop("tetris.wav");
 		//GAME LOOP	

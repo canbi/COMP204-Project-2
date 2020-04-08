@@ -1,8 +1,6 @@
 import java.awt.Font;
 import java.util.Random;
 
-import javafx.beans.binding.When.NumberConditionBuilder;
-
 public class CanvasDrawer {
 	
 	int numberOfColumns;
@@ -26,35 +24,34 @@ public class CanvasDrawer {
 	
 	
 	public static final byte[][] tetris = {		//Tetris Shape
-		    {1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1},
-		    {0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0},
-		    {0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0},
-		    {0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1},
-		    {0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1}};
-	
+		    {0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0},
+		    {0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0},
+		    {0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0},
+		    {0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0},
+		    {0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0}};
 	
 	public static final byte[][] canAndNadide = {
-		    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0},
-		    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1},
-		    {1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1},
-		    {1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1},
-		    {1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0},
-			{0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0},
-		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0},
-		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0},
-		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0},
-		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0}};
+		    {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0},
+		    {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0},
+		    {0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0},
+		    {0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0},
+		    {0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0},
+		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0},
+		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0},
+		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0},
+		    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0}};
 	
 	
 	public static final byte[][] option = {		//Tetris Shape
-			{1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1},//, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-			{1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0},//, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-			{1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0},//, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-			{1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1},//, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-			{1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1},};//, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},};
+			{0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0},
+			{0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0},
+			{0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0},
+			{0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0},
+			{0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0},};
 	
 	
 	
@@ -69,6 +66,12 @@ public class CanvasDrawer {
 		//StdDraw.setPenColor(0,0,0);
 		//StdDraw.filledRectangle(this.calculatedWidth, this.calculatedHeigth, this.calculatedWidth, this.calculatedHeigth);
 		
+		this.setUpCanvas();
+		StdDraw.setCanvasSize(calculatedWidth,calculatedHeigth);	//canvas size set
+		StdDraw.setXscale(0, calculatedWidth);							//canvas x scale set
+		StdDraw.setYscale(calculatedHeigth, 0);							//canvas y scale set
+		drawCanvas();								//draws canvas
+		
 		double backgroundCenterX = (this.calculatedColumnSpace/2.0)+this.frameOffset;
 		double backgroundCenterY = (this.calculatedRowSpace/2.0)+this.frameOffset;
 		
@@ -76,7 +79,7 @@ public class CanvasDrawer {
 		StdDraw.filledRectangle(backgroundCenterX,backgroundCenterY , (this.calculatedColumnSpace/2.0), (this.calculatedRowSpace/2.0));
 		
 		double button1RatioX = 0.50;
-		double button1RatioY = 0.50;
+		double button1RatioY = 0.60;
 		double button1CenterX = this.calculatedColumnSpace*button1RatioX;
 		double button1CenterY = this.calculatedRowSpace*button1RatioY;
 		double button1Width = this.calculatedColumnSpace/8;
@@ -88,7 +91,7 @@ public class CanvasDrawer {
 		
 		
 		double button2RatioX = 0.50;
-		double button2RatioY = 0.60;
+		double button2RatioY = 0.70;
 		double button2CenterX = this.calculatedColumnSpace*button2RatioX;
 		double button2CenterY = this.calculatedRowSpace*button2RatioY;
 		double button2Width = this.calculatedColumnSpace/6;
@@ -97,7 +100,6 @@ public class CanvasDrawer {
 		double button2Xmax = button2CenterX+button2Width;
 		double button2Ymin = button2CenterY-button2Height;
 		double button2Ymax = button2CenterY+button2Height;
-		
 		
 		//Button 1
 		StdDraw.setPenColor(255,255,255);
@@ -115,49 +117,46 @@ public class CanvasDrawer {
 		
 		boolean gameNotStart = true;
 		boolean music = true;
-		boolean colorful = true;
 		Random r = new Random();
 		int red = r.nextInt(256);
 		int green = r.nextInt(256);
 		int blue = r.nextInt(256);
 		
-		
+		double tetrisSqrLen = (calculatedColumnSpace)/(2*(tetris[0].length));
+		double tetrisCNSqrLen = (calculatedColumnSpace)/(3*(canAndNadide[0].length));
+		int tetrisGap = (int) Math.round(tetrisSqrLen/15);
+		int tetrisCNGap = (int) Math.round(tetrisCNSqrLen/15);
 		while(gameNotStart) {
+			red = r.nextInt(256);
+			green = r.nextInt(256);
+			blue = r.nextInt(256);
 			
-			if(colorful) {
-				red = r.nextInt(256);
-				green = r.nextInt(256);
-				blue = r.nextInt(256);
-			}
-			colorful = !colorful;
-			
-			int tetrisNextSqLen = 8;
-			for (int i = 0; i < tetris.length; i++) {
-				for (int j = 0; j < tetris[0].length; j++) {
-					if(tetris[i][j] == 1) {
-						double xCoord = ((2*tetrisNextSqLen+this.nextSquareGap)*j) + this.frameOffset+2*this.nextSquareOffset+tetrisNextSqLen;
-						double yCoord = ((2*tetrisNextSqLen+this.nextSquareGap)*i) + this.frameOffset + this.ratioOfNextHeight*this.calculatedRowSpace/10;
+			for (int i = 0; i < tetris[0].length; i++) {
+				for (int j = 0; j < tetris.length; j++) {
+					if(tetris[j][i] == 1) {
+						double xCoord = ((tetrisSqrLen*2+tetrisGap)*i) + tetrisGap+ calculatedRowSpace*0.005+ calculatedColumnSpace*0.01; //+70*calculatedColumnSpace/100;
+						double yCoord = ((tetrisSqrLen*2+tetrisGap)*j) + tetrisGap+ calculatedColumnSpace*0.01+ calculatedRowSpace*0.1;// +12*calculatedRowSpace/100;
 						StdDraw.setPenColor(red,green, blue);
-						StdDraw.filledSquare(xCoord, yCoord, tetrisNextSqLen);
+						StdDraw.filledSquare(xCoord, yCoord, tetrisSqrLen);
 						//DRAWING SQUARE FRAME
 						StdDraw.setPenColor(132,122,113);
 						StdDraw.setPenRadius(0.0025);
-						StdDraw.square(xCoord,yCoord, tetrisNextSqLen+this.nextSquareGap/2);
+						StdDraw.square(xCoord,yCoord, tetrisSqrLen+tetrisGap/2);
 					}
 				}
 			}
 			
-			for (int i = 0; i < canAndNadide.length; i++) {
-				for (int j = 0; j < canAndNadide[0].length; j++) {
-					if(canAndNadide[i][j] == 1) {
-						double xCoord = ((tetrisNextSqLen+this.nextSquareGap)*j) + this.frameOffset+10*this.nextSquareOffset+tetrisNextSqLen/2;
-						double yCoord = ((tetrisNextSqLen+this.nextSquareGap)*i) + this.frameOffset + this.ratioOfNextHeight*this.calculatedRowSpace/4;
-						StdDraw.setPenColor(255-red,255-green, 255-blue);
-						StdDraw.filledSquare(xCoord, yCoord, tetrisNextSqLen/2);
+			for (int i = 0; i < canAndNadide[0].length; i++) {
+				for (int j = 0; j < canAndNadide.length; j++) {
+					if(canAndNadide[j][i] == 1) {
+						double xCoord = ((tetrisCNSqrLen*2+tetrisCNGap)*i) + tetrisCNGap+ calculatedRowSpace*0.1+ calculatedColumnSpace*0.2; //+70*calculatedColumnSpace/100;
+						double yCoord = ((tetrisCNSqrLen*2+tetrisCNGap)*j) + tetrisCNGap+calculatedColumnSpace*0.12+ calculatedRowSpace*0.17;// +12*calculatedRowSpace/100;
+						StdDraw.setPenColor(red,green, blue);
+						StdDraw.filledSquare(xCoord, yCoord, tetrisCNSqrLen);
 						//DRAWING SQUARE FRAME
 						StdDraw.setPenColor(132,122,113);
 						StdDraw.setPenRadius(0.0025);
-						StdDraw.square(xCoord,yCoord, tetrisNextSqLen/2+this.nextSquareGap/2);
+						StdDraw.square(xCoord,yCoord, tetrisCNSqrLen+tetrisCNGap/2);
 					}
 				}
 			}
@@ -177,7 +176,6 @@ public class CanvasDrawer {
 	            	gameNotStart = false;
 	            	StdDraw.pause(100);
 	            }
-	            
 	            if(xCoord< button2Xmax && xCoord > button2Xmin && yCoord<button2Ymax && yCoord > button2Ymin) {
 	            	
 	            	boolean optionsMenu = true;
@@ -204,9 +202,7 @@ public class CanvasDrawer {
 	            	StdDraw.show();
 	            	StdDraw.pause(100);
 	            	*/
-	            	
 	            }
-	            
 			}
 		}
 		boolean[] a = {false,music};
@@ -214,6 +210,7 @@ public class CanvasDrawer {
 	}
 	
 	public boolean optionsMenu(){
+		
 		//BACKGROUND
 		double backgroundCenterX = (this.calculatedColumnSpace/2.0)+this.frameOffset;
 		double backgroundCenterY = (this.calculatedRowSpace/2.0)+this.frameOffset;
@@ -221,65 +218,34 @@ public class CanvasDrawer {
 		StdDraw.setPenColor(192,179,165); //med brown color
 		StdDraw.filledRectangle(backgroundCenterX,backgroundCenterY , (this.calculatedColumnSpace/2.0), (this.calculatedRowSpace/2.0));
 		
-		//BUTTON 1
-		double button1RatioX = 0.25;
-		double button1RatioY = 0.50;
-		double button1CenterX = this.calculatedColumnSpace*button1RatioX;
-		double button1CenterY = this.calculatedRowSpace*button1RatioY;
-		double button1Width = this.calculatedColumnSpace/12;
-		double button1Height = this.calculatedRowSpace/40;
-		double button1Xmin = button1CenterX-button1Width;
-		double button1Xmax = button1CenterX+button1Width;
-		double button1Ymin = button1CenterY-button1Height;
-		double button1Ymax = button1CenterY+button1Height;
-		double button1iCenterX = button1CenterX;
+		int currentPosColumn = -1;
+		if(numberOfColumns == 8) currentPosColumn = 0;
+		if(numberOfColumns == 9) currentPosColumn = 1;
+		if(numberOfColumns == 10) currentPosColumn = 2;
+		if(numberOfColumns == 11) currentPosColumn = 3;
+		if(numberOfColumns == 12) currentPosColumn = 4;
 		
-		double button11RatioX = 0.12;
-		double button11RatioY = 0.50;
-		double button11CenterX = this.calculatedColumnSpace*button11RatioX;
-		double button11CenterY = this.calculatedRowSpace*button11RatioY;
-		double button11Width = this.calculatedRowSpace/40;
-		double button11Height = button11Width;
-		double button11Xmin = button11CenterX-button11Width;
-		double button11Xmax = button11CenterX+button11Width;
-		double button11Ymin = button11CenterY-button11Height;
-		double button11Ymax = button11CenterY+button11Height;
-		
-		double button12RatioX = 0.38;
-		double button12RatioY = 0.50;
-		double button12CenterX = this.calculatedColumnSpace*button12RatioX;
-		double button12CenterY = this.calculatedRowSpace*button12RatioY;
-		double button12Width = this.calculatedRowSpace/40;
-		double button12Height = button12Width;
-		double button12Xmin = button12CenterX-button12Width;
-		double button12Xmax = button12CenterX+button12Width;
-		double button12Ymin = button12CenterY-button12Height;
-		double button12Ymax = button12CenterY+button12Height;
-		
-		double button13RatioX = 0.50;
-		double button13RatioY = 0.50;
-		double button13CenterX = this.calculatedColumnSpace*button13RatioX;
-		double button13CenterY = this.calculatedRowSpace*button13RatioY;
-		double button13Width = this.calculatedRowSpace/34;
-		double button13Height = this.calculatedRowSpace/40;
-		double button13Xmin = button13CenterX-button13Width;
-		double button13Xmax = button13CenterX+button13Width;
-		double button13Ymin = button13CenterY-button13Height;
-		double button13Ymax = button13CenterY+button13Height;
+		int currentPosRow = -1;
+		if(numberOfRows == 8) currentPosRow = 0;
+		if(numberOfRows == 9) currentPosRow = 1;
+		if(numberOfRows == 10) currentPosRow = 2;
+		if(numberOfRows == 11) currentPosRow = 3;
+		if(numberOfRows == 12) currentPosRow = 4;
+		if(numberOfRows == 13) currentPosRow = 5;
+		if(numberOfRows == 14) currentPosRow = 6;
+		if(numberOfRows == 15) currentPosRow = 7;
+		if(numberOfRows == 16) currentPosRow = 8;
+		if(numberOfRows == 17) currentPosRow = 9;
+		if(numberOfRows == 18) currentPosRow = 10;
+		if(numberOfRows == 19) currentPosRow = 11;
+		if(numberOfRows == 20) currentPosRow = 12;
 		
 		
-		//BUTTON2
-		double button2RatioX = 0.30;
-		double button2RatioY = 0.60;
-		double button2CenterX = this.calculatedColumnSpace*button2RatioX;
-		double button2CenterY = this.calculatedRowSpace*button2RatioY;
-		double button2Width = this.calculatedColumnSpace/8;
-		double button2Height = this.calculatedRowSpace/30;
-		double button2Xmin = button2CenterX-button2Width;
-		double button2Xmax = button2CenterX+button2Width;
-		double button2Ymin = button2CenterY-button2Height;
-		double button2Ymax = button2CenterY+button2Height;
+		Button columnsButton = new Button();
+		columnsButton.drawButton(4.0,currentPosColumn,this.numberOfColumns, 0.25, 0.50, 0.12, 0.38, 0.50,this);
 		
+		Button rowsButton = new Button();
+		rowsButton.drawButton(12.0,currentPosRow,this.numberOfRows, 0.25, 0.60, 0.12, 0.38, 0.50,this);
 		
 		//BUTTON3
 		double button3RatioX = 0.50;
@@ -294,58 +260,18 @@ public class CanvasDrawer {
 		double button3Ymax = button3CenterY+button3Height;
 		
 		
-		
-		
-		
-		//Button 1
-		StdDraw.setPenColor(255,255,255);
-		StdDraw.filledRectangle(button1CenterX, button1CenterY ,button1Width ,button1Height);
-		StdDraw.setPenColor(0,0,0);
-		StdDraw.filledRectangle(button1CenterX, button1CenterY, 5, button1Height);
-		
-		
-		//Button 11
-		StdDraw.setPenColor(255,255,255);
-		StdDraw.filledRectangle(button11CenterX, button11CenterY ,button11Width ,button11Height);
-		StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
-		StdDraw.setPenColor(0,0,0);
-		StdDraw.text(button11CenterX, button11CenterY+5, "<");
-		
-		//Button 12
-		StdDraw.setPenColor(255,255,255);
-		StdDraw.filledRectangle(button12CenterX, button12CenterY ,button12Width ,button12Height);
-		StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
-		StdDraw.setPenColor(0,0,0);
-		StdDraw.text(button12CenterX, button12CenterY+5, ">");
-		
-		//Button 13
-		StdDraw.setPenColor(255,255,255);
-		StdDraw.filledRectangle(button13CenterX, button13CenterY ,button13Width ,button13Height);
-		StdDraw.setPenColor(0,0,0);
-		StdDraw.rectangle(button13CenterX, button13CenterY ,button13Width ,button13Height);
-		StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
-		StdDraw.text(button13CenterX, button13CenterY+5, Integer.toString(numberOfColumns));
-		
-		
-		//Button 2
-		StdDraw.setPenColor(255,255,255);
-		StdDraw.filledRectangle(button2CenterX, button2CenterY ,button2Width ,button2Height);
-		StdDraw.setPenColor(StdDraw.GREEN);
-		StdDraw.text(button2CenterX, button2CenterY+5, "??? ON");
-		StdDraw.show();
-		
 		//Button 3
 		StdDraw.setPenColor(255,255,255);
 		StdDraw.filledRectangle(button3CenterX, button3CenterY ,button3Width ,button3Height);
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.text(button3CenterX, button3CenterY+5, "BACK TO MAIN MENU");
-		//StdDraw.line(button3Xmin, button3Ymin, button3Xmax, button3Ymax);
-		//StdDraw.line(button3Xmin, button3Ymax, button3Xmax, button3Ymin);
 		StdDraw.show();
-				
+		
+		
+		double tetrisSqrLen = (calculatedColumnSpace)/(2*(option[0].length));
+		int tetrisGap = (int) Math.round(tetrisSqrLen/15);
 		
 		boolean options = true;
-		boolean colorful = true;
 		Random r = new Random();
 		int red = r.nextInt(256);
 		int green = r.nextInt(256);
@@ -354,105 +280,79 @@ public class CanvasDrawer {
 		boolean button1right = false;
 		boolean button2left = false;
 		boolean button2right = false;
-		
 		while(options) {
-			
-			if(colorful) {
-				red = r.nextInt(256);
-				green = r.nextInt(256);
-				blue = r.nextInt(256);
-			}
-			colorful = !colorful;
-			
-			int tetrisNextSqLen = 8;
-			for (int i = 0; i < option.length; i++) {
-				for (int j = 0; j < option[0].length; j++) {
-					if(option[i][j] == 1) {
-						double xCoord = ((2*tetrisNextSqLen+this.nextSquareGap)*j) + this.frameOffset+2*this.nextSquareOffset+tetrisNextSqLen;
-						double yCoord = ((2*tetrisNextSqLen+this.nextSquareGap)*i) + this.frameOffset + this.ratioOfNextHeight*this.calculatedRowSpace/10;
+			for (int i = 0; i < option[0].length; i++) {
+				for (int j = 0; j < option.length; j++) {
+					if(option[j][i] == 1) {
+						double xCoord = ((tetrisSqrLen*2+tetrisGap)*i) + tetrisGap+ calculatedRowSpace*0.005+ calculatedColumnSpace*0.01; //+70*calculatedColumnSpace/100;
+						double yCoord = ((tetrisSqrLen*2+tetrisGap)*j) + tetrisGap+ calculatedColumnSpace*0.01+ calculatedRowSpace*0.1;// +12*calculatedRowSpace/100;
 						StdDraw.setPenColor(red,green, blue);
-						StdDraw.filledSquare(xCoord, yCoord, tetrisNextSqLen);
+						StdDraw.filledSquare(xCoord, yCoord, tetrisSqrLen);
 						//DRAWING SQUARE FRAME
 						StdDraw.setPenColor(132,122,113);
 						StdDraw.setPenRadius(0.0025);
-						StdDraw.square(xCoord,yCoord, tetrisNextSqLen+this.nextSquareGap/2);
+						StdDraw.square(xCoord,yCoord, tetrisSqrLen+tetrisGap/2);
 					}
 				}
 			}
-			
-			/*
-			for (int i = 0; i < canAndNadide.length; i++) {
-				for (int j = 0; j < canAndNadide[0].length; j++) {
-					if(canAndNadide[i][j] == 1) {
-						double xCoord = ((tetrisNextSqLen+this.nextSquareGap)*j) + this.frameOffset+10*this.nextSquareOffset+tetrisNextSqLen/2;
-						double yCoord = ((tetrisNextSqLen+this.nextSquareGap)*i) + this.frameOffset + this.ratioOfNextHeight*this.calculatedRowSpace/4;
-						StdDraw.setPenColor(255-red,255-green, 255-blue);
-						StdDraw.filledSquare(xCoord, yCoord, tetrisNextSqLen/2);
-						//DRAWING SQUARE FRAME
-						StdDraw.setPenColor(132,122,113);
-						StdDraw.setPenRadius(0.0025);
-						StdDraw.square(xCoord,yCoord, tetrisNextSqLen/2+this.nextSquareGap/2);
-					}
-				}
-			}*/
-			
 			
 			if (StdDraw.isMousePressed()) { 								
 	            double xCoord = StdDraw.mouseX();
 	            double yCoord = StdDraw.mouseY();
-	            
+				red = r.nextInt(256);
+				green = r.nextInt(256);
+				blue = r.nextInt(256);
+
+	            //BACK TO MAIN MENU button
 	            if(xCoord< button3Xmax && xCoord > button3Xmin && yCoord<button3Ymax && yCoord > button3Ymin) {
 	            	options = false;
 	            	StdDraw.show(100);
 	            }
 	            
+	            //--------------------------------------------------------------------------------------------------
 	            //Button1 left button
-	            if(xCoord< button11Xmax && xCoord > button11Xmin && yCoord<button11Ymax && yCoord > button11Ymin) {
-	            	//Redrawing Button 1
-		    		StdDraw.setPenColor(255,255,255);
-		    		StdDraw.filledRectangle(button1CenterX, button1CenterY ,button1Width ,button1Height);
-		    		StdDraw.setPenColor(100,100,100);
-		    		
-		    		button1iCenterX = button1iCenterX -2;
-		    		button1left = true;
-		    		if(button1iCenterX < button1Xmin +5 ) {
-		    			button1iCenterX = button1iCenterX +2;
-		    			button1left = false;
-		    		}
-		    		StdDraw.filledRectangle(button1iCenterX, button1CenterY, 5, button1Height);
-		    		StdDraw.show(200);	            
-	            }
+	            if(xCoord< columnsButton.button11Xmax && xCoord > columnsButton.button11Xmin && yCoord<columnsButton.button11Ymax && yCoord > columnsButton.button11Ymin)
+	            	button1left = columnsButton.updateButton(true);  
+	            
 	            
 	            //Button1 right button
-	            if(xCoord< button12Xmax && xCoord > button12Xmin && yCoord<button12Ymax && yCoord > button12Ymin) {
-	            	//Redrawing Button 1
-		    		StdDraw.setPenColor(255,255,255);
-		    		StdDraw.filledRectangle(button1CenterX, button1CenterY ,button1Width ,button1Height);
-		    		StdDraw.setPenColor(100,100,100);
-		    		
-		    		button1iCenterX = button1iCenterX +2;
-		    		button1right =true;
-		    		if(button1iCenterX > button1Xmax -5 ) {
-		    			button1iCenterX = button1iCenterX -2;
-		    			button1right = false;
-		    		}
-		    		StdDraw.filledRectangle(button1iCenterX, button1CenterY, 5, button1Height);
-		    		StdDraw.show(100);	            
-	            }
-	            
+	            if(xCoord< columnsButton.button12Xmax && xCoord > columnsButton.button12Xmin && yCoord<columnsButton.button12Ymax && yCoord > columnsButton.button12Ymin)
+	            	button1right = columnsButton.updateButton(false);  
 	            
 	            if(button1left) {
 	            	button1left = false;
 	            	this.numberOfColumns--;
-	            	//Redrawing Button 13
-					StdDraw.setPenColor(255,255,255);
-					StdDraw.filledRectangle(button13CenterX, button13CenterY ,button13Width ,button13Height);
-					StdDraw.setPenColor(0,0,0);
-					StdDraw.rectangle(button13CenterX, button13CenterY ,button13Width ,button13Height);
-					StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
-					StdDraw.text(button13CenterX, button13CenterY+5, Integer.toString(numberOfColumns));
+	            	columnsButton.showResult(this.numberOfColumns);
 	            }
 	            
+	            if(button1right) {
+	            	button1right = false;
+	            	this.numberOfColumns++;
+	            	columnsButton.showResult(this.numberOfColumns);
+	            }
+	            //---------------------------------------------------------------------------------------------------
+	            
+	            //Button2 left button
+	            if(xCoord< rowsButton.button11Xmax && xCoord > rowsButton.button11Xmin && yCoord<rowsButton.button11Ymax && yCoord > rowsButton.button11Ymin)
+	            	button2left = rowsButton.updateButton(true);  
+	            
+	            
+	            //Button2 right button
+	            if(xCoord< rowsButton.button12Xmax && xCoord > rowsButton.button12Xmin && yCoord<rowsButton.button12Ymax && yCoord > rowsButton.button12Ymin)
+	            	button2right = rowsButton.updateButton(false);  
+	            
+	            if(button2left) {
+	            	button2left = false;
+	            	this.numberOfRows--;
+	            	rowsButton.showResult(this.numberOfRows);
+	            }
+	            
+	            if(button2right) {
+	            	button2right = false;
+	            	this.numberOfRows++;
+	            	rowsButton.showResult(this.numberOfRows);
+	            }
+	            //---------------------------------------------------------------------------------------------------
 	            
 	            /*
 	            if(xCoord< button2Xmax && xCoord > button2Xmin && yCoord<button2Ymax && yCoord > button2Ymin) {
@@ -474,8 +374,11 @@ public class CanvasDrawer {
 	            	StdDraw.pause(100);
 	            	
 	            }*/
+	            
+	            
 	            StdDraw.show();
 			}
+			StdDraw.show();
 		}
 		//boolean[] a = {false,music};
 		return false;
@@ -582,6 +485,11 @@ public class CanvasDrawer {
 	
 	
 	public void nextTetriminoDrawing(Tetrimino t) {
+		
+		StdDraw.setPenColor(255,255,255);
+		StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
+		StdDraw.text(((rightPanelWidth/2.0)+2*frameOffset+calculatedColumnSpace), (frameOffset+0.84*calculatedRowSpace), "NEXT");
+		
 		if(t.shape.length == 3) {
 			for (int i = 0; i < t.shape.length; i++) {
 				for (int j = 0; j < t.shape.length; j++) {
@@ -629,7 +537,6 @@ public class CanvasDrawer {
 					}
 				}
 			}
-			
 		}
 		
 		StdDraw.show();	//draws to the screen
