@@ -180,7 +180,7 @@ public class Tetris2048{
 			
 			//TETRIS CONTROL
 			boolean[] isTetris = isThereTetris(canvas);	//tetris control for every row in the table
-			tetris = tetris(canvas, isTetris);//erases the row and returns true if there is a tetris(full horizontal row in the table)				
+			tetris = tetris(canvas, isTetris, contMerge);//erases the row and returns true if there is a tetris(full horizontal row in the table)				
 			if(tetris) {							//if there was a tetris
 				canvas.updateCanvas();	//redraws the updated table
 				canvas.nextTetriminoDrawing(t1);
@@ -228,24 +228,24 @@ public class Tetris2048{
 	 * @param isTetris boolean array which contains every row's status of being tetris or not
 	 * @return returns true if there is a tetris, false when there is no tetris.
 	 */
-	public static boolean tetris(CanvasDrawer canvas,boolean[] isTetris) {
-		boolean tetris = false;				//initially assumes there is no tetris in the current table
+	public static boolean tetris(CanvasDrawer canvas,boolean[] isTetris, int contMerge) {
+		boolean tetris = false;																	//initially assumes there is no tetris in the current table
 		
 		for (int i = 0; i < isTetris.length; i++) {
-			if(isTetris[i] == false)													//if the current row is not a tetris
-				continue;																//passes the current row
-			
-			for (int j = i; j > 0 ; j--) {												//iterates in number of rows in the table
-				for (int j2 = 0; j2 < canvas.currentTable.length; j2++) { 				//iterates in number of columns in the table
-					canvas.currentTable[j2][j] = canvas.currentTable[j2][j-1];			//moves every row above the tetris down one line.
-					canvas.currentTableValues[j2][j] = canvas.currentTableValues[j2][j-1];
+			if(isTetris[i] == false)															//if the current row is not a tetris
+				continue;																		//passes the current row
+			if(contMerge == 1) {
+				for (int j = i; j > 0 ; j--) {													//iterates in number of rows in the table
+					for (int j2 = 0; j2 < canvas.currentTable.length; j2++) { 					//iterates in number of columns in the table
+						canvas.currentTable[j2][j] = canvas.currentTable[j2][j-1];				//moves every row above the tetris down one line.
+						canvas.currentTableValues[j2][j] = canvas.currentTableValues[j2][j-1];
+					}
 				}
+				tetris = true;																	//assigns true
 			}
-			tetris = true;																//assigns true
 		}
-		
-		for (int i = 0; i < canvas.currentTable.length; i++)							//iterates in number of columns in the table
-			canvas.currentTable[i][0] = 0;												//adds new row in the current table
-		return tetris;															//returns true if there is a tetris, false when there is no tetris.
+		for (int i = 0; i < canvas.currentTable.length; i++)									//iterates in number of columns in the table
+			canvas.currentTable[i][0] = 0;														//adds new row in the current table
+		return tetris;																			//returns true if there is a tetris, false when there is no tetris.
 	}
 }
