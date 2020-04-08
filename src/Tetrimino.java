@@ -339,7 +339,7 @@ public class Tetrimino implements Cloneable{
      * @param currentTableValues
      * @return
      */
-    public boolean goDown(CanvasDrawer canvas) {
+    public boolean goDown(CanvasDrawer canvas,Tetrimino t) {
     	int n = this.shape.length;				//length of the Tetrimino shape
     	boolean canGoDown = false;				//initially assings false
     	boolean mergeControl = true;
@@ -367,7 +367,7 @@ public class Tetrimino implements Cloneable{
     	
     	//NEXT POSITION CONTROL
     	canGoDown = canMove(nextPos, canvas);		//returns true if the next position is available
-    	mergeControl = canMerge(canvas);
+    	mergeControl = canMerge(canvas,t);
     	
     	if(canGoDown) {														//if the next position is available. Updates by using nextPos array
     		for (int i = 0; i < n; i++) {
@@ -397,7 +397,7 @@ public class Tetrimino implements Cloneable{
     			}	
     		}
         	while(mergeControl) {
-        		mergeControl = canMerge(canvas);        		
+        		mergeControl = canMerge(canvas,t);        		
         	}  		       		
         	return false;													//returns false because next position was not available
     		 
@@ -414,7 +414,7 @@ public class Tetrimino implements Cloneable{
         			}	
         		}
 	        	while(contControl) {
-	        		contControl = contMerge(canvas);
+	        		contControl = contMerge(canvas,t);
 	        	}  		       		
 	        	return false;													//returns false because next position was not available
 	    		 
@@ -513,7 +513,7 @@ public class Tetrimino implements Cloneable{
     	return true;																		//returns true if the next position is available
     }
     
-    public boolean canMerge(CanvasDrawer canvas) {   	
+    public boolean canMerge(CanvasDrawer canvas,Tetrimino t) {   	
     	int numberOfColumns = canvas.currentTableValues.length;
     	int numberOfRows = canvas.currentTableValues[0].length;
     	boolean abc = true;
@@ -525,7 +525,7 @@ public class Tetrimino implements Cloneable{
 					if(canvas.currentTableValues[i][j] == canvas.currentTableValues[i][j-1]) {
 						canvas.currentTableValues[i][j] += canvas.currentTableValues[i][j-1];
 						canvas.currentTable[i][j-1] = -80;
-						contMerge(canvas);
+						contMerge(canvas,t);
 						abc = false;
 						hasMerged = true;
 					}												
@@ -535,7 +535,7 @@ public class Tetrimino implements Cloneable{
     	return hasMerged;
     }
     
-    public boolean contMerge(CanvasDrawer canvas) {   	
+    public boolean contMerge(CanvasDrawer canvas,Tetrimino t) {   	
     	int numberOfColumns = canvas.currentTableValues.length;
     	int numberOfRows = canvas.currentTableValues[0].length;
     	
@@ -558,6 +558,10 @@ public class Tetrimino implements Cloneable{
 					canvas.currentTable[i][j] = 1;
 					canvas.currentTable[i][j-1] = 0;
 					canvas.currentTableValues[i][j] = canvas.currentTableValues[i][j-1];
+					canvas.updateCanvas();
+					canvas.nextTetriminoDrawing(t);
+					StdDraw.show();
+					StdDraw.pause(100);
 					return true;																
 				}
 			}  	

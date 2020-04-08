@@ -53,6 +53,7 @@ public class CanvasDrawer {
 	}
 	
 	
+	@SuppressWarnings("deprecation")
 	public boolean[] mainMenu(){
 		//BACKGROUND
 		//StdDraw.setPenColor(0,0,0);
@@ -214,9 +215,9 @@ public class CanvasDrawer {
 	 * @param currentTableValue tables last status of value in types of 2048 game values.
 	 * @param canvasAttributes canvas width and height values
 	 */
-	public void updateCanvas(Tetrimino t) {
+	public void updateCanvas() {
 		//DRAWING CANVAS
-		drawCanvas(t);
+		drawCanvas();
 		
 		//DRAWING UPDATED TABLE
 		for (int i = 0; i < this.squaresCoords.length; i++) {
@@ -265,7 +266,7 @@ public class CanvasDrawer {
 	 * @param squaresCoords	center coordinates of every squares
 	 * @param canvasAttributes canvas width and height values
 	 */
-	public void drawCanvas(Tetrimino t) {
+	public void drawCanvas() {
 		//BACKGROUND
 		StdDraw.setPenColor(132,122,113);
 		StdDraw.filledRectangle(this.calculatedWidth/2, this.calculatedHeigth/2, this.calculatedWidth/2, this.calculatedHeigth/2);
@@ -288,7 +289,11 @@ public class CanvasDrawer {
 			}
 		}
 		
-		
+		StdDraw.show();	//draws to the screen
+	}
+	
+	
+	public void nextTetriminoDrawing(Tetrimino t) {
 		if(t.shape.length == 3) {
 			for (int i = 0; i < t.shape.length; i++) {
 				for (int j = 0; j < t.shape.length; j++) {
@@ -339,10 +344,10 @@ public class CanvasDrawer {
 			
 		}
 		
-		
-		
 		StdDraw.show();	//draws to the screen
+		
 	}
+	
 	
 	public void endGameAnimation(int number) {
 		if(number == 0) {
