@@ -55,7 +55,7 @@ public class Tetris2048{
 		canvas.drawCanvas();
 		boolean[] menuReturns = canvas.mainMenu();
 		boolean menu = menuReturns[0];
-		boolean music = menuReturns[1];
+		//boolean music = menuReturns[1];
 		
 		canvas.nextTetriminoDrawing(t);
 		

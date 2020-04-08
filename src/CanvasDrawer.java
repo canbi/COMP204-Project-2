@@ -300,8 +300,6 @@ public class CanvasDrawer {
 		boolean button2right = false;
 		boolean button3left = false;
 		boolean button3right = false;
-		boolean button4left = false;
-		boolean button4right = false;
 		while(options) {
 			for (int i = 0; i < option[0].length; i++) {
 				for (int j = 0; j < option.length; j++) {
