@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>330</w>
+      <h>780</h>
+    </coordinates>
+    <panel_attributes>Button
+--
+~button1RatioX: double
+~button1RatioY: double
+~button1CenterX: double
+~button1CenterY: double
+~button1Xmin: double
+~button1Xmax: double
+~button1Ymin: double
+~button1Ymax: double
+~button11RatioX: double
+~button11CenterX: double
+~button11CenterY: double
+~button11Xmin: double
+~button11Xmax: double
+~button11Ymin: double
+~button11Ymax: double
+~button12RatioX: double
+~button12CenterX: double
+~button12CenterY: double
+~button12Xmin: double
+~button12Xmax: double
+~button12Ymin: double
+~button12Ymax: double
+~button13RatioX: double
+~button13CenterX: double
+~button13CenterY: double
+~button13Xmin: double
+~button13Xmax: double
+~button13Ymin: double
+~button13Ymax: double
+~button1iOffset: double
+~button1iDistance: double
+~button1iCenterX: double
+--
++Button(): ctor
++drawButton(double b, int startingB, 
+     int currentIndex, double button1RatioX, 
+     double button1RatioY, double button11RatioX,
+     double button12RatioX, double button13RatioX, 
+     CanvasDrawer canvas): void
++updateButton(Boolean direction): boolean
++showResult(int currentIndex): void
++singleButton(double buttonRatioX,
+     double buttonRatioY, double buttonWidth, 
+     double buttonHeight, 
+     CanvasDrawer canvas): void
++showSingleButton(String buttonName,
+     int r, int g, int b): void
+
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>0</y>
+      <w>270</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>CanvasDrawer
+--
+~numberOfColumns: int
+~numberOfRows: int
+~rowSpace: int
+~squareLength: int
+~gapOfSquares: int
+~calculatedRowSpace: int
+~calculatedColumnSpace: int
+~rightPanelWidth: int
+~frameOffset: int
+~calculatedWidth: int
+~calculatedHeigth: int
+~nextSquareLength: int
+~nextSquareOffset: double
+~nextSquareGap: int
+~ratioOfNextHeight: double
+~currentTable: int[][]
+~currentTableValues: int[][]
+~squaresCoords: int[][][]
+~gameNotStarted = true: boolean
+~clearRows = true: boolean
++tetris: byte[][]
++canAndNadide: byte[][]
++option: byte[][]
+--
++CanvasDrawer(): ctor
++mainMenu(): Boolean[]
++optionsMenu(): boolean
++setUpCanvas(): void
++updateCanvas(): void
++drawCanvas(): void
++nextTetriminoDrawing(Tetrimino t): void
++endGameAnimation(int number): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>0</y>
+      <w>280</w>
+      <h>470</h>
+    </coordinates>
+    <panel_attributes>Tetrimino
+--
+~shape: byte[][]
+~currentPos: int[][][]
+~currentValues: int[][]
++ShapeI: byte[][]
++ShapeJ: byte[][]
++ShapeL: byte[][]
++ShapeO: byte[][]
++ShapeS: byte[][]
++ShapeT: byte[][]
++ShapeZ: byte[][]
+--
++Tetrimino(byte[][] shape): ctor
+#clone(): Object
++nextLocRotate(): int[][][]
++nextLocValueRotate(): int[][]
++rotate(CanvasDrawer canvas): boolean
++goLeft(CanvasDrawer canvas): boolean
++goRight(CanvasDrawer canvas): boolean
++goDown(CanvasDrawer canvas, 
+      Tetrimino t): boolean
++init(CanvasDrawer canvas): void
++settle(CanvasDrawer canvas): boolean
++canMove(int[][][] nextPos, 
+      CanvasDrawer canvas): boolean
++canMerge(CanvasDrawer canvas,
+      Tetrimino t): boolean
++contMerge(CanvasDrawer canvas,
+      Tetrimino t): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>550</y>
+      <w>320</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>Tetris2048
+--
+
+
+--
++main(String[] args): void
++isThereTetris(CanvasDrawer canvas): boolean[]
++tetris(CanvasDrawer canvas, 
+     boolean[] isTetris, int contMerge): boolean
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
