@@ -71,6 +71,7 @@ public class Tetrimino implements Cloneable{
    			return this;
    		}
    	}
+    
     public int[][][] nextLocRotate(){
     	int n = this.shape.length;
     	int[][][] nextPos = new int[n][n][2];

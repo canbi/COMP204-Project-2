@@ -28,178 +28,170 @@ public class Tetris2048{
 		         new Tetrimino(Tetrimino.ShapeT),
 		         new Tetrimino(Tetrimino.ShapeZ),};
 		
-		
-		
-		//INITIALIZING FIRST Tetrimino
-		Random r = new Random();							//creating random class object 
-		boolean createANewTetromino = false;				//control for creating a new Tetrimino	
-		boolean check = false;
-		int contMerge = 0;
-		int randomTetrimino = r.nextInt(7);					//getting random index number
-		int nextTetrimino = r.nextInt(7);
-		
-		//First t
-		Tetrimino t = types[randomTetrimino];				//getting Tetrimino with random index number
-		int n = t.shape.length;								//Tetrimino's shape length
-		t.currentPos = new int[n][n][2];					//initializing Tetrimino's currentPos array
-		t.currentValues = new int[n][n];					//initializing Tetrimino's currentValues array
-		t.init(canvas);										//putting first Tetrimino to the table
-		t.settle(canvas);
-		
-		//Second t
-		Tetrimino t1 = types[nextTetrimino];				//getting Tetrimino with random index number
-		int n1 = t1.shape.length;							//Tetrimino's shape length
-		t1.currentPos = new int[n1][n1][2];					//initializing Tetrimino's currentPos array
-		t1.currentValues = new int[n1][n1];					//initializing Tetrimino's currentValues array
-		t1.init(canvas);									//putting first Tetrimino to the table
-		canvas.drawCanvas();
-		Boolean[] menuReturns = canvas.mainMenu();
-		boolean menu = menuReturns[0];
-		boolean tetrisClear = menuReturns[1];
-		System.out.println(tetrisClear);
-		
-		//boolean music = menuReturns[1];
-		
-		canvas.nextTetriminoDrawing(t);
-		
-		
-		
-		//StdAudio.loop("tetris.wav");
-		//GAME LOOP	
-		boolean game = true;								//game over is equal false in the beginning
-		int timerValue = 500;								//game latency value
-		boolean falling = false;							//fast dropping is equal false in the beginning
-		boolean pause = false;
-		
-		while(game && !menu) {										//game loop
-			boolean tetris = false;							//tetris(horizontal row erasing) is equal false in every step
-			//CREATING NEW Tetrimino
-			if(createANewTetromino) {								
-				t = (Tetrimino) t1.clone();
-				
-				nextTetrimino = r.nextInt(7);					//getting random index number
-				t1 = types[nextTetrimino];						//getting Tetrimino with random index number
-				int n2 = t1.shape.length;						//new Tetrimino's shape length
-				t1.currentPos = new int[n2][n2][2];				//initializing Tetrimino's currentPos array
-				t1.currentValues = new int[n2][n2];				//initializing Tetrimino's currentValues array
-				t1.init(canvas);
-				
-				//putting first Tetrimino to the table.
-				//game will be equal false 
-				//if it is not possible to initialize new Tetrimino
-				game = t.settle(canvas);
-				
-				//FAST DROPPING CONTROL
-				if(falling)										//controlling fast dropping
-					timerValue = timerValue *3 ;				//resetting fast dropping speed
-				falling = false;								//falling is equal false again
-			}
-			
-			//GAME OVER CONTROL
-			if(!game) {				//game over control. 
-				int number = r.nextInt(2);
-				canvas.endGameAnimation(number);
-				break;				//game will be over when the new Tetrimino wasn't initialized.
-			}
-			//KEYBOARD INTERACTION 
-			boolean success = false;										//success control of the move
-			if (StdDraw.hasNextKeyTyped()) { 								//keyboard interaction control
-                char ch = StdDraw.nextKeyTyped();  							//getting character which is typed by the user       
-                
-                //MOVE LEFT
-                if (ch == 'a') 												//moves the tetromino left by one
-                    success = t.goLeft(canvas);	//returns true if the move is available
+		while(true) {
 
-                //MOVE RIGHT
-                else if (ch == 'd') 										//moves the tetromino right by one
-                	success = t.goRight(canvas);	//returns true if the move is available
-               
-                //ROTATE 90 DEGREE
-                else if (ch == 's')											//rotates the tetromino by 90 degree
-                	success = t.rotate(canvas);	//returns true if the move is available
-                	
-                //ROTATE 270 DEGREE
-                else if (ch == 'w') { 										//rotates the tetromino by 270 degree
-                	success = t.rotate(canvas);	
-                	success = t.rotate(canvas);	
-                	success = t.rotate(canvas);	//returns true if the move is available
-                }
-                
-                //FAST DROP
-                else if (ch == 'x' && !falling) { 				//fast drops the tetromino by 3 times faster
-                	if(!falling)								//controlling fast dropping								
-                		timerValue /=3;							//assigning fast dropping speed
-                	falling = true;								//then falling is active
-                }
-                
-                else if (ch == 'p') // rotate the active tetromino by 90 degree
-                    pause = true;
-                
-			}
+			//INITIALIZING FIRST Tetrimino
+			Random r = new Random();							//creating random class object 
+			boolean createANewTetromino = false;				//control for creating a new Tetrimino	
+			boolean check = false;
+			int contMerge = 0;
+			int randomTetrimino = r.nextInt(7);					//getting random index number
+			int nextTetrimino = r.nextInt(7);
 			
-			//PAUSE
-    		if (pause) {
-				if (StdDraw.hasNextKeyTyped()) {
-					char ch = StdDraw.nextKeyTyped(); 
-					if(ch != 'p')
-						pause = false;
+			//First t
+			Tetrimino t = types[randomTetrimino];				//getting Tetrimino with random index number
+			int n = t.shape.length;								//Tetrimino's shape length
+			t.currentPos = new int[n][n][2];					//initializing Tetrimino's currentPos array
+			t.currentValues = new int[n][n];					//initializing Tetrimino's currentValues array
+			t.init(canvas);										//putting first Tetrimino to the table
+			t.settle(canvas);
+			
+			//Second t
+			Tetrimino t1 = types[nextTetrimino];				//getting Tetrimino with random index number
+			int n1 = t1.shape.length;							//Tetrimino's shape length
+			t1.currentPos = new int[n1][n1][2];					//initializing Tetrimino's currentPos array
+			t1.currentValues = new int[n1][n1];					//initializing Tetrimino's currentValues array
+			t1.init(canvas);									//putting first Tetrimino to the table
+			canvas.drawCanvas();
+			Boolean[] menuReturns = canvas.mainMenu();
+			boolean menu = menuReturns[0];
+			boolean tetrisClear = menuReturns[1];
+			canvas.nextTetriminoDrawing(t);
+			
+			//StdAudio.loop("tetris.wav");
+			//GAME LOOP	
+			boolean game = true;								//game over is equal false in the beginning
+			int timerValue = 500;								//game latency value
+			boolean falling = false;							//fast dropping is equal false in the beginning
+			boolean pause = false;
+			
+			while(game && !menu) {										//game loop
+				boolean tetris = false;							//tetris(horizontal row erasing) is equal false in every step
+				//CREATING NEW Tetrimino
+				if(createANewTetromino) {								
+					t = (Tetrimino) t1.clone();
+					
+					nextTetrimino = r.nextInt(7);					//getting random index number
+					t1 = types[nextTetrimino];						//getting Tetrimino with random index number
+					int n2 = t1.shape.length;						//new Tetrimino's shape length
+					t1.currentPos = new int[n2][n2][2];				//initializing Tetrimino's currentPos array
+					t1.currentValues = new int[n2][n2];				//initializing Tetrimino's currentValues array
+					t1.init(canvas);
+					
+					//putting first Tetrimino to the table.
+					//game will be equal false 
+					//if it is not possible to initialize new Tetrimino
+					game = t.settle(canvas);
+					
+					//FAST DROPPING CONTROL
+					if(falling)										//controlling fast dropping
+						timerValue = timerValue *3 ;				//resetting fast dropping speed
+					falling = false;								//falling is equal false again
 				}
-				continue;
-			}
-			//MOVE DOWN
-			if (!success) {												//moves the tetromino down by one if hasn't done any successful move 
-				success = t.goDown(canvas,t1);	//returns true if the move is available	
-				if(!success && contMerge == 0){
-					check = true;
-					if(check) {
-						//NEW Tetrimino CONTROL
-						createANewTetromino = success;		 				// not creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore						
-						t.canMerge(canvas,t1);
-						contMerge++;
-					}
-				}else if(!success && contMerge == 1) {
-					check = true;
-					if(check) {
-						//NEW Tetrimino CONTROL
-						createANewTetromino = success;		 				// not creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore						
-						t.contMerge(canvas,t1);
-						canvas.nextTetriminoDrawing(t1);
-						contMerge--;
-					}
-				}
-				else {
-					//NEW Tetrimino CONTROL
-					createANewTetromino = !success;		 				//creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore	
-				}
-			}
 				
-			//NEW Tetrimino CONTROL
-			createANewTetromino = !success;		 				//creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore	
-			
-			
-			//REDRAWING CANVAS
-			canvas.updateCanvas(); //redraws the updated table
-			canvas.nextTetriminoDrawing(t1);
-			StdDraw.pause(timerValue);														//pauses after every move in the table
-			
-			//TETRIS CONTROL
-			if(tetrisClear) {
-				boolean[] isTetris = isThereTetris(canvas);	//tetris control for every row in the table
-				tetris = tetris(canvas, isTetris, contMerge);//erases the row and returns true if there is a tetris(full horizontal row in the table)				
-				if(tetris) {							//if there was a tetris
-					canvas.updateCanvas();	//redraws the updated table
-					canvas.nextTetriminoDrawing(t1);
-					StdDraw.pause(timerValue);					//pauses after erasing the tetris
-					timerValue -= 10;							//game will be more challanging every time a tetris erased											
-					createANewTetromino = true;					//new Tetrimino will be placed in next loop
+				//GAME OVER CONTROL
+				if(!game) {				//game over control. 
+					int number = r.nextInt(2);
+					canvas.endGameAnimation(number);
+					break;				//game will be over when the new Tetrimino wasn't initialized.
 				}
+				//KEYBOARD INTERACTION 
+				boolean success = false;										//success control of the move
+				if (StdDraw.hasNextKeyTyped()) { 								//keyboard interaction control
+	                char ch = StdDraw.nextKeyTyped();  							//getting character which is typed by the user       
+	                
+	                //MOVE LEFT
+	                if (ch == 'a') 												//moves the tetromino left by one
+	                    success = t.goLeft(canvas);	//returns true if the move is available
+
+	                //MOVE RIGHT
+	                else if (ch == 'd') 										//moves the tetromino right by one
+	                	success = t.goRight(canvas);	//returns true if the move is available
+	               
+	                //ROTATE 90 DEGREE
+	                else if (ch == 's')											//rotates the tetromino by 90 degree
+	                	success = t.rotate(canvas);	//returns true if the move is available
+	                	
+	                //ROTATE 270 DEGREE
+	                else if (ch == 'w') { 										//rotates the tetromino by 270 degree
+	                	success = t.rotate(canvas);	
+	                	success = t.rotate(canvas);	
+	                	success = t.rotate(canvas);	//returns true if the move is available
+	                }
+	                
+	                //FAST DROP
+	                else if (ch == 'x' && !falling) { 				//fast drops the tetromino by 3 times faster
+	                	if(!falling)								//controlling fast dropping								
+	                		timerValue /=3;							//assigning fast dropping speed
+	                	falling = true;								//then falling is active
+	                }
+	                
+	                else if (ch == 'p') // rotate the active tetromino by 90 degree
+	                    pause = true;
+	                
+				}
+				
+				//PAUSE
+	    		if (pause) {
+					if (StdDraw.hasNextKeyTyped()) {
+						char ch = StdDraw.nextKeyTyped(); 
+						if(ch != 'p')
+							pause = false;
+					}
+					continue;
+				}
+				//MOVE DOWN
+				if (!success) {												//moves the tetromino down by one if hasn't done any successful move 
+					success = t.goDown(canvas,t1);	//returns true if the move is available	
+					if(!success && contMerge == 0){
+						check = true;
+						if(check) {
+							//NEW Tetrimino CONTROL
+							createANewTetromino = success;		 				// not creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore						
+							t.canMerge(canvas,t1);
+							contMerge++;
+						}
+					}else if(!success && contMerge == 1) {
+						check = true;
+						if(check) {
+							//NEW Tetrimino CONTROL
+							createANewTetromino = success;		 				// not creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore						
+							t.contMerge(canvas,t1);
+							canvas.nextTetriminoDrawing(t1);
+							contMerge--;
+						}
+					}
+					else {
+						//NEW Tetrimino CONTROL
+						createANewTetromino = !success;		 				//creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore	
+					}
+				}
+					
+				//NEW Tetrimino CONTROL
+				createANewTetromino = !success;		 				//creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore	
+				
+				
+				//REDRAWING CANVAS
+				canvas.updateCanvas(); //redraws the updated table
+				canvas.nextTetriminoDrawing(t1);
+				StdDraw.pause(timerValue);														//pauses after every move in the table
+				
+				//TETRIS CONTROL
+				if(tetrisClear) {
+					boolean[] isTetris = isThereTetris(canvas);	//tetris control for every row in the table
+					tetris = tetris(canvas, isTetris, contMerge);//erases the row and returns true if there is a tetris(full horizontal row in the table)				
+					if(tetris) {							//if there was a tetris
+						canvas.updateCanvas();	//redraws the updated table
+						canvas.nextTetriminoDrawing(t1);
+						StdDraw.pause(timerValue);					//pauses after erasing the tetris
+						timerValue -= 10;							//game will be more challanging every time a tetris erased											
+						createANewTetromino = true;					//new Tetrimino will be placed in next loop
+					}
+				}
+				
 			}
-			
+			canvas.gameNotStarted = true;
 		}
-		
-		//THE GAME WAS OVER
-		System.out.println("THE END");
-	
 	}
 	
 	/**
