@@ -544,6 +544,9 @@ public class Tetrimino implements Cloneable{
 			for (int j = numberOfRows-1; j > 0; j--) {
 				if(canvas.currentTable[i][j] == 1 && canvas.currentTable[i][j-1] == -80) {
 					if(canvas.currentTableValues[i][j] == canvas.currentTableValues[i][j-1]*2) {
+						canvas.updateCanvas();
+						canvas.calculateScore(t);
+						StdDraw.show();
 						canvas.currentTableValues[i][j-1] = -30;
 						canvas.currentTable[i][j-1] = 0;
 						for (int j2 = j-1; j2 > 0; j2--) {
@@ -561,6 +564,7 @@ public class Tetrimino implements Cloneable{
 					canvas.currentTableValues[i][j] = canvas.currentTableValues[i][j-1];
 					canvas.updateCanvas();
 					canvas.nextTetriminoDrawing(t);
+					canvas.calculateScore(t);
 					StdDraw.show();
 					StdDraw.pause(100);
 					return true;																

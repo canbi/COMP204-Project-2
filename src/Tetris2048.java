@@ -57,6 +57,7 @@ public class Tetris2048{
 			boolean menu = menuReturns[0];
 			boolean tetrisClear = menuReturns[1];
 			canvas.nextTetriminoDrawing(t);
+			canvas.calculateScore(t);
 			
 			//StdAudio.loop("tetris.wav");
 			//GAME LOOP	
@@ -158,6 +159,7 @@ public class Tetris2048{
 							createANewTetromino = success;		 				// not creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore						
 							t.contMerge(canvas,t1);
 							canvas.nextTetriminoDrawing(t1);
+							canvas.calculateScore(t);
 							contMerge--;
 						}
 					}
@@ -174,6 +176,7 @@ public class Tetris2048{
 				//REDRAWING CANVAS
 				canvas.updateCanvas(); //redraws the updated table
 				canvas.nextTetriminoDrawing(t1);
+				canvas.calculateScore(t);
 				StdDraw.pause(timerValue);														//pauses after every move in the table
 				
 				//TETRIS CONTROL
@@ -183,6 +186,7 @@ public class Tetris2048{
 					if(tetris) {							//if there was a tetris
 						canvas.updateCanvas();	//redraws the updated table
 						canvas.nextTetriminoDrawing(t1);
+						canvas.calculateScore(t);
 						StdDraw.pause(timerValue);					//pauses after erasing the tetris
 						timerValue -= 10;							//game will be more challanging every time a tetris erased											
 						createANewTetromino = true;					//new Tetrimino will be placed in next loop
