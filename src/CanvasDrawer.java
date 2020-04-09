@@ -545,6 +545,7 @@ public class CanvasDrawer {
 				if (this.currentTable[i][j] == 0) { // if there is no Tetrimino in current table
 					StdDraw.setPenColor(206, 195, 181);
 					StdDraw.filledSquare(xCoord, yCoord, this.squareLength);
+
 				} else { // if there is a Tetrimino in current table
 					if (this.currentTableValues[i][j] == 2)
 						StdDraw.setPenColor(238, 229, 219); // if the current square has a value of 2
@@ -731,8 +732,10 @@ public class CanvasDrawer {
 		}
 
 	}
-
-	int totalScore = 0;
+	
+	//CALCULATION OF GAME SCORE
+	
+	int totalScore = 0; //contains total score of game
 	// int tetrisScore = 0;
 
 	public void calculateScore(Tetrimino t) {
@@ -749,21 +752,21 @@ public class CanvasDrawer {
 
 		for (int i = 0; i < numberOfColumns; i++) {
 			for (int j = numberOfRows - 1; j > 0; j--) {
-				if (currentTable[i][j] == 1 && currentTable[i][j - 1] == -80) {
-					if (currentTableValues[i][j] == currentTableValues[i][j - 1] * 2) {
-						int mergeScore = currentTableValues[i][j];
-						totalScore = totalScore + mergeScore;
+				if (currentTable[i][j] == 1 && currentTable[i][j - 1] == -80) { //check the tetrimino pieces has just finished first part of merging operations 
+					if (currentTableValues[i][j] == currentTableValues[i][j - 1] * 2) { //check the tetrimino pieces has just finished first part of merging operations 
+						int mergeScore = currentTableValues[i][j]; //mergeScore contains merged tetrimino pieces' values
+						totalScore = totalScore + mergeScore; // add mergeScore value to totalScore
 						// System.out.println("mergescore:" + mergeScore);
 						// System.out.println("totalscore:" + totalScore);
 						StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),
-								(frameOffset + 0.15 * calculatedRowSpace), Integer.toString(totalScore));
-						StdDraw.show();
+								(frameOffset + 0.15 * calculatedRowSpace), Integer.toString(totalScore)); //update new score
+						StdDraw.show(); //show new score
 					}
 				}
 			}
 			StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),
-					(frameOffset + 0.15 * calculatedRowSpace), Integer.toString(totalScore));
-			StdDraw.show();
+					(frameOffset + 0.15 * calculatedRowSpace), Integer.toString(totalScore)); //update new score
+			StdDraw.show();  //show new score
 
 		}
 		/*
