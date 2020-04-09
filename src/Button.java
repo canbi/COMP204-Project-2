@@ -37,7 +37,7 @@ public class Button {
 		super();
 	}
 	
-	public void drawButton(double b,int startingB,int number,double button1RatioX,double button1RatioY,double button11RatioX,double button12RatioX,double button13RatioX,CanvasDrawer canvas) {
+	public void drawButton(double b,int startingB,int currentIndex,double button1RatioX,double button1RatioY,double button11RatioX,double button12RatioX,double button13RatioX,CanvasDrawer canvas) {
 		
 		//çubuðun bulunduðu kutu
 		this.button1CenterX = canvas.calculatedColumnSpace*button1RatioX;
@@ -110,11 +110,12 @@ public class Button {
 		StdDraw.setPenColor(0,0,0);
 		StdDraw.rectangle(button13CenterX, button13CenterY ,button13Width ,button13Height);
 		StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
-		StdDraw.text(button13CenterX, button13CenterY+2, Integer.toString(number));
+		StdDraw.text(button13CenterX, button13CenterY+2, Integer.toString(currentIndex));
 		
 		//StdDraw.show();
 	}
 	
+	@SuppressWarnings("deprecation")
 	public boolean  updateButton(Boolean direction) {
 		Boolean buttonMove = true;
 		//Redrawing Button 1
@@ -124,7 +125,7 @@ public class Button {
 		if(direction) {
 			button1iCenterX = button1iCenterX - button1iDistance;
 			buttonMove = true;
-			if(button1iCenterX < button1Xmin+ button1iOffset) {
+			if(button1iCenterX < button1Xmin+ 1) {
 				button1iCenterX = button1iCenterX + button1iDistance;
 				buttonMove = false;
 			}
@@ -132,7 +133,7 @@ public class Button {
 		else {
 			button1iCenterX = button1iCenterX + button1iDistance;
 			buttonMove = true;
-			if(button1iCenterX > button1Xmax - button1iOffset) {
+			if(button1iCenterX > button1Xmax - 1) {
 				button1iCenterX = button1iCenterX - button1iDistance;
 				buttonMove = false;
 			}
@@ -143,12 +144,33 @@ public class Button {
 		return buttonMove;
 	}
 	
-	public void showResult(int number) {
+	public void showResult(int currentIndex) {
 		StdDraw.setPenColor(255,255,255);
 		StdDraw.filledRectangle(button13CenterX, button13CenterY , (button13Xmax-button13Xmin)/2.0 ,(button13Ymax-button13Ymin)/2.0);
 		StdDraw.setPenColor(0,0,0);
 		StdDraw.rectangle(button13CenterX, button13CenterY ,(button13Xmax-button13Xmin)/2.0 ,(button13Ymax-button13Ymin)/2.0);
 		StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
-		StdDraw.text(button13CenterX, button13CenterY+2, Integer.toString(number));
+		StdDraw.text(button13CenterX, button13CenterY+2, Integer.toString(currentIndex));
 	}
+
+	public void singleButton(double buttonRatioX,double buttonRatioY, double buttonWidth, double buttonHeight, CanvasDrawer canvas) {
+		
+		button1CenterX = canvas.calculatedColumnSpace*buttonRatioX+canvas.frameOffset;
+		button1CenterY = canvas.calculatedRowSpace*buttonRatioY;
+		button1Xmin = button1CenterX-buttonWidth;
+		button1Xmax = button1CenterX+buttonWidth;
+		button1Ymin = button1CenterY-buttonHeight;
+		button1Ymax = button1CenterY+buttonHeight;
+		
+	}
+	
+	public void showSingleButton(String buttonName, int r, int g, int b) {
+		StdDraw.setPenColor(132,122,113);
+		StdDraw.filledRectangle(button1CenterX, button1CenterY , (button1Xmax-button1Xmin)/2.0 , (button1Ymax-button1Ymin)/2.0);
+		StdDraw.setPenColor(r,g, b);
+		StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
+		StdDraw.text(button1CenterX, button1CenterY+3, buttonName);
+		
+	}
+	
 }

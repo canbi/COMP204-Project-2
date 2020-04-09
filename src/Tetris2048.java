@@ -53,7 +53,11 @@ public class Tetris2048{
 		t1.currentValues = new int[n1][n1];					//initializing Tetrimino's currentValues array
 		t1.init(canvas);									//putting first Tetrimino to the table
 		canvas.drawCanvas();
-		Boolean menuReturns = canvas.mainMenu();
+		Boolean[] menuReturns = canvas.mainMenu();
+		boolean menu = menuReturns[0];
+		boolean tetrisClear = menuReturns[1];
+		System.out.println(tetrisClear);
+		
 		//boolean music = menuReturns[1];
 		
 		canvas.nextTetriminoDrawing(t);
@@ -67,7 +71,7 @@ public class Tetris2048{
 		boolean falling = false;							//fast dropping is equal false in the beginning
 		boolean pause = false;
 		
-		while(game && !menuReturns) {										//game loop
+		while(game && !menu) {										//game loop
 			boolean tetris = false;							//tetris(horizontal row erasing) is equal false in every step
 			//CREATING NEW Tetrimino
 			if(createANewTetromino) {								
@@ -179,15 +183,18 @@ public class Tetris2048{
 			StdDraw.pause(timerValue);														//pauses after every move in the table
 			
 			//TETRIS CONTROL
-			boolean[] isTetris = isThereTetris(canvas);	//tetris control for every row in the table
-			tetris = tetris(canvas, isTetris, contMerge);//erases the row and returns true if there is a tetris(full horizontal row in the table)				
-			if(tetris) {							//if there was a tetris
-				canvas.updateCanvas();	//redraws the updated table
-				canvas.nextTetriminoDrawing(t1);
-				StdDraw.pause(timerValue);					//pauses after erasing the tetris
-				timerValue -= 10;							//game will be more challanging every time a tetris erased											
-				createANewTetromino = true;					//new Tetrimino will be placed in next loop
+			if(tetrisClear) {
+				boolean[] isTetris = isThereTetris(canvas);	//tetris control for every row in the table
+				tetris = tetris(canvas, isTetris, contMerge);//erases the row and returns true if there is a tetris(full horizontal row in the table)				
+				if(tetris) {							//if there was a tetris
+					canvas.updateCanvas();	//redraws the updated table
+					canvas.nextTetriminoDrawing(t1);
+					StdDraw.pause(timerValue);					//pauses after erasing the tetris
+					timerValue -= 10;							//game will be more challanging every time a tetris erased											
+					createANewTetromino = true;					//new Tetrimino will be placed in next loop
+				}
 			}
+			
 		}
 		
 		//THE GAME WAS OVER
