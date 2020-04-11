@@ -17,7 +17,8 @@ public class Tetrimino implements Cloneable {
 	byte[][] shape; 																		// Tetrimino shape
 	int[][][] currentPos; 																	// Tetrimino current position for every index of its shape
 	int[][] currentValues; 																	// Tetrimino current values for every position of its shape
-
+	static int totalScore = 0;																//contains total score of game
+	
 	public static final byte[][] ShapeI = { 												// Tetrimino shape for I
 			{ 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 1, 1, 1, 1 }, { 0, 0, 0, 0 }, };
 
@@ -526,8 +527,10 @@ public class Tetrimino implements Cloneable {
 				// part-1 delete a piece of tetrimino just now merged in canMerge function
 				if (canvas.currentTable[i][j] == 1 && canvas.currentTable[i][j - 1] == -80) { 				//check the tetrimino piece should delete after merge operation
 					if (canvas.currentTableValues[i][j] == canvas.currentTableValues[i][j - 1] * 2) { 		//check the tetrimino piece should delete after merge operation
+						int mergeScore = canvas.currentTableValues[i][j]; 									//mergeScore contains merged tetrimino pieces' values
+						totalScore = totalScore + mergeScore; 												// add mergeScore value to totalScore
 						canvas.updateCanvas(); 																//update canvas with that values
-						canvas.calculateScore(t); 															//after merging operation add new score
+						canvas.scoreDrawing(t); 															//after merging operation add new score
 						StdDraw.show();
 						canvas.currentTableValues[i][j - 1] = -30; 											//assign randomly value for currentTableValues
 						canvas.currentTable[i][j - 1] = 0; 													//delete tetrimino piece, just know merged
@@ -548,7 +551,7 @@ public class Tetrimino implements Cloneable {
 					canvas.currentTableValues[i][j] = canvas.currentTableValues[i][j - 1]; 					//move currentTableValues values
 					canvas.updateCanvas(); 																	//update canvas with that values
 					canvas.nextTetriminoDrawing(t); 														//after merging operation add new score
-					canvas.calculateScore(t);
+					canvas.scoreDrawing(t);
 					StdDraw.show();
 					StdDraw.pause(100);
 					return true;	 																		//returns true because tetrimino pieces avaliable for merging operations

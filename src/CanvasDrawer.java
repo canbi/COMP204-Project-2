@@ -734,50 +734,13 @@ public class CanvasDrawer {
 	}
 	
 	//CALCULATION OF GAME SCORE
-	
-	int totalScore = 0; 																//contains total score of game
-	// int tetrisScore = 0;
-
-	public void calculateScore(Tetrimino t) {
+	public void scoreDrawing(Tetrimino t) {
 		StdDraw.setPenColor(255, 255, 255);
 		StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
-		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),
-				(frameOffset + 0.10 * calculatedRowSpace), "SCORE");
+		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.10 * calculatedRowSpace), "SCORE");
 
-		int numberOfColumns = currentTableValues.length;
-		int numberOfRows = currentTableValues[0].length;
-
-		// int counter = 0;
-		// int score = 0;
-
-		for (int i = 0; i < numberOfColumns; i++) {
-			for (int j = numberOfRows - 1; j > 0; j--) {
-				if (currentTable[i][j] == 1 && currentTable[i][j - 1] == -80) { 		//check the tetrimino pieces has just finished first part of merging operations 
-					if (currentTableValues[i][j] == currentTableValues[i][j - 1] * 2) { //check the tetrimino pieces has just finished first part of merging operations 
-						int mergeScore = currentTableValues[i][j]; 						//mergeScore contains merged tetrimino pieces' values
-						totalScore = totalScore + mergeScore; 							// add mergeScore value to totalScore
-						// System.out.println("mergescore:" + mergeScore);
-						// System.out.println("totalscore:" + totalScore);
-						StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),
-								(frameOffset + 0.15 * calculatedRowSpace), Integer.toString(totalScore)); 	//update new score
-						StdDraw.show(); //show new score
-					}
-				}
-			}
-			StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),
-					(frameOffset + 0.15 * calculatedRowSpace), Integer.toString(totalScore)); 				//update new score
-			StdDraw.show();  //show new score
-
-		}
-		/*
-		 * for(int h = numberOfRows-1; h < numberOfRows; h++) { if(currentTable[i][h] ==
-		 * 1) { counter++; score = currentTableValues[i][h]; tetrisScore = tetrisScore +
-		 * score; if(counter == numberOfColumns) { counter = 0; totalScore = totalScore
-		 * + tetrisScore; System.out.println("tetrisscore:" + tetrisScore);
-		 * System.out.println("totalscore:" + totalScore);
-		 * StdDraw.text(((rightPanelWidth/2.0)+2*frameOffset+calculatedColumnSpace),
-		 * (frameOffset+0.15*calculatedRowSpace), Integer.toString(totalScore));
-		 * StdDraw.show(); tetrisScore = 0; } } }
-		 */
+		//update new score
+		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.15 * calculatedRowSpace), Integer.toString(t.totalScore)); 	
+		StdDraw.show();		//show new score
 	}
 }

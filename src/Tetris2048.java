@@ -17,7 +17,9 @@ public class Tetris2048 {
 		StdDraw.setXscale(0, canvas.calculatedWidth); 																// canvas x scale set
 		StdDraw.setYscale(canvas.calculatedHeigth, 0); 																// canvas y scale set
 		StdDraw.enableDoubleBuffering(); 																			// enables double buffering for drawing in wanted situations
-
+		int tetrisScore = 0;
+		int counter = 0;
+		
 		final Tetrimino[] types = { // Tetrimino class initialization for every type
 				new Tetrimino(Tetrimino.ShapeI), new Tetrimino(Tetrimino.ShapeJ), new Tetrimino(Tetrimino.ShapeL),
 				new Tetrimino(Tetrimino.ShapeO), new Tetrimino(Tetrimino.ShapeS), new Tetrimino(Tetrimino.ShapeT),
@@ -32,7 +34,7 @@ public class Tetris2048 {
 			int contMerge = 0; 																						// control for merging operations' order
 			int randomTetrimino = r.nextInt(7); 																	// getting random index number
 			int nextTetrimino = r.nextInt(7);
-
+			
 			// First t
 			Tetrimino t = types[randomTetrimino]; 																	// getting Tetrimino with random index number
 			int n = t.shape.length; 																				// Tetrimino's shape length
@@ -52,7 +54,7 @@ public class Tetris2048 {
 			boolean menu = menuReturns[0];
 			boolean tetrisClear = menuReturns[1];
 			canvas.nextTetriminoDrawing(t);
-			canvas.calculateScore(t);
+			canvas.scoreDrawing(t);
 
 			// StdAudio.loop("tetris.wav");
 			// GAME LOOP
@@ -156,7 +158,7 @@ public class Tetris2048 {
 							createANewTetromino = success; 															// not creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore
 							t.contMerge(canvas, t1);
 							canvas.nextTetriminoDrawing(t1);
-							canvas.calculateScore(t);
+							canvas.scoreDrawing(t);
 							contMerge--; //contMerge = 0
 						}
 					} else {
@@ -172,18 +174,18 @@ public class Tetris2048 {
 				// REDRAWING CANVAS
 				canvas.updateCanvas(); 																				// redraws the updated table
 				canvas.nextTetriminoDrawing(t1);
-				canvas.calculateScore(t);
+				canvas.scoreDrawing(t);
 				StdDraw.pause(timerValue); 																			// pauses after every move in the table
 
 				// TETRIS CONTROL
 				if (tetrisClear) {
-					boolean[] isTetris = isThereTetris(canvas); 													// tetris control for every row in the table
-					tetris = tetris(canvas, isTetris, contMerge);													// erases the row and returns true if there is a
+					boolean[] isTetris = isThereTetris(canvas, tetrisScore); 													// tetris control for every row in the table
+					tetris = tetris(canvas, isTetris, contMerge, tetrisScore);													// erases the row and returns true if there is a
 																													// tetris(full horizontal row in the table)
 					if (tetris) { 																					// if there was a tetris
 						canvas.updateCanvas(); 																		// redraws the updated table
 						canvas.nextTetriminoDrawing(t1);
-						canvas.calculateScore(t);
+						canvas.scoreDrawing(t);
 						StdDraw.pause(timerValue); 																	// pauses after erasing the tetris
 						timerValue -= 10; 																			// game will be more challanging every time a tetris erased
 						createANewTetromino = true; 																// new Tetrimino will be placed in next loop
@@ -204,10 +206,10 @@ public class Tetris2048 {
 	 * @return returns boolean array for determining whether is it full horizontal
 	 *         row or not in the current table
 	 */
-	public static boolean[] isThereTetris(CanvasDrawer canvas) {
-		boolean[] isTetris = new boolean[canvas.numberOfRows]; 														// creating boolean array in size of number of rows in
-																													// the table
-
+	public static boolean[] isThereTetris(CanvasDrawer canvas, int tetrisScore) {
+		boolean[] isTetris = new boolean[canvas.numberOfRows]; 														// creating boolean array in size of number of rows in																											// the table
+		
+		
 		for (int i = 0; i < canvas.currentTable[0].length; i++) {
 			isTetris[i] = true; 																					// initially assigning true every index of the boolean array
 		}
@@ -230,21 +232,27 @@ public class Tetris2048 {
 	 *                     tetris or not
 	 * @return returns true if there is a tetris, false when there is no tetris.
 	 */
-	public static boolean tetris(CanvasDrawer canvas, boolean[] isTetris, int contMerge) {
+	public static boolean tetris(CanvasDrawer canvas, boolean[] isTetris, int contMerge, int tetrisScore) {
 		boolean tetris = false; // initially assumes there is no tetris in the current table
 
+		
 		for (int i = 0; i < isTetris.length; i++) {
-			if (isTetris[i] == false) 																				// if the current row is not a tetris
+			if (isTetris[i] == false)  																				// if the current row is not a tetris
 				continue; 																							// passes the current row
 			if (contMerge == 1) {
 				for (int j = i; j > 0; j--) { 																		// iterates in number of rows in the table
-					for (int j2 = 0; j2 < canvas.currentTable.length; j2++) { 										// iterates in number of columns in the table
+					for (int j2 = 0; j2 < canvas.currentTable.length; j2++) { 										// iterates in number of columns in the table  
+						if(canvas.currentTable[j2][j] == 1) {
+							if(canvas.currentTable[j2][j] == canvas.currentTable[canvas.currentTable.length-1][j])
+							tetrisScore += canvas.currentTableValues[j2][j];
+						}
 						canvas.currentTable[j2][j] = canvas.currentTable[j2][j - 1]; 								// moves every row above the tetris down one line.
 						canvas.currentTableValues[j2][j] = canvas.currentTableValues[j2][j - 1];
 					}
 				}
 				tetris = true; 																						// assigns true
 			}
+			Tetrimino.totalScore += tetrisScore;
 		}
 		for (int i = 0; i < canvas.currentTable.length; i++) 														// iterates in number of columns in the table
 			canvas.currentTable[i][0] = 0; 																		    // adds new row in the current table
