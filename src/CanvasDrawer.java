@@ -508,11 +508,11 @@ public class CanvasDrawer {
 	}
 
 	public void setUpCanvas() {
-		this.currentTable = new int[this.numberOfColumns][this.numberOfRows]; // for storing whether there is a
-																				// Tetrimino in a coordinate.
-		this.currentTableValues = new int[this.numberOfColumns][this.numberOfRows]; // for storing value of coordinates
-		this.squaresCoords = new int[this.numberOfColumns][this.numberOfRows][2]; // for storing center coordinates of
-																					// every squares
+		this.currentTable = new int[this.numberOfColumns][this.numberOfRows]; 										// for storing whether there is a
+																													// Tetrimino in a coordinate.
+		this.currentTableValues = new int[this.numberOfColumns][this.numberOfRows]; 								// for storing value of coordinates
+		this.squaresCoords = new int[this.numberOfColumns][this.numberOfRows][2]; 									// for storing center coordinates of
+																													// every squares
 		this.squareLength = (int) Math.round((this.rowSpace * 15) / ((double) ((31 * this.numberOfRows) - 1)));
 		this.gapOfSquares = Math.round(this.squareLength / 15);
 		this.calculatedRowSpace = 2 * this.squareLength * this.numberOfRows
@@ -539,36 +539,36 @@ public class CanvasDrawer {
 		// DRAWING UPDATED TABLE
 		for (int i = 0; i < this.squaresCoords.length; i++) {
 			for (int j = 0; j < this.squaresCoords[i].length; j++) {
-				int xCoord = this.squaresCoords[i][j][0]; // getting center x coordinates of every squares
-				int yCoord = this.squaresCoords[i][j][1]; // getting center y coordinates of every squares
+				int xCoord = this.squaresCoords[i][j][0]; 							// getting center x coordinates of every squares
+				int yCoord = this.squaresCoords[i][j][1]; 							// getting center y coordinates of every squares
 
-				if (this.currentTable[i][j] == 0) { // if there is no Tetrimino in current table
+				if (this.currentTable[i][j] == 0) { 								// if there is no Tetrimino in current table
 					StdDraw.setPenColor(206, 195, 181);
 					StdDraw.filledSquare(xCoord, yCoord, this.squareLength);
 
-				} else { // if there is a Tetrimino in current table
+				} else { 															// if there is a Tetrimino in current table
 					if (this.currentTableValues[i][j] == 2)
-						StdDraw.setPenColor(238, 229, 219); // if the current square has a value of 2
+						StdDraw.setPenColor(238, 229, 219); 						// if the current square has a value of 2
 					else if (this.currentTableValues[i][j] == 4)
-						StdDraw.setPenColor(235, 224, 204); // if the current square has a value of 4
+						StdDraw.setPenColor(235, 224, 204); 						// if the current square has a value of 4
 					else if (this.currentTableValues[i][j] == 8)
-						StdDraw.setPenColor(228, 173, 126); // if the current square has a value of 8
+						StdDraw.setPenColor(228, 173, 126); 						// if the current square has a value of 8
 					else if (this.currentTableValues[i][j] == 16)
-						StdDraw.setPenColor(234, 152, 112); // if the current square has a value of 16
+						StdDraw.setPenColor(234, 152, 112); 						// if the current square has a value of 16
 					else if (this.currentTableValues[i][j] == 32)
-						StdDraw.setPenColor(231, 130, 103); // if the current square has a value of 32
+						StdDraw.setPenColor(231, 130, 103); 						// if the current square has a value of 32
 					else if (this.currentTableValues[i][j] == 64)
-						StdDraw.setPenColor(230, 103, 72); // if the current square has a value of 64
+						StdDraw.setPenColor(230, 103, 72); 							// if the current square has a value of 64
 					else if (this.currentTableValues[i][j] == 128)
-						StdDraw.setPenColor(233, 206, 127); // if the current square has a value of 128
+						StdDraw.setPenColor(233, 206, 127); 						// if the current square has a value of 128
 					else if (this.currentTableValues[i][j] == 256)
-						StdDraw.setPenColor(233, 204, 115); // if the current square has a value of 256
+						StdDraw.setPenColor(233, 204, 115); 						// if the current square has a value of 256
 					else if (this.currentTableValues[i][j] == 512)
-						StdDraw.setPenColor(228, 193, 101); // if the current square has a value of 512
+						StdDraw.setPenColor(228, 193, 101); 						// if the current square has a value of 512
 					else if (this.currentTableValues[i][j] == 1024)
-						StdDraw.setPenColor(216, 181, 65); // if the current square has a value of 1024
+						StdDraw.setPenColor(216, 181, 65); 							// if the current square has a value of 1024
 					else if (this.currentTableValues[i][j] == 2048)
-						StdDraw.setPenColor(232, 194, 79); // if the current square has a value of 2048
+						StdDraw.setPenColor(232, 194, 79); 							// if the current square has a value of 2048
 
 					// DRAWING SQUARE
 					StdDraw.filledSquare(xCoord, yCoord, this.squareLength);
@@ -585,7 +585,7 @@ public class CanvasDrawer {
 				}
 			}
 		}
-		StdDraw.show(); // draws the changes to the screen
+		StdDraw.show(); 																// draws the changes to the screen
 	}
 
 	/**
@@ -622,7 +622,7 @@ public class CanvasDrawer {
 			}
 		}
 
-		StdDraw.show(); // draws to the screen
+		StdDraw.show(); 																// draws to the screen
 	}
 
 	public void nextTetriminoDrawing(Tetrimino t) {
@@ -642,9 +642,9 @@ public class CanvasDrawer {
 								+ this.ratioOfNextHeight * this.calculatedRowSpace;
 
 						if (t.currentValues[i][j] == 2)
-							StdDraw.setPenColor(238, 229, 219); // if the current square has a value of 2
+							StdDraw.setPenColor(238, 229, 219); 						// if the current square has a value of 2
 						else if (t.currentValues[i][j] == 4)
-							StdDraw.setPenColor(235, 224, 204); // if the current square has a value of 4
+							StdDraw.setPenColor(235, 224, 204); 						// if the current square has a value of 4
 						StdDraw.filledSquare(xCoord, yCoord, this.nextSquareLength);
 
 						// DRAWING SQUARE VALUE
@@ -669,9 +669,9 @@ public class CanvasDrawer {
 								+ this.ratioOfNextHeight * this.calculatedRowSpace;
 
 						if (t.currentValues[i][j] == 2)
-							StdDraw.setPenColor(238, 229, 219); // if the current square has a value of 2
+							StdDraw.setPenColor(238, 229, 219); 						// if the current square has a value of 2
 						else if (t.currentValues[i][j] == 4)
-							StdDraw.setPenColor(235, 224, 204); // if the current square has a value of 4
+							StdDraw.setPenColor(235, 224, 204); 						// if the current square has a value of 4
 						StdDraw.filledSquare(xCoord, yCoord, this.nextSquareLength);
 
 						// DRAWING SQUARE VALUE
@@ -688,7 +688,7 @@ public class CanvasDrawer {
 			}
 		}
 
-		StdDraw.show(); // draws to the screen
+		StdDraw.show(); 																// draws to the screen
 
 	}
 
@@ -700,8 +700,8 @@ public class CanvasDrawer {
 					int red = r.nextInt(256);
 					int green = r.nextInt(256);
 					int blue = r.nextInt(256);
-					int xCoord = this.squaresCoords[j][i][0]; // getting center x coordinates of every squares
-					int yCoord = this.squaresCoords[j][i][1]; // getting center y coordinates of every squares
+					int xCoord = this.squaresCoords[j][i][0]; 							// getting center x coordinates of every squares
+					int yCoord = this.squaresCoords[j][i][1]; 							// getting center y coordinates of every squares
 					StdDraw.setPenColor(red, green, blue);
 					StdDraw.filledSquare(xCoord, yCoord, this.squareLength);
 					StdDraw.setPenColor(132, 122, 113);
@@ -715,8 +715,8 @@ public class CanvasDrawer {
 			int count = 0;
 			for (int i = 0; i < this.currentTable[0].length; i++) {
 				for (int j = 0; j < this.currentTable.length; j++) {
-					int xCoord = this.squaresCoords[j][i][0]; // getting center x coordinates of every squares
-					int yCoord = this.squaresCoords[j][i][1]; // getting center y coordinates of every squares
+					int xCoord = this.squaresCoords[j][i][0]; 							// getting center x coordinates of every squares
+					int yCoord = this.squaresCoords[j][i][1]; 							// getting center y coordinates of every squares
 					StdDraw.setPenColor(255 - count, 255 - count, 255 - count);
 					StdDraw.filledSquare(xCoord, yCoord, this.squareLength);
 					StdDraw.setPenColor(132, 122, 113);
@@ -735,7 +735,7 @@ public class CanvasDrawer {
 	
 	//CALCULATION OF GAME SCORE
 	
-	int totalScore = 0; //contains total score of game
+	int totalScore = 0; 																//contains total score of game
 	// int tetrisScore = 0;
 
 	public void calculateScore(Tetrimino t) {
@@ -752,20 +752,20 @@ public class CanvasDrawer {
 
 		for (int i = 0; i < numberOfColumns; i++) {
 			for (int j = numberOfRows - 1; j > 0; j--) {
-				if (currentTable[i][j] == 1 && currentTable[i][j - 1] == -80) { //check the tetrimino pieces has just finished first part of merging operations 
+				if (currentTable[i][j] == 1 && currentTable[i][j - 1] == -80) { 		//check the tetrimino pieces has just finished first part of merging operations 
 					if (currentTableValues[i][j] == currentTableValues[i][j - 1] * 2) { //check the tetrimino pieces has just finished first part of merging operations 
-						int mergeScore = currentTableValues[i][j]; //mergeScore contains merged tetrimino pieces' values
-						totalScore = totalScore + mergeScore; // add mergeScore value to totalScore
+						int mergeScore = currentTableValues[i][j]; 						//mergeScore contains merged tetrimino pieces' values
+						totalScore = totalScore + mergeScore; 							// add mergeScore value to totalScore
 						// System.out.println("mergescore:" + mergeScore);
 						// System.out.println("totalscore:" + totalScore);
 						StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),
-								(frameOffset + 0.15 * calculatedRowSpace), Integer.toString(totalScore)); //update new score
+								(frameOffset + 0.15 * calculatedRowSpace), Integer.toString(totalScore)); 	//update new score
 						StdDraw.show(); //show new score
 					}
 				}
 			}
 			StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),
-					(frameOffset + 0.15 * calculatedRowSpace), Integer.toString(totalScore)); //update new score
+					(frameOffset + 0.15 * calculatedRowSpace), Integer.toString(totalScore)); 				//update new score
 			StdDraw.show();  //show new score
 
 		}

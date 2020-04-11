@@ -14,33 +14,33 @@ import java.util.Random;
  * @since 17.03.2020
  */
 public class Tetrimino implements Cloneable {
-	byte[][] shape; // Tetrimino shape
-	int[][][] currentPos; // Tetrimino current position for every index of its shape
-	int[][] currentValues; // Tetrimino current values for every position of its shape
+	byte[][] shape; 																		// Tetrimino shape
+	int[][][] currentPos; 																	// Tetrimino current position for every index of its shape
+	int[][] currentValues; 																	// Tetrimino current values for every position of its shape
 
-	public static final byte[][] ShapeI = { // Tetrimino shape for I
+	public static final byte[][] ShapeI = { 												// Tetrimino shape for I
 			{ 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 1, 1, 1, 1 }, { 0, 0, 0, 0 }, };
 
-	public static final byte[][] ShapeJ = { // Tetrimino shape for J
+	public static final byte[][] ShapeJ = { 												// Tetrimino shape for J
 			{ 0, 0, 0 }, { 1, 0, 0 }, { 1, 1, 1 }, };
 
-	public static final byte[][] ShapeL = { // Tetrimino shape for L
+	public static final byte[][] ShapeL = { 												// Tetrimino shape for L
 			{ 0, 0, 0 }, { 0, 0, 1 }, { 1, 1, 1 }, };
 
-	public static final byte[][] ShapeO = { // Tetrimino shape for 0
+	public static final byte[][] ShapeO = { 												// Tetrimino shape for 0
 			{ 0, 0, 0, 0 }, { 0, 1, 1, 0 }, { 0, 1, 1, 0 }, { 0, 0, 0, 0 }, };
 
-	public static final byte[][] ShapeS = { // Tetrimino shape for S
+	public static final byte[][] ShapeS = {	 												// Tetrimino shape for S
 			{ 0, 0, 0 }, { 0, 1, 1 }, { 1, 1, 0 }, };
 
-	public static final byte[][] ShapeT = { // Tetrimino shape for T
+	public static final byte[][] ShapeT = { 												// Tetrimino shape for T
 			{ 0, 0, 0 }, { 0, 1, 0 }, { 1, 1, 1 }, };
 
-	public static final byte[][] ShapeZ = { // Tetrimino shape for Z
+	public static final byte[][] ShapeZ = { 												// Tetrimino shape for Z
 			{ 0, 0, 0 }, { 1, 1, 0 }, { 0, 1, 1 }, };
 
-	public Tetrimino(byte[][] shape) { // constructor for Tetrimino class
-		this.shape = shape; // assigns Tetrimino type
+	public Tetrimino(byte[][] shape) { 														// constructor for Tetrimino class
+		this.shape = shape; 																// assigns Tetrimino type
 	}
 
 	@Override
@@ -82,11 +82,11 @@ public class Tetrimino implements Cloneable {
 		// Rotation all indexes
 		for (int x = 0; x < n / 2; x++) {
 			for (int y = x; y < n - x - 1; y++) {
-				int[] temp = nextPos[x][y]; // store current cell in temp variable
-				nextPos[x][y] = nextPos[y][n - 1 - x]; // move values from right to top
-				nextPos[y][n - 1 - x] = nextPos[n - 1 - x][n - 1 - y]; // move values from bottom to right
-				nextPos[n - 1 - x][n - 1 - y] = nextPos[n - 1 - y][x]; // move values from left to bottom
-				nextPos[n - 1 - y][x] = temp; // assign temp to left
+				int[] temp = nextPos[x][y]; 													// store current cell in temp variable
+				nextPos[x][y] = nextPos[y][n - 1 - x]; 											// move values from right to top
+				nextPos[y][n - 1 - x] = nextPos[n - 1 - x][n - 1 - y]; 							// move values from bottom to right
+				nextPos[n - 1 - x][n - 1 - y] = nextPos[n - 1 - y][x]; 							// move values from left to bottom
+				nextPos[n - 1 - y][x] = temp; 													// assign temp to left
 			}
 		}
 
@@ -117,11 +117,11 @@ public class Tetrimino implements Cloneable {
 		// Rotation all indexes
 		for (int x = 0; x < n / 2; x++) {
 			for (int y = x; y < n - x - 1; y++) {
-				int temp = nextPosValue[x][y]; // store current cell in temp variable
-				nextPosValue[x][y] = nextPosValue[y][n - 1 - x]; // move values from right to top
-				nextPosValue[y][n - 1 - x] = nextPosValue[n - 1 - x][n - 1 - y]; // move values from bottom to right
-				nextPosValue[n - 1 - x][n - 1 - y] = nextPosValue[n - 1 - y][x]; // move values from left to bottom
-				nextPosValue[n - 1 - y][x] = temp; // assign temp to left
+				int temp = nextPosValue[x][y]; 														// store current cell in temp variable
+				nextPosValue[x][y] = nextPosValue[y][n - 1 - x]; 									// move values from right to top
+				nextPosValue[y][n - 1 - x] = nextPosValue[n - 1 - x][n - 1 - y]; 					// move values from bottom to right
+				nextPosValue[n - 1 - x][n - 1 - y] = nextPosValue[n - 1 - y][x]; 					// move values from left to bottom
+				nextPosValue[n - 1 - y][x] = temp; 													// assign temp to left
 			}
 		}
 
@@ -189,64 +189,64 @@ public class Tetrimino implements Cloneable {
 	 * @return
 	 */
 	public boolean goLeft(CanvasDrawer canvas) {
-		int n = this.shape.length; // length of the Tetrimino shape
-		boolean canGoLeft = false; // initially assings false
-		int[][][] nextPos = new int[n][n][2]; // for storing next position of the given Tetrimino
+		int n = this.shape.length; 														// length of the Tetrimino shape
+		boolean canGoLeft = false; 														// initially assings false
+		int[][][] nextPos = new int[n][n][2]; 											// for storing next position of the given Tetrimino
 
 		// FINDING NEXT POSITION AND ERASING OLD POSITION
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				if (this.currentPos[i][j][0] != -10) { // if the Tetrimino has a piece on that coordinates of shape
-					int xCoord = this.currentPos[i][j][0]; // gets current x coordinate
-					int yCoord = this.currentPos[i][j][1]; // gets current y coordinate
-					nextPos[i][j][0] = xCoord - 1; // updates x coordinate and assigns it to nextPos array
-					nextPos[i][j][1] = yCoord; // assigns it to nextPos array
-					canvas.currentTable[xCoord][yCoord] = 0; // erases the old position in the currentTable array
-					canvas.currentTableValues[xCoord][yCoord] = -1; // assings -1 in currentTableValues array
-				} else { // if the Tetrimino has no a piece on that coordinates of shape
-					nextPos[i][j][0] = -10; // assings -10 to that coordinate in nextPos array
-					nextPos[i][j][1] = -10; // assings -10 to that coordinate in nextPos array
+				if (this.currentPos[i][j][0] != -10) { 									// if the Tetrimino has a piece on that coordinates of shape
+					int xCoord = this.currentPos[i][j][0]; 								// gets current x coordinate
+					int yCoord = this.currentPos[i][j][1]; 								// gets current y coordinate
+					nextPos[i][j][0] = xCoord - 1; 										// updates x coordinate and assigns it to nextPos array
+					nextPos[i][j][1] = yCoord; 											// assigns it to nextPos array
+					canvas.currentTable[xCoord][yCoord] = 0; 							// erases the old position in the currentTable array
+					canvas.currentTableValues[xCoord][yCoord] = -1; 					// assings -1 in currentTableValues array
+				} else { 																// if the Tetrimino has no a piece on that coordinates of shape
+					nextPos[i][j][0] = -10; 											// assings -10 to that coordinate in nextPos array
+					nextPos[i][j][1] = -10; 											// assings -10 to that coordinate in nextPos array
 				}
 			}
 		}
 
 		// NEXT POSITION CONTROL
-		canGoLeft = canMove(nextPos, canvas); // returns true if the next position is available
+		canGoLeft = canMove(nextPos, canvas); 											// returns true if the next position is available
 
-		if (canGoLeft) { // if the next position is available. Updates by using nextPos array
+		if (canGoLeft) { 																// if the next position is available. Updates by using nextPos array
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
-					if (this.currentPos[i][j][0] != -10) { // if the Tetrimino has a piece on that coordinates of shape
-						int xCoord = this.currentPos[i][j][0]; // gets current x coordinate
-						int yCoord = this.currentPos[i][j][1]; // gets current y coordinate
-						this.currentPos[i][j][0] = xCoord - 1; // updates x coordinate
-						canvas.currentTable[xCoord - 1][yCoord] = 1; // assigns 1 that coordinate to currentTable array
-						int value = this.currentValues[i][j]; // gets value of that coordinate
-						canvas.currentTableValues[xCoord - 1][yCoord] = value; // assigns the value to
-																				// currentTableValues array
+					if (this.currentPos[i][j][0] != -10) { 								// if the Tetrimino has a piece on that coordinates of shape
+						int xCoord = this.currentPos[i][j][0]; 							// gets current x coordinate
+						int yCoord = this.currentPos[i][j][1]; 							// gets current y coordinate
+						this.currentPos[i][j][0] = xCoord - 1; 							// updates x coordinate
+						canvas.currentTable[xCoord - 1][yCoord] = 1; 					// assigns 1 that coordinate to currentTable array
+						int value = this.currentValues[i][j]; 							// gets value of that coordinate
+						canvas.currentTableValues[xCoord - 1][yCoord] = value; 			// assigns the value to
+																						// currentTableValues array
 
 					}
 				}
 			}
 		}
 
-		else { // if the next position is not available. Uses old position
+		else { 																			// if the next position is not available. Uses old position
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
-					if (this.currentPos[i][j][0] != -10) { // if the Tetrimino has a piece on that coordinates of shape
-						int xCoord = this.currentPos[i][j][0]; // gets current x coordinate
-						int yCoord = this.currentPos[i][j][1]; // gets current y coordinate
-						canvas.currentTable[xCoord][yCoord] = 1; // assigns 1 that coordinate to currentTable array
-						int value = this.currentValues[i][j]; // gets value of that coordinate
-						canvas.currentTableValues[xCoord][yCoord] = value; // assigns the value to currentTableValues
-																			// array
+					if (this.currentPos[i][j][0] != -10) { 								// if the Tetrimino has a piece on that coordinates of shape
+						int xCoord = this.currentPos[i][j][0]; 							// gets current x coordinate
+						int yCoord = this.currentPos[i][j][1]; 							// gets current y coordinate
+						canvas.currentTable[xCoord][yCoord] = 1; 						// assigns 1 that coordinate to currentTable array
+						int value = this.currentValues[i][j]; 							// gets value of that coordinate
+						canvas.currentTableValues[xCoord][yCoord] = value; 				// assigns the value to currentTableValues array
+																			
 
 					}
 				}
 			}
-			return false; // returns false because next position was not available
+			return false; 																// returns false because next position was not available
 		}
-		return true; // returns true because next position was available
+		return true; 																	// returns true because next position was available
 	}
 
 	/**
@@ -256,60 +256,60 @@ public class Tetrimino implements Cloneable {
 	 * @return
 	 */
 	public boolean goRight(CanvasDrawer canvas) {
-		int n = this.shape.length; // length of the Tetrimino shape
-		boolean canGoRight = false; // initially assings false
-		int[][][] nextPos = new int[n][n][2]; // for storing next position of the given Tetrimino
+		int n = this.shape.length; 														// length of the Tetrimino shape
+		boolean canGoRight = false; 													// initially assings false
+		int[][][] nextPos = new int[n][n][2]; 											// for storing next position of the given Tetrimino
 
 		// FINDING NEXT POSITION AND ERASING OLD POSITION
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				if (this.currentPos[i][j][0] != -10) { // if the Tetrimino has a piece on that coordinates of shape
-					int xCoord = this.currentPos[i][j][0]; // gets current x coordinate
-					int yCoord = this.currentPos[i][j][1]; // gets current y coordinate
-					nextPos[i][j][0] = xCoord + 1; // updates x coordinate and assigns it to nextPos array
-					nextPos[i][j][1] = yCoord; // assigns it to nextPos array
-					canvas.currentTable[xCoord][yCoord] = 0; // erases the old position in the currentTable array
-					canvas.currentTableValues[xCoord][yCoord] = -1; // assings -1 in currentTableValues array
-				} else { // if the Tetrimino has no a piece on that coordinates of shape
-					nextPos[i][j][0] = -10; // assings -10 to that coordinate in nextPos array
-					nextPos[i][j][1] = -10; // assings -10 to that coordinate in nextPos array
+				if (this.currentPos[i][j][0] != -10) { 									// if the Tetrimino has a piece on that coordinates of shape
+					int xCoord = this.currentPos[i][j][0]; 								// gets current x coordinate
+					int yCoord = this.currentPos[i][j][1]; 								// gets current y coordinate
+					nextPos[i][j][0] = xCoord + 1; 										// updates x coordinate and assigns it to nextPos array
+					nextPos[i][j][1] = yCoord; 											// assigns it to nextPos array
+					canvas.currentTable[xCoord][yCoord] = 0; 							// erases the old position in the currentTable array
+					canvas.currentTableValues[xCoord][yCoord] = -1; 					// assings -1 in currentTableValues array
+				} else { 																// if the Tetrimino has no a piece on that coordinates of shape
+					nextPos[i][j][0] = -10; 											// assings -10 to that coordinate in nextPos array
+					nextPos[i][j][1] = -10; 											// assings -10 to that coordinate in nextPos array
 				}
 			}
 		}
 
 		// NEXT POSITION CONTROL
-		canGoRight = canMove(nextPos, canvas); // returns true if the next position is available
+		canGoRight = canMove(nextPos, canvas); 											// returns true if the next position is available
 
-		if (canGoRight) { // if the next position is available. Updates by using nextPos array
+		if (canGoRight) { 																// if the next position is available. Updates by using nextPos array
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
-					if (this.currentPos[i][j][0] != -10) { // if the Tetrimino has a piece on that coordinates of shape
-						int xCoord = this.currentPos[i][j][0]; // gets current x coordinate
-						int yCoord = this.currentPos[i][j][1]; // gets current y coordinate
-						this.currentPos[i][j][0] = xCoord + 1; // updates x coordinate
-						canvas.currentTable[xCoord + 1][yCoord] = 1; // assigns 1 that coordinate to currentTable array
-						int value = this.currentValues[i][j]; // gets value of that coordinate
-						canvas.currentTableValues[xCoord + 1][yCoord] = value; // assigns the value to
-																				// currentTableValues array
+					if (this.currentPos[i][j][0] != -10) { 								// if the Tetrimino has a piece on that coordinates of shape
+						int xCoord = this.currentPos[i][j][0]; 							// gets current x coordinate
+						int yCoord = this.currentPos[i][j][1]; 							// gets current y coordinate
+						this.currentPos[i][j][0] = xCoord + 1; 							// updates x coordinate
+						canvas.currentTable[xCoord + 1][yCoord] = 1; 					// assigns 1 that coordinate to currentTable array
+						int value = this.currentValues[i][j]; 							// gets value of that coordinate
+						canvas.currentTableValues[xCoord + 1][yCoord] = value; 			// assigns the value to
+																						// currentTableValues array
 					}
 				}
 			}
-		} else { // if the next position is not available. Uses old position
+		} else { 																		// if the next position is not available. Uses old position
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
-					if (this.currentPos[i][j][0] != -10) { // if the Tetrimino has a piece on that coordinates of shape
-						int xCoord = this.currentPos[i][j][0]; // gets current x coordinate
-						int yCoord = this.currentPos[i][j][1]; // gets current y coordinate
-						canvas.currentTable[xCoord][yCoord] = 1; // assigns 1 that coordinate to currentTable array
-						int value = this.currentValues[i][j]; // gets value of that coordinate
-						canvas.currentTableValues[xCoord][yCoord] = value; // assigns the value to currentTableValues
-																			// array
+					if (this.currentPos[i][j][0] != -10) { 								// if the Tetrimino has a piece on that coordinates of shape
+						int xCoord = this.currentPos[i][j][0]; 							// gets current x coordinate
+						int yCoord = this.currentPos[i][j][1]; 							// gets current y coordinate
+						canvas.currentTable[xCoord][yCoord] = 1; 						// assigns 1 that coordinate to currentTable array
+						int value = this.currentValues[i][j]; 							// gets value of that coordinate
+						canvas.currentTableValues[xCoord][yCoord] = value; 				// assigns the value to currentTableValues array
+																			
 					}
 				}
 			}
-			return false; // returns false because next position was not available
+			return false; 																// returns false because next position was not available
 		}
-		return true; // returns true because next position was available
+		return true; 																	// returns true because next position was available
 	}
 
 	/**
@@ -319,89 +319,89 @@ public class Tetrimino implements Cloneable {
 	 * @return
 	 */
 	public boolean goDown(CanvasDrawer canvas, Tetrimino t) {
-		int n = this.shape.length; // length of the Tetrimino shape
-		boolean canGoDown = false; // initially assings false
+		int n = this.shape.length; 														// length of the Tetrimino shape
+		boolean canGoDown = false; 														// initially assings false
 		boolean mergeControl = true;
 		boolean contControl = true;
 		boolean moreControl = true;
-		int[][][] nextPos = new int[n][n][2]; // for storing next position of the given Tetrimino
+		int[][][] nextPos = new int[n][n][2]; 											// for storing next position of the given Tetrimino
 
 		// FINDING NEXT POSITION AND ERASING OLD POSITION
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				if (this.currentPos[i][j][0] != -10) { // if the Tetrimino has a piece on that coordinates of shape
-					int xCoord = this.currentPos[i][j][0]; // gets current x coordinate
-					int yCoord = this.currentPos[i][j][1]; // gets current y coordinate
-					nextPos[i][j][0] = xCoord; // assigns it to nextPos array
-					nextPos[i][j][1] = yCoord + 1; // updates y coordinate and assigns it to nextPos array
-					canvas.currentTable[xCoord][yCoord] = 0; // erases the old position in the currentTable array
-					// currentTableValues[xCoord][yCoord] = -1; //assings -1 in currentTableValues
+				if (this.currentPos[i][j][0] != -10) { 									// if the Tetrimino has a piece on that coordinates of shape
+					int xCoord = this.currentPos[i][j][0]; 								// gets current x coordinate
+					int yCoord = this.currentPos[i][j][1]; 								// gets current y coordinate
+					nextPos[i][j][0] = xCoord; 											// assigns it to nextPos array
+					nextPos[i][j][1] = yCoord + 1; 										// updates y coordinate and assigns it to nextPos array
+					canvas.currentTable[xCoord][yCoord] = 0;	 						// erases the old position in the currentTable array
+					// currentTableValues[xCoord][yCoord] = -1; 						//assings -1 in currentTableValues
 					// array
-				} else { // if the Tetrimino has no a piece on that coordinates of shape
-					nextPos[i][j][0] = -10; // assings -10 to that coordinate in nextPos array
-					nextPos[i][j][1] = -10; // assings -10 to that coordinate in nextPos array
+				} else { 																// if the Tetrimino has no a piece on that coordinates of shape
+					nextPos[i][j][0] = -10; 											// assings -10 to that coordinate in nextPos array
+					nextPos[i][j][1] = -10; 											// assings -10 to that coordinate in nextPos array
 				}
 			}
 		}
 
 		// NEXT POSITION CONTROL
-		canGoDown = canMove(nextPos, canvas); // returns true if the next position is available
+		canGoDown = canMove(nextPos, canvas); 											// returns true if the next position is available
 		mergeControl = canMerge(canvas, t);
 
-		if (canGoDown) { // if the next position is available. Updates by using nextPos array
+		if (canGoDown) { 																// if the next position is available. Updates by using nextPos array
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
-					if (this.currentPos[i][j][0] != -10) { // if the Tetrimino has a piece on that coordinates of shape
-						int xCoord = this.currentPos[i][j][0]; // gets current x coordinate
-						int yCoord = this.currentPos[i][j][1]; // gets current y coordinate
-						this.currentPos[i][j][1] = yCoord + 1; // updates y coordinate
-						canvas.currentTable[xCoord][yCoord + 1] = 1; // assigns 1 that coordinate to currentTable array
-						int value = this.currentValues[i][j]; // gets value of that coordinate
-						canvas.currentTableValues[xCoord][yCoord + 1] = value; // assigns the value to
-																				// currentTableValues array
+					if (this.currentPos[i][j][0] != -10) { 								// if the Tetrimino has a piece on that coordinates of shape
+						int xCoord = this.currentPos[i][j][0]; 							// gets current x coordinate
+						int yCoord = this.currentPos[i][j][1]; 							// gets current y coordinate
+						this.currentPos[i][j][1] = yCoord + 1; 							// updates y coordinate
+						canvas.currentTable[xCoord][yCoord + 1] = 1; 					// assigns 1 that coordinate to currentTable array
+						int value = this.currentValues[i][j]; 							// gets value of that coordinate
+						canvas.currentTableValues[xCoord][yCoord + 1] = value; 			// assigns the value to
+																						// currentTableValues array
 					}
 				}
 			}
 		}
 		
-		else if (!canGoDown && mergeControl) { //if the next position is not available and canMerge function returns true
+		else if (!canGoDown && mergeControl) { 											//if the next position is not available and canMerge function returns true
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
-					if (this.currentPos[i][j][0] != -10) { // if the Tetrimino has a piece on that coordinates of shape
-						int xCoord = this.currentPos[i][j][0]; // gets current x coordinate
-						int yCoord = this.currentPos[i][j][1]; // gets current y coordinate
-						canvas.currentTable[xCoord][yCoord] = 1; // assigns 1 that coordinate to currentTable array
-						int value = this.currentValues[i][j]; // gets value of that coordinate
-						canvas.currentTableValues[xCoord][yCoord] = value; // assigns the value to currentTableValues array
+					if (this.currentPos[i][j][0] != -10) { 								// if the Tetrimino has a piece on that coordinates of shape
+						int xCoord = this.currentPos[i][j][0]; 							// gets current x coordinate
+						int yCoord = this.currentPos[i][j][1]; 							// gets current y coordinate
+						canvas.currentTable[xCoord][yCoord] = 1; 						// assigns 1 that coordinate to currentTable array
+						int value = this.currentValues[i][j];							// gets value of that coordinate
+						canvas.currentTableValues[xCoord][yCoord] = value; 				// assigns the value to currentTableValues array
 																			 
 					}
 				}
 			}
 			while (mergeControl) { 
-				mergeControl = canMerge(canvas, t); //function that containing part of merging operation
+				mergeControl = canMerge(canvas, t); 									//function that containing part of merging operation
 			}
-			return false; // returns false because next position was not available
+			return false; 																// returns false because next position was not available
 
-		} else { //if the next position is not available and contMerge function returns true
+		} else { 																		//if the next position is not available and contMerge function returns true
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
-					if (this.currentPos[i][j][0] != -10) { // if the Tetrimino has a piece on that coordinates of shape
-						int xCoord = this.currentPos[i][j][0]; // gets current x coordinate
-						int yCoord = this.currentPos[i][j][1]; // gets current y coordinate
-						canvas.currentTable[xCoord][yCoord] = 1; // assigns 1 that coordinate to currentTable array
-						int value = this.currentValues[i][j]; // gets value of that coordinate
-						canvas.currentTableValues[xCoord][yCoord] = value; // assigns the value to currentTableValues array
+					if (this.currentPos[i][j][0] != -10) { 								// if the Tetrimino has a piece on that coordinates of shape
+						int xCoord = this.currentPos[i][j][0]; 							// gets current x coordinate
+						int yCoord = this.currentPos[i][j][1]; 							// gets current y coordinate
+						canvas.currentTable[xCoord][yCoord] = 1;						// assigns 1 that coordinate to currentTable array
+						int value = this.currentValues[i][j]; 							// gets value of that coordinate
+						canvas.currentTableValues[xCoord][yCoord] = value; 				// assigns the value to currentTableValues array
 																			
 					}
 				}
 			}
 			while (contControl) {
-				contControl = contMerge(canvas, t); // function that continuation of merging operation
+				contControl = contMerge(canvas, t); 									// function that continuation of merging operation
 			}
-			return false; // returns false because next position was not available
+			return false; 																// returns false because next position was not available
 
 		}
-		return true; // returns true because next position was available
+		return true;	 																// returns true because next position was available
 	}
 
 	/**
@@ -411,23 +411,23 @@ public class Tetrimino implements Cloneable {
 	 * @return
 	 */
 	public void init(CanvasDrawer canvas) {
-		Random r = new Random(); // creating random class object
-		int[] valueArr = { 2, 2, 2, 4 }; // initializing values
-		int n = this.shape.length; // length of the Tetrimino shape
+		Random r = new Random(); 														// creating random class object
+		int[] valueArr = { 2, 2, 2, 4 }; 												// initializing values
+		int n = this.shape.length; 														// length of the Tetrimino shape
 		int numberOfColumns = canvas.currentTable.length;
 
 		// CREATING INITIAL POSITION
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				if (this.shape[i][j] == 1) { // if the Tetrimino has a piece on that coordinates of shape
-					int randomValue = r.nextInt(4); // gets random index number
-					int value = valueArr[randomValue]; // gets tetrimino with random index number
-					this.currentPos[i][j][0] = j + (numberOfColumns / 2) - 1; // assings x coordinate
-					this.currentPos[i][j][1] = i; // assigns y coordinate
-					this.currentValues[i][j] = value; // assigns value
-				} else { // if the Tetrimino has no piece on that coordinates of shape
-					this.currentPos[i][j][0] = -10; // assigns -10 to x coordinate
-					this.currentPos[i][j][1] = -10; // assigns -10 to y coordinate
+				if (this.shape[i][j] == 1) { 											// if the Tetrimino has a piece on that coordinates of shape
+					int randomValue = r.nextInt(4); 									// gets random index number
+					int value = valueArr[randomValue]; 									// gets tetrimino with random index number
+					this.currentPos[i][j][0] = j + (numberOfColumns / 2) - 1; 			// assings x coordinate
+					this.currentPos[i][j][1] = i; 										// assigns y coordinate
+					this.currentValues[i][j] = value; 									// assigns value
+				} else { 																// if the Tetrimino has no piece on that coordinates of shape
+					this.currentPos[i][j][0] = -10; 									// assigns -10 to x coordinate
+					this.currentPos[i][j][1] = -10; 									// assigns -10 to y coordinate
 				}
 			}
 		}
@@ -435,27 +435,27 @@ public class Tetrimino implements Cloneable {
 	}
 
 	public boolean settle(CanvasDrawer canvas) {
-		boolean canInit = true; // initially assings false
-		int n = this.shape.length; // length of the Tetrimino shape
+		boolean canInit = true; 														// initially assings false
+		int n = this.shape.length; 														// length of the Tetrimino shape
 		// INITIAL POSITION CONTROL
-		canInit = canMove(this.currentPos, canvas); // returns true if the initial position is available
+		canInit = canMove(this.currentPos, canvas); 									// returns true if the initial position is available
 
-		if (canInit) { // if the initial position is available.
+		if (canInit) { 																	// if the initial position is available.
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
-					if (this.shape[i][j] == 1) { // if the Tetrimino has a piece on that coordinates of shape
-						int xCoord = this.currentPos[i][j][0]; // gets current x coordinate
-						int yCoord = this.currentPos[i][j][1]; // gets current y coordinate
-						canvas.currentTable[xCoord][yCoord] = 1; // assigns 1 that coordinate to currentTable array
-						int value = this.currentValues[i][j]; // gets value of that coordinate
-						canvas.currentTableValues[xCoord][yCoord] = value; // assigns the value to currentTableValues
-																			// array
+					if (this.shape[i][j] == 1) { 										// if the Tetrimino has a piece on that coordinates of shape
+						int xCoord = this.currentPos[i][j][0]; 							// gets current x coordinate
+						int yCoord = this.currentPos[i][j][1]; 							// gets current y coordinate
+						canvas.currentTable[xCoord][yCoord] = 1; 						// assigns 1 that coordinate to currentTable array
+						int value = this.currentValues[i][j]; 							// gets value of that coordinate
+						canvas.currentTableValues[xCoord][yCoord] = value; 				// assigns the value to currentTableValues array
+																				
 					}
 				}
 			}
-			return true; // returns true because initial position is available
+			return true; 																// returns true because initial position is available
 		}
-		return false; // returns false because initial position was not available
+		return false; 																	// returns false because initial position was not available
 	}
 
 	/**
@@ -473,25 +473,25 @@ public class Tetrimino implements Cloneable {
 		// NEXT POSITION CONTROL
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				if (nextPos[i][j][0] != -10) { // if the Tetrimino has a piece on that coordinates of shape
-					int xCoord = nextPos[i][j][0]; // gets current x coordinate
-					int yCoord = nextPos[i][j][1]; // gets current y coordinate
+				if (nextPos[i][j][0] != -10) { 											// if the Tetrimino has a piece on that coordinates of shape
+					int xCoord = nextPos[i][j][0]; 										// gets current x coordinate
+					int yCoord = nextPos[i][j][1]; 										// gets current y coordinate
 
-					if (xCoord < 0 || xCoord >= numberOfColumns) // if column size is not available
-						return false; // returns false
+					if (xCoord < 0 || xCoord >= numberOfColumns) 						// if column size is not available
+						return false; 													// returns false
 
-					if (yCoord >= numberOfRows) // if row size is not available
-						return false; // returns false
+					if (yCoord >= numberOfRows) 										// if row size is not available
+						return false; 													// returns false
 
-					if (canvas.currentTable[xCoord][yCoord] == 1) { // if there is a Tetrimino piece in wanted next position
+					if (canvas.currentTable[xCoord][yCoord] == 1) { 					// if there is a Tetrimino piece in wanted next position
 																	
-						return false; // returns false
+						return false; 													// returns false
 					}
 
 				}
 			}
 		}
-		return true; // returns true if the next position is available
+		return true;	 																// returns true if the next position is available
 	}
 
 	// First part of merging operation
@@ -503,11 +503,11 @@ public class Tetrimino implements Cloneable {
 		for (int i = 0; i < numberOfColumns; i++) {
 			abc = true;
 			for (int j = numberOfRows - 1; j > 0 && abc; j--) {
-				if (canvas.currentTable[i][j] == 1 && canvas.currentTable[i][j - 1] == 1) { //check currentTable for sure containing a piece of tetrimino repeatedly
-					if (canvas.currentTableValues[i][j] == canvas.currentTableValues[i][j - 1]) { //check currentTableValues for sure the tetrimino pieces have same values
-						canvas.currentTableValues[i][j] += canvas.currentTableValues[i][j - 1]; //merging tetrimino pieces' values
-						canvas.currentTable[i][j - 1] = -80; //assign randomly value for currentTable
-						contMerge(canvas, t); // Second part of merging operation 
+				if (canvas.currentTable[i][j] == 1 && canvas.currentTable[i][j - 1] == 1) { 		//check currentTable for sure containing a piece of tetrimino repeatedly
+					if (canvas.currentTableValues[i][j] == canvas.currentTableValues[i][j - 1]) { 	//check currentTableValues for sure the tetrimino pieces have same values
+						canvas.currentTableValues[i][j] += canvas.currentTableValues[i][j - 1]; 	//merging tetrimino pieces' values
+						canvas.currentTable[i][j - 1] = -80; 										//assign randomly value for currentTable
+						contMerge(canvas, t); 														// Second part of merging operation 
 						abc = false;
 						hasMerged = true;
 					}
@@ -524,37 +524,37 @@ public class Tetrimino implements Cloneable {
 		for (int i = 0; i < numberOfColumns; i++) {
 			for (int j = numberOfRows - 1; j > 0; j--) {
 				// part-1 delete a piece of tetrimino just now merged in canMerge function
-				if (canvas.currentTable[i][j] == 1 && canvas.currentTable[i][j - 1] == -80) { //check the tetrimino piece should delete after merge operation
-					if (canvas.currentTableValues[i][j] == canvas.currentTableValues[i][j - 1] * 2) { //check the tetrimino piece should delete after merge operation
-						canvas.updateCanvas(); //update canvas with that values
-						canvas.calculateScore(t); //after merging operation add new score
+				if (canvas.currentTable[i][j] == 1 && canvas.currentTable[i][j - 1] == -80) { 				//check the tetrimino piece should delete after merge operation
+					if (canvas.currentTableValues[i][j] == canvas.currentTableValues[i][j - 1] * 2) { 		//check the tetrimino piece should delete after merge operation
+						canvas.updateCanvas(); 																//update canvas with that values
+						canvas.calculateScore(t); 															//after merging operation add new score
 						StdDraw.show();
-						canvas.currentTableValues[i][j - 1] = -30; //assign randomly value for currentTableValues
-						canvas.currentTable[i][j - 1] = 0; //delete tetrimino piece, just know merged
-						//after delete operation update currentTable and currentTableValues 
+						canvas.currentTableValues[i][j - 1] = -30; 											//assign randomly value for currentTableValues
+						canvas.currentTable[i][j - 1] = 0; 													//delete tetrimino piece, just know merged
+																											//after delete operation update currentTable and currentTableValues 
 						for (int j2 = j - 1; j2 > 0; j2--) {
 							canvas.currentTable[i][j2] = canvas.currentTable[i][j2 - 1];
 							canvas.currentTableValues[i][j2] = canvas.currentTableValues[i][j2 - 1];
 						}
-						canvas.currentTable[i][0] = 0; // for sure currentTable has no value still after update currentTable
-						canvas.currentTableValues[i][0] = -50; // for sure currentTableValues has no value still after update currentTable, assign randomly value for currentTableValues
-						return true; //returns true because tetrimino pieces avaliable for merging operations
+						canvas.currentTable[i][0] = 0; 														// for sure currentTable has no value still after update currentTable
+						canvas.currentTableValues[i][0] = -50; 												// for sure currentTableValues has no value still after update currentTable, assign randomly value for currentTableValues
+						return true; 																		//returns true because tetrimino pieces avaliable for merging operations
 					}
 				}
 				//part-2 move tetrimino pieces after delete a piece of tetrimino just now merged in canMerge function
-				if (canvas.currentTable[i][j] == 0 && canvas.currentTable[i][j - 1] == 1) { //check after delete operation there are separate tetrimino pieces
-					canvas.currentTable[i][j] = 1; //move currentTable values
-					canvas.currentTable[i][j - 1] = 0;  //move currentTable values
-					canvas.currentTableValues[i][j] = canvas.currentTableValues[i][j - 1]; //move currentTableValues values
-					canvas.updateCanvas(); //update canvas with that values
-					canvas.nextTetriminoDrawing(t); //after merging operation add new score
+				if (canvas.currentTable[i][j] == 0 && canvas.currentTable[i][j - 1] == 1) { 				//check after delete operation there are separate tetrimino pieces
+					canvas.currentTable[i][j] = 1; 															//move currentTable values
+					canvas.currentTable[i][j - 1] = 0;  													//move currentTable values
+					canvas.currentTableValues[i][j] = canvas.currentTableValues[i][j - 1]; 					//move currentTableValues values
+					canvas.updateCanvas(); 																	//update canvas with that values
+					canvas.nextTetriminoDrawing(t); 														//after merging operation add new score
 					canvas.calculateScore(t);
 					StdDraw.show();
 					StdDraw.pause(100);
-					return true; //returns true because tetrimino pieces avaliable for merging operations
+					return true;	 																		//returns true because tetrimino pieces avaliable for merging operations
 				}
 			}
 		}
-		return false; //returns false because tetrimino pieces not avaliable for merging
+		return false; 																						//returns false because tetrimino pieces not avaliable for merging
 	}
 }
