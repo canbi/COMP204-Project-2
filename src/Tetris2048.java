@@ -18,7 +18,6 @@ public class Tetris2048 {
 		StdDraw.setYscale(canvas.calculatedHeigth, 0); 																// canvas y scale set
 		StdDraw.enableDoubleBuffering(); 																			// enables double buffering for drawing in wanted situations
 		int tetrisScore = 0;
-		int counter = 0;
 		
 		final Tetrimino[] types = { // Tetrimino class initialization for every type
 				new Tetrimino(Tetrimino.ShapeI), new Tetrimino(Tetrimino.ShapeJ), new Tetrimino(Tetrimino.ShapeL),
@@ -193,6 +192,8 @@ public class Tetris2048 {
 				}
 
 			}
+			Tetrimino.totalScore = 0;
+			tetrisScore = 0;
 			canvas.gameNotStarted = true;
 		}
 	}

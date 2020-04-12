@@ -324,7 +324,6 @@ public class Tetrimino implements Cloneable {
 		boolean canGoDown = false; 														// initially assings false
 		boolean mergeControl = true;
 		boolean contControl = true;
-		boolean moreControl = true;
 		int[][][] nextPos = new int[n][n][2]; 											// for storing next position of the given Tetrimino
 
 		// FINDING NEXT POSITION AND ERASING OLD POSITION
