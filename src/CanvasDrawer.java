@@ -1,6 +1,17 @@
 import java.awt.Font;
 import java.util.Random;
-
+/**
+ * MEF University - 2020 Spring Faculty of Engineering Computer Engineering
+ * Programming Studio - COMP 204 Instructor: Muhittin G�kmen
+ * 
+ * Project 2 Tetris 2048 Game
+ * 
+ * CanvasDrawer class for drawing methods
+ * 
+ * @author Can Bi 041701001
+ * @author Nadide Beyza Dokur 041801134
+ * @since 17.03.2020
+ */
 public class CanvasDrawer {
 
 	int numberOfColumns;
@@ -24,69 +35,58 @@ public class CanvasDrawer {
 	boolean gameNotStarted = true;
 	boolean clearRows = true;
 
-	public static final byte[][] tetris = { // Tetris Shape
-			{ 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1,
-					0, 1, 0, 1, 1, 1, 0, 0 },
-			{ 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
-					0, 1, 0, 1, 0, 1, 0, 0 },
-			{ 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1,
-					1, 1, 0, 1, 1, 1, 0, 0 },
-			{ 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0,
-					0, 1, 0, 1, 0, 1, 0, 0 },
-			{ 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0,
-					0, 1, 0, 1, 1, 1, 0, 0 } };
+	public static final byte[][] tetris = {
+			{ 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0 },
+			{ 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0 },
+			{ 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0 },
+			{ 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0 },
+			{ 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0 }};
 
 	public static final byte[][] canAndNadide = {
-			{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0,
-					1, 1, 0, 0, 0 },
-			{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0,
-					1, 0, 1, 0, 0 },
-			{ 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0,
-					1, 0, 1, 0, 0 },
-			{ 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0,
-					1, 0, 1, 0, 0 },
-			{ 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0,
-					1, 1, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1,
-					1, 1, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
-					0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
-					1, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
-					0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1,
-					1, 1, 0, 0, 0 } };
+			{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0 },
+			{ 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0 },
+			{ 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0 },
+			{ 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0 },
+			{ 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0 }};
 
-	public static final byte[][] option = { // Tetris Shape
+	public static final byte[][] option = {
 			{ 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0 },
 			{ 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0 },
 			{ 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0 },
 			{ 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0 },
-			{ 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0 }, };
+			{ 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0 }};
 
 	public CanvasDrawer() {
 		super();
 	}
-
+	
 	@SuppressWarnings("deprecation")
+	/**
+	 * Draws main menu
+	 * 
+	 * @return returns necessary information to play screen state
+	 */
 	public Boolean[] mainMenu() {
 		Boolean[] returns = { false, this.clearRows };
 
 		this.setUpCanvas();
-		StdDraw.setCanvasSize(calculatedWidth, calculatedHeigth); // canvas size set
-		StdDraw.setXscale(0, calculatedWidth); // canvas x scale set
-		StdDraw.setYscale(calculatedHeigth, 0); // canvas y scale set
-		drawCanvas(); // draws canvas
-
+		StdDraw.setCanvasSize(calculatedWidth, calculatedHeigth); 	// canvas size set
+		StdDraw.setXscale(0, calculatedWidth);						// canvas x scale set
+		StdDraw.setYscale(calculatedHeigth, 0); 					// canvas y scale set
+		drawCanvas();												// draws canvas
+		
+		// GAME STARTS
 		if (!this.gameNotStarted)
 			return returns;
+		
 		double backgroundCenterX = (this.calculatedColumnSpace / 2.0) + this.frameOffset;
 		double backgroundCenterY = (this.calculatedRowSpace / 2.0) + this.frameOffset;
 
@@ -122,6 +122,7 @@ public class CanvasDrawer {
 		int tetrisGap = (int) Math.round(tetrisSqrLen / 15);
 		int tetrisCNGap = (int) Math.round(tetrisCNSqrLen / 15);
 
+		// MAIN MENU LOOP
 		while (gameNotStarted) {
 			red = r.nextInt(256);
 			green = r.nextInt(256);
@@ -174,18 +175,15 @@ public class CanvasDrawer {
 
 				// PLAY BUTTON
 				if (xCoord < playButton.button1Xmax && xCoord > playButton.button1Xmin
-						&& yCoord < playButton.button1Ymax && yCoord > playButton.button1Ymin) {
+						&& yCoord < playButton.button1Ymax && yCoord > playButton.button1Ymin)
 					this.gameNotStarted = false;
-					StdDraw.pause(100);
-				}
 
 				// OPTIONS BUTTON
 				else if (xCoord < optionsButton.button1Xmax && xCoord > optionsButton.button1Xmin
 						&& yCoord < optionsButton.button1Ymax && yCoord > optionsButton.button1Ymin) {
 					boolean optionsMenu = true;
-					while (optionsMenu) {
+					while (optionsMenu)
 						optionsMenu = this.optionsMenu();
-					}
 					this.mainMenu();
 				}
 			}
@@ -195,6 +193,11 @@ public class CanvasDrawer {
 	}
 
 	@SuppressWarnings("deprecation")
+	/**
+	 * Draws options menu
+	 * 
+	 * @return returns necessary information to main menu screen state
+	 */
 	public boolean optionsMenu() {
 
 		// BACKGROUND
@@ -205,84 +208,54 @@ public class CanvasDrawer {
 		StdDraw.filledRectangle(backgroundCenterX, backgroundCenterY, (this.calculatedColumnSpace / 2.0),
 				(this.calculatedRowSpace / 2.0));
 
+		
+		// NUMBER OF COLUMS BUTTON POSITION CONTROL
 		int currentPosColumn = -1;
-		if (numberOfColumns == 8)
-			currentPosColumn = 0;
-		if (numberOfColumns == 9)
-			currentPosColumn = 1;
-		if (numberOfColumns == 10)
-			currentPosColumn = 2;
-		if (numberOfColumns == 11)
-			currentPosColumn = 3;
-		if (numberOfColumns == 12)
-			currentPosColumn = 4;
+		if (numberOfColumns == 8) currentPosColumn = 0;
+		if (numberOfColumns == 9) currentPosColumn = 1;
+		if (numberOfColumns == 10) currentPosColumn = 2;
+		if (numberOfColumns == 11) currentPosColumn = 3;
+		if (numberOfColumns == 12) currentPosColumn = 4;
 
+		// NUMBER OF ROWS BUTTON POSITION CONTROL
 		int currentPosRow = -1;
-		if (numberOfRows == 8)
-			currentPosRow = 0;
-		if (numberOfRows == 9)
-			currentPosRow = 1;
-		if (numberOfRows == 10)
-			currentPosRow = 2;
-		if (numberOfRows == 11)
-			currentPosRow = 3;
-		if (numberOfRows == 12)
-			currentPosRow = 4;
-		if (numberOfRows == 13)
-			currentPosRow = 5;
-		if (numberOfRows == 14)
-			currentPosRow = 6;
-		if (numberOfRows == 15)
-			currentPosRow = 7;
-		if (numberOfRows == 16)
-			currentPosRow = 8;
-		if (numberOfRows == 17)
-			currentPosRow = 9;
-		if (numberOfRows == 18)
-			currentPosRow = 10;
-		if (numberOfRows == 19)
-			currentPosRow = 11;
-		if (numberOfRows == 20)
-			currentPosRow = 12;
+		if (numberOfRows == 8) currentPosRow = 0;
+		if (numberOfRows == 9) currentPosRow = 1;
+		if (numberOfRows == 10) currentPosRow = 2;
+		if (numberOfRows == 11) currentPosRow = 3;
+		if (numberOfRows == 12) currentPosRow = 4;
+		if (numberOfRows == 13) currentPosRow = 5;
+		if (numberOfRows == 14) currentPosRow = 6;
+		if (numberOfRows == 15) currentPosRow = 7;
+		if (numberOfRows == 16) currentPosRow = 8;
+		if (numberOfRows == 17) currentPosRow = 9;
+		if (numberOfRows == 18) currentPosRow = 10;
+		if (numberOfRows == 19) currentPosRow = 11;
+		if (numberOfRows == 20) currentPosRow = 12;
 
+		// RIGHT PANEL WIDTH BUTTON POSITION CONTROL
 		int currentPosRightPL = -1;
-		if (rightPanelWidth == 100)
-			currentPosRightPL = 0;
-		if (rightPanelWidth == 110)
-			currentPosRightPL = 1;
-		if (rightPanelWidth == 120)
-			currentPosRightPL = 2;
-		if (rightPanelWidth == 130)
-			currentPosRightPL = 3;
-		if (rightPanelWidth == 140)
-			currentPosRightPL = 4;
-		if (rightPanelWidth == 150)
-			currentPosRightPL = 5;
-		if (rightPanelWidth == 160)
-			currentPosRightPL = 6;
+		if (rightPanelWidth == 100) currentPosRightPL = 0;
+		if (rightPanelWidth == 110) currentPosRightPL = 1;
+		if (rightPanelWidth == 120) currentPosRightPL = 2;
+		if (rightPanelWidth == 130) currentPosRightPL = 3;
+		if (rightPanelWidth == 140) currentPosRightPL = 4;
+		if (rightPanelWidth == 150) currentPosRightPL = 5;
+		if (rightPanelWidth == 160) currentPosRightPL = 6;
 
+		// WINDOW HEIGHT BUTTON POSITION CONTROL
 		int currentPosLeftPL = -1;
-		if (rowSpace == 660)
-			currentPosLeftPL = 0;
-		if (rowSpace == 690)
-			currentPosLeftPL = 1;
-		if (rowSpace == 720)
-			currentPosLeftPL = 2;
-		if (rowSpace == 750)
-			currentPosLeftPL = 3;
-		if (rowSpace == 780)
-			currentPosLeftPL = 4;
-		if (rowSpace == 810)
-			currentPosLeftPL = 5;
-		if (rowSpace == 840)
-			currentPosLeftPL = 6;
-		if (rowSpace == 870)
-			currentPosLeftPL = 7;
-		if (rowSpace == 900)
-			currentPosLeftPL = 8;
+		if (rowSpace == 660) currentPosLeftPL = 0;
+		if (rowSpace == 690) currentPosLeftPL = 1;
+		if (rowSpace == 720) currentPosLeftPL = 2;
+		if (rowSpace == 750) currentPosLeftPL = 3;
+		if (rowSpace == 780) currentPosLeftPL = 4;
+		if (rowSpace == 810) currentPosLeftPL = 5;
+		if (rowSpace == 840) currentPosLeftPL = 6;
+		if (rowSpace == 870) currentPosLeftPL = 7;
+		if (rowSpace == 900) currentPosLeftPL = 8;
 
 		// BUTTON SETS
-		// attributes
 		double leftButtonXRatio = 0.10;
 		double theBoxXRatio = 0.23;
 		double rightButtonXRatio = 0.36;
@@ -362,9 +335,11 @@ public class CanvasDrawer {
 		boolean button3right = false;
 		boolean button4left = false;
 		boolean button4right = false;
+		
+		// OPTIONS MAIN LOOP
 		while (options) {
 
-			// OPTIONS
+			// OPTIONS 
 			for (int i = 0; i < option[0].length; i++) {
 				for (int j = 0; j < option.length; j++) {
 					if (option[j][i] == 1) {
@@ -386,6 +361,8 @@ public class CanvasDrawer {
 			if (StdDraw.isMousePressed()) {
 				double xCoord = StdDraw.mouseX();
 				double yCoord = StdDraw.mouseY();
+				
+				// RANDOM COLORS
 				red = r.nextInt(256);
 				green = r.nextInt(256);
 				blue = r.nextInt(256);
@@ -394,9 +371,9 @@ public class CanvasDrawer {
 				if (xCoord < mainMenu.button1Xmax && xCoord > mainMenu.button1Xmin && yCoord < mainMenu.button1Ymax
 						&& yCoord > mainMenu.button1Ymin) {
 					options = false;
-					StdDraw.show(100);
 				}
-
+				
+				// CLEAR ROW BUTTON
 				if (xCoord < tetrisButton.button1Xmax && xCoord > tetrisButton.button1Xmin
 						&& yCoord < tetrisButton.button1Ymax && yCoord > tetrisButton.button1Ymin) {
 					if (clearRows) {
@@ -406,8 +383,6 @@ public class CanvasDrawer {
 						clearRows = true;
 						tetrisButton.showSingleButton("CLEAR ROW", 50, 205, 50);
 					}
-					StdDraw.show();
-					StdDraw.pause(100);
 				}
 
 				// --------------------------------------------------------------------------------------------------
@@ -432,8 +407,8 @@ public class CanvasDrawer {
 					this.numberOfColumns++;
 					columnsButton.showResult(this.numberOfColumns);
 				}
+				
 				// ---------------------------------------------------------------------------------------------------
-
 				// Button2 left button
 				if (xCoord < rowsButton.button11Xmax && xCoord > rowsButton.button11Xmin
 						&& yCoord < rowsButton.button11Ymax && yCoord > rowsButton.button11Ymin)
@@ -455,6 +430,7 @@ public class CanvasDrawer {
 					this.numberOfRows++;
 					rowsButton.showResult(this.numberOfRows);
 				}
+				
 				// ---------------------------------------------------------------------------------------------------
 				// Button3 left button
 				if (xCoord < rightPanelButton.button11Xmax && xCoord > rightPanelButton.button11Xmin
@@ -477,6 +453,7 @@ public class CanvasDrawer {
 					this.rightPanelWidth = this.rightPanelWidth + 10;
 					rightPanelButton.showResult(this.rightPanelWidth);
 				}
+				
 				// ---------------------------------------------------------------------------------------------------
 				// Button4 left button
 				if (xCoord < leftPanelButton.button11Xmax && xCoord > leftPanelButton.button11Xmin
@@ -500,37 +477,34 @@ public class CanvasDrawer {
 					leftPanelButton.showResult(this.rowSpace);
 				}
 				// ---------------------------------------------------------------------------------------------------
-				StdDraw.show();
+				StdDraw.show(100);
 			}
-			StdDraw.show();
 		}
 		return false;
 	}
 
+	
+	/**
+	 * Calculates canvas attributes
+	 * 
+	 */
 	public void setUpCanvas() {
-		this.currentTable = new int[this.numberOfColumns][this.numberOfRows]; 										// for storing whether there is a
-																													// Tetrimino in a coordinate.
+		this.currentTable = new int[this.numberOfColumns][this.numberOfRows]; 										// for storing whether there is a Tetrimino in a coordinate.
 		this.currentTableValues = new int[this.numberOfColumns][this.numberOfRows]; 								// for storing value of coordinates
-		this.squaresCoords = new int[this.numberOfColumns][this.numberOfRows][2]; 									// for storing center coordinates of
-																													// every squares
-		this.squareLength = (int) Math.round((this.rowSpace * 15) / ((double) ((31 * this.numberOfRows) - 1)));
-		this.gapOfSquares = Math.round(this.squareLength / 15);
-		this.calculatedRowSpace = 2 * this.squareLength * this.numberOfRows
+		this.squaresCoords = new int[this.numberOfColumns][this.numberOfRows][2]; 									// for storing center coordinates of every squares
+		
+		this.squareLength = (int) Math.round((this.rowSpace * 15) / ((double) ((31 * this.numberOfRows) - 1)));		// calculates square halflength
+		this.gapOfSquares = Math.round(this.squareLength / 15);														// calculates gap length between squares
+		this.calculatedRowSpace = 2 * this.squareLength * this.numberOfRows											// calculates row space
 				+ (this.numberOfRows - 1) * this.gapOfSquares;
-		this.calculatedColumnSpace = 2 * this.squareLength * this.numberOfColumns
+		this.calculatedColumnSpace = 2 * this.squareLength * this.numberOfColumns									// calculates column space
 				+ (this.numberOfColumns - 1) * this.gapOfSquares;
-		this.calculatedWidth = 3 * this.frameOffset + this.rightPanelWidth + this.calculatedColumnSpace;
-		this.calculatedHeigth = 2 * this.frameOffset + this.calculatedRowSpace;
+		this.calculatedWidth = 3 * this.frameOffset + this.rightPanelWidth + this.calculatedColumnSpace;			// calculates canvas width
+		this.calculatedHeigth = 2 * this.frameOffset + this.calculatedRowSpace;										// calculates canvas height
 	}
 
 	/**
 	 * Redraws the canvas
-	 * 
-	 * @param squaresCoords     stores center coordinates of every squares
-	 * @param currentTable      stores tables last status in types of 1 or 0.
-	 * @param currentTableValue tables last status of value in types of 2048 game
-	 *                          values.
-	 * @param canvasAttributes  canvas width and height values
 	 */
 	public void updateCanvas() {
 		// DRAWING CANVAS
@@ -546,29 +520,18 @@ public class CanvasDrawer {
 					StdDraw.setPenColor(206, 195, 181);
 					StdDraw.filledSquare(xCoord, yCoord, this.squareLength);
 
-				} else { 															// if there is a Tetrimino in current table
-					if (this.currentTableValues[i][j] == 2)
-						StdDraw.setPenColor(238, 229, 219); 						// if the current square has a value of 2
-					else if (this.currentTableValues[i][j] == 4)
-						StdDraw.setPenColor(235, 224, 204); 						// if the current square has a value of 4
-					else if (this.currentTableValues[i][j] == 8)
-						StdDraw.setPenColor(228, 173, 126); 						// if the current square has a value of 8
-					else if (this.currentTableValues[i][j] == 16)
-						StdDraw.setPenColor(234, 152, 112); 						// if the current square has a value of 16
-					else if (this.currentTableValues[i][j] == 32)
-						StdDraw.setPenColor(231, 130, 103); 						// if the current square has a value of 32
-					else if (this.currentTableValues[i][j] == 64)
-						StdDraw.setPenColor(230, 103, 72); 							// if the current square has a value of 64
-					else if (this.currentTableValues[i][j] == 128)
-						StdDraw.setPenColor(233, 206, 127); 						// if the current square has a value of 128
-					else if (this.currentTableValues[i][j] == 256)
-						StdDraw.setPenColor(233, 204, 115); 						// if the current square has a value of 256
-					else if (this.currentTableValues[i][j] == 512)
-						StdDraw.setPenColor(228, 193, 101); 						// if the current square has a value of 512
-					else if (this.currentTableValues[i][j] == 1024)
-						StdDraw.setPenColor(216, 181, 65); 							// if the current square has a value of 1024
-					else if (this.currentTableValues[i][j] == 2048)
-						StdDraw.setPenColor(232, 194, 79); 							// if the current square has a value of 2048
+				} else { // if there is a Tetrimino in current table
+					if (this.currentTableValues[i][j] == 2) StdDraw.setPenColor(238, 229, 219);			// if the current square has a value of 2
+					else if (this.currentTableValues[i][j] == 4) StdDraw.setPenColor(235, 224, 204);	// if the current square has a value of 4
+					else if (this.currentTableValues[i][j] == 8) StdDraw.setPenColor(228, 173, 126);	// if the current square has a value of 8
+					else if (this.currentTableValues[i][j] == 16) StdDraw.setPenColor(234, 152, 112);	// if the current square has a value of 16
+					else if (this.currentTableValues[i][j] == 32) StdDraw.setPenColor(231, 130, 103);	// if the current square has a value of 32
+					else if (this.currentTableValues[i][j] == 64) StdDraw.setPenColor(230, 103, 72);	// if the current square has a value of 64
+					else if (this.currentTableValues[i][j] == 128) StdDraw.setPenColor(233, 206, 127);	// if the current square has a value of 128
+					else if (this.currentTableValues[i][j] == 256) StdDraw.setPenColor(233, 204, 115);	// if the current square has a value of 256
+					else if (this.currentTableValues[i][j] == 512) StdDraw.setPenColor(228, 193, 101);	// if the current square has a value of 512
+					else if (this.currentTableValues[i][j] == 1024) StdDraw.setPenColor(216, 181, 65);	// if the current square has a value of 1024
+					else if (this.currentTableValues[i][j] == 2048) StdDraw.setPenColor(232, 194, 79);	// if the current square has a value of 2048
 
 					// DRAWING SQUARE
 					StdDraw.filledSquare(xCoord, yCoord, this.squareLength);
@@ -585,14 +548,21 @@ public class CanvasDrawer {
 				}
 			}
 		}
-		StdDraw.show(); 																// draws the changes to the screen
+		
+		// HOW TO PLAY INFORMATIONS
+		StdDraw.setPenColor(255, 255, 255);
+		StdDraw.setFont(new Font("calibri", Font.BOLD, 16));
+		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.65 * calculatedRowSpace), "A - left");
+		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.67 * calculatedRowSpace), "D - right");
+		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.69 * calculatedRowSpace), "W - cw rotate");
+		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.71 * calculatedRowSpace), "S - ccw rotate");
+		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.73 * calculatedRowSpace), "X - fast drop");
+		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.75 * calculatedRowSpace), "P - pause");
+		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.77 * calculatedRowSpace), "ANY - continue");
 	}
 
 	/**
 	 * Draws canvas
-	 * 
-	 * @param squaresCoords    center coordinates of every squares
-	 * @param canvasAttributes canvas width and height values
 	 */
 	public void drawCanvas() {
 		// BACKGROUND
@@ -609,7 +579,7 @@ public class CanvasDrawer {
 		StdDraw.filledRectangle(this.calculatedWidth - this.frameOffset - (this.rightPanelWidth / 2.0),
 				(this.calculatedRowSpace / 2) + this.frameOffset, this.rightPanelWidth / 2.0,
 				(this.calculatedRowSpace / 2));
-
+		
 		// SQUARES
 		for (int i = 0; i < this.numberOfColumns; i++) {
 			for (int j = 0; j < this.numberOfRows; j++) {
@@ -621,23 +591,21 @@ public class CanvasDrawer {
 				StdDraw.filledSquare(xCoord, yCoord, this.squareLength);
 			}
 		}
-
-		StdDraw.show(); 																// draws to the screen
 	}
 
 	public void nextTetriminoDrawing(Tetrimino t) {
-
 		StdDraw.setPenColor(255, 255, 255);
 		StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
 		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),
 				(frameOffset + 0.84 * calculatedRowSpace), "NEXT");
 
+		// NEXT TETRIMINO DRAWING
 		if (t.shape.length == 3) {
 			for (int i = 0; i < t.shape.length; i++) {
 				for (int j = 0; j < t.shape.length; j++) {
 					if (t.shape[i][j] == 1) {
 						double xCoord = ((2 * this.nextSquareLength + this.nextSquareGap) * j) + 2 * this.frameOffset
-								+ this.calculatedColumnSpace + 2 * this.nextSquareOffset + this.nextSquareLength;
+								+ this.calculatedColumnSpace + 2 * this.nextSquareOffset + this.nextSquareLength - this.nextSquareLength*this.rightPanelWidth/200;
 						double yCoord = ((2 * this.nextSquareLength + this.nextSquareGap) * i) + this.frameOffset
 								+ this.ratioOfNextHeight * this.calculatedRowSpace;
 
@@ -687,12 +655,15 @@ public class CanvasDrawer {
 				}
 			}
 		}
-
-		StdDraw.show(); 																// draws to the screen
-
 	}
 
+	/**
+	 * Draws end game animations
+	 * @param number random number for selecting an animation
+	 */
 	public void endGameAnimation(int number) {
+		
+		// ANIMATION 1
 		if (number == 0) {
 			Random r = new Random();
 			for (int i = 0; i < this.currentTable[0].length; i++) {
@@ -711,7 +682,9 @@ public class CanvasDrawer {
 					StdDraw.pause(10);
 				}
 			}
-		} else if (number == 1) {
+		} 
+		// ANIMATION 2
+		else if (number == 1) {
 			int count = 0;
 			for (int i = 0; i < this.currentTable[0].length; i++) {
 				for (int j = 0; j < this.currentTable.length; j++) {
@@ -724,23 +697,24 @@ public class CanvasDrawer {
 					StdDraw.square(xCoord, yCoord, this.squareLength + this.gapOfSquares / 2);
 					StdDraw.show();
 					StdDraw.pause(10);
-
 					if (count < 255)
 						count = count + 3;
 				}
 			}
 		}
-
 	}
 	
-	//CALCULATION OF GAME SCORE
+	/**
+	 * Draws score to the canvas
+	 * 
+	 * @param t Tetrimino Object
+	 */
 	public void scoreDrawing(Tetrimino t) {
 		StdDraw.setPenColor(255, 255, 255);
 		StdDraw.setFont(new Font("calibri", Font.BOLD, 30));
 		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.10 * calculatedRowSpace), "SCORE");
 
-		//update new score
-		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.15 * calculatedRowSpace), Integer.toString(t.totalScore)); 	
-		StdDraw.show();		//show new score
+		// update new score
+		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.15 * calculatedRowSpace), Integer.toString(Tetrimino.totalScore)); 	
 	}
 }
