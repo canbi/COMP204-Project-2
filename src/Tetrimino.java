@@ -535,7 +535,7 @@ public class Tetrimino implements Cloneable {
 	 * 
 	 * @param canvas CanvasDrawer Object
 	 * @param t Tetrimino Object
-	 * @return
+	 * @return returns merge status
 	 */
 	public boolean canMerge(CanvasDrawer canvas, Tetrimino t) {
 		int numberOfColumns = canvas.currentTableValues.length;
@@ -564,7 +564,7 @@ public class Tetrimino implements Cloneable {
 	 * 
 	 * @param canvas canvas CanvasDrawer Object
 	 * @param t Tetrimino Object
-	 * @return
+	 * @return returns merge status
 	 */
 	public boolean contMerge(CanvasDrawer canvas, Tetrimino t) {
 		int numberOfColumns = canvas.currentTableValues.length;

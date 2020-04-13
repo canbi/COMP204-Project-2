@@ -539,7 +539,7 @@ public class CanvasDrawer {
 					// DRAWING SQUARE VALUE
 					StdDraw.setPenColor(0, 0, 0);
 					StdDraw.setFont(new Font("calibri", Font.BOLD, this.squareLength));
-					StdDraw.text(xCoord, yCoord, Integer.toString(this.currentTableValues[i][j]));
+					StdDraw.text(xCoord, yCoord+3, Integer.toString(this.currentTableValues[i][j]));
 
 					// DRAWING SQUARE FRAME
 					StdDraw.setPenColor(132, 122, 113);
@@ -551,14 +551,14 @@ public class CanvasDrawer {
 		
 		// HOW TO PLAY INFORMATIONS
 		StdDraw.setPenColor(255, 255, 255);
-		StdDraw.setFont(new Font("calibri", Font.BOLD, 16));
-		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.65 * calculatedRowSpace), "A - left");
-		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.67 * calculatedRowSpace), "D - right");
-		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.69 * calculatedRowSpace), "W - cw rotate");
-		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.71 * calculatedRowSpace), "S - ccw rotate");
-		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.73 * calculatedRowSpace), "X - fast drop");
-		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.75 * calculatedRowSpace), "P - pause");
-		StdDraw.text(((rightPanelWidth / 2.0) + 2 * frameOffset + calculatedColumnSpace),(frameOffset + 0.77 * calculatedRowSpace), "ANY - continue");
+		StdDraw.setFont(new Font("calibri", Font.BOLD, 15));
+		StdDraw.textLeft(((rightPanelWidth / 2.0) - 8 * frameOffset + calculatedColumnSpace),(frameOffset + 0.65 * calculatedRowSpace), "A - Left");
+		StdDraw.textLeft(((rightPanelWidth / 2.0) - 8 * frameOffset + calculatedColumnSpace),(frameOffset + 0.67 * calculatedRowSpace), "D - Right");
+		StdDraw.textLeft(((rightPanelWidth / 2.0) - 8 * frameOffset + calculatedColumnSpace),(frameOffset + 0.69 * calculatedRowSpace), "W - CW Rotate");
+		StdDraw.textLeft(((rightPanelWidth / 2.0) - 8 * frameOffset + calculatedColumnSpace),(frameOffset + 0.71 * calculatedRowSpace), "S - CCW Rotate");
+		StdDraw.textLeft(((rightPanelWidth / 2.0) - 8 * frameOffset + calculatedColumnSpace),(frameOffset + 0.73 * calculatedRowSpace), "X - Fast Drop");
+		StdDraw.textLeft(((rightPanelWidth / 2.0) - 8 * frameOffset + calculatedColumnSpace),(frameOffset + 0.75 * calculatedRowSpace), "P - Pause");
+		StdDraw.textLeft(((rightPanelWidth / 2.0) - 8 * frameOffset + calculatedColumnSpace),(frameOffset + 0.77 * calculatedRowSpace), "ANY - Continue");
 	}
 
 	/**

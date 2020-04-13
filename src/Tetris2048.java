@@ -21,7 +21,7 @@ public class Tetris2048 {
 		canvas.rowSpace = 750;
 		canvas.frameOffset = 5;
 		canvas.rightPanelWidth = 120;
-		canvas.numberOfColumns = 10;
+		canvas.numberOfColumns = 8;
 		canvas.numberOfRows = 12;
 		canvas.nextSquareLength = canvas.rightPanelWidth / 10;
 		canvas.nextSquareOffset = canvas.rightPanelWidth / 10;
@@ -30,10 +30,10 @@ public class Tetris2048 {
 		canvas.setUpCanvas();													// calculating canvas attributes
 		
 		//CANVAS DRAWING
-		StdDraw.setCanvasSize(canvas.calculatedWidth, canvas.calculatedHeigth); 		// canvas size set
-		StdDraw.setXscale(0, canvas.calculatedWidth); 									// canvas x scale set
-		StdDraw.setYscale(canvas.calculatedHeigth, 0); 									// canvas y scale set
-		StdDraw.enableDoubleBuffering(); 												// enables double buffering for drawing in wanted situations
+		StdDraw.setCanvasSize(canvas.calculatedWidth, canvas.calculatedHeigth); // canvas size set
+		StdDraw.setXscale(0, canvas.calculatedWidth); 							// canvas x scale set
+		StdDraw.setYscale(canvas.calculatedHeigth, 0); 							// canvas y scale set
+		StdDraw.enableDoubleBuffering(); 										// enables double buffering for drawing in wanted situations
 		
 		int tetrisScore = 0;
 		boolean game = true;
@@ -41,7 +41,7 @@ public class Tetris2048 {
 		// MAIN LOOP
 		while (true) {
 			Random r = new Random(); 										// creating random class object
-			boolean createANewTetromino = false; 							// control for creating a new Tetrimino
+			boolean createANewTetrimino = false; 							// control for creating a new Tetrimino
 			int contMerge = 0; 												// control for merging operations' order
 			int randomTetrimino = r.nextInt(7); 							// getting random index number
 			int nextTetrimino = r.nextInt(7);								// getting random index number
@@ -91,7 +91,7 @@ public class Tetris2048 {
 				}
 				
 				// CREATING NEW TETRIMINO
-				if (createANewTetromino) {
+				if (createANewTetrimino) {
 					t = (Tetrimino) t1.clone();								// next tetrimino is copied to current tetrimino
 
 					nextTetrimino = r.nextInt(7); 							// getting random index number
@@ -161,24 +161,24 @@ public class Tetris2048 {
 					success = t.goDown(canvas, t1); 						// returns true if the move is available
 					if (!success && contMerge == 0) { 						// if the move is not avaliable
 						// NEW Tetrimino CONTROL
-						createANewTetromino = success; 						// not creating a new tetromino on the game grid if the  current Tetrimino cannot go down anymore
+						createANewTetrimino = success; 						// not creating a new tetromino on the game grid if the  current Tetrimino cannot go down anymore
 						t.canMerge(canvas, t1);
 						contMerge++;
 					} else if (!success && contMerge == 1) {
 						// NEW Tetrimino CONTROL
-						createANewTetromino = success; 						// not creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore
+						createANewTetrimino = success; 						// not creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore
 						t.contMerge(canvas, t1);
 						canvas.nextTetriminoDrawing(t1);
 						canvas.scoreDrawing(t);
 						contMerge--;
 					} else {
 						// NEW Tetrimino CONTROL
-						createANewTetromino = !success; 					// creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore
+						createANewTetrimino = !success; 					// creating a new tetromino on the game grid if the current Tetrimino cannot go down anymore
 					}
 				}
 
 				// NEW Tetrimino CONTROL
-				createANewTetromino = !success; 							// creating a new tetromino on the game grid if the current Tetrimino
+				createANewTetrimino = !success; 							// creating a new tetromino on the game grid if the current Tetrimino
 																			// cannot go down anymore
 
 				// REDRAWING CANVAS
@@ -201,7 +201,7 @@ public class Tetris2048 {
 						StdDraw.show();
 						StdDraw.pause(timerValue);
 						timerValue -= 10; 											// game will be more challanging every time a tetris erased
-						createANewTetromino = true; 								// new Tetrimino will be placed in next loop
+						createANewTetrimino = true; 								// new Tetrimino will be placed in next loop
 					}
 				}
 			}
@@ -240,7 +240,7 @@ public class Tetris2048 {
 	 * 
 	 * @param canvas CanvasDrawer Object
 	 * @param isTetris boolean array which contains every row's status of being tetris or not
-	 * @param contMerge
+	 * @param contMerge merge status
 	 * @param tetrisScore tetris score
 	 * @return returns true if there is a tetris, false when there is no tetris.
 	 */
